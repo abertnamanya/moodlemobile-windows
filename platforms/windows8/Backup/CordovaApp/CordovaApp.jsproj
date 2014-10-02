@@ -1,0 +1,944 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <ItemGroup Label="ProjectConfigurations">
+        <ProjectConfiguration Include="Debug|AnyCPU">
+            <Configuration>Debug</Configuration>
+            <Platform>AnyCPU</Platform>
+        </ProjectConfiguration>
+        <ProjectConfiguration Include="Debug|ARM">
+            <Configuration>Debug</Configuration>
+            <Platform>ARM</Platform>
+        </ProjectConfiguration>
+        <ProjectConfiguration Include="Debug|x64">
+            <Configuration>Debug</Configuration>
+            <Platform>x64</Platform>
+        </ProjectConfiguration>
+        <ProjectConfiguration Include="Debug|x86">
+            <Configuration>Debug</Configuration>
+            <Platform>x86</Platform>
+        </ProjectConfiguration>
+        <ProjectConfiguration Include="Release|AnyCPU">
+            <Configuration>Release</Configuration>
+            <Platform>AnyCPU</Platform>
+        </ProjectConfiguration>
+        <ProjectConfiguration Include="Release|ARM">
+            <Configuration>Release</Configuration>
+            <Platform>ARM</Platform>
+        </ProjectConfiguration>
+        <ProjectConfiguration Include="Release|x64">
+            <Configuration>Release</Configuration>
+            <Platform>x64</Platform>
+        </ProjectConfiguration>
+        <ProjectConfiguration Include="Release|x86">
+            <Configuration>Release</Configuration>
+            <Platform>x86</Platform>
+        </ProjectConfiguration>
+    </ItemGroup>
+    <PropertyGroup Label="Globals">
+        <ProjectGuid>efffab2f-bfc5-4eda-b545-45ef4995f55a</ProjectGuid>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '11.0'">
+        <VisualStudioVersion>11.0</VisualStudioVersion>
+    </PropertyGroup>
+    <Import Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" />
+    <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\$(WMSJSProjectDirectory)\Microsoft.VisualStudio.$(WMSJSProject).Default.props" />
+    <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\$(WMSJSProjectDirectory)\Microsoft.VisualStudio.$(WMSJSProject).props" />
+    <PropertyGroup>
+        <TargetPlatformIdentifier>Windows</TargetPlatformIdentifier>
+        <TargetPlatformVersion>8.0</TargetPlatformVersion>
+        <DefaultLanguage>en-US</DefaultLanguage>
+        <PackageCertificateKeyFile>CordovaApp_TemporaryKey.pfx</PackageCertificateKeyFile>
+    </PropertyGroup>
+    <ItemGroup>
+        <AppxManifest Include="package.appxmanifest">
+            <SubType>Designer</SubType>
+        </AppxManifest>
+        <Content Include="images\logo.png" />
+        <Content Include="images\smalllogo.png" />
+        <Content Include="images\splashscreen.png" />
+        <Content Include="images\storelogo.png" />
+        <None Include="CordovaApp_TemporaryKey.pfx" />
+    </ItemGroup>
+    <ItemGroup>
+        <SDKReference Include="Microsoft.WinJS.1.0, Version=1.0" />
+    </ItemGroup>
+    <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\$(WMSJSProjectDirectory)\Microsoft.VisualStudio.$(WMSJSProject).targets" />
+    <PropertyGroup>
+        <PreBuildEvent>
+Powershell -ExecutionPolicy RemoteSigned Unblock-File '$(ProjectDir)\cordova\lib\ApplyPlatformConfig.ps1'; Powershell -File '$(ProjectDir)\cordova\lib\ApplyPlatformConfig.ps1' '$(ProjectDir)\';
+    </PreBuildEvent>
+    </PropertyGroup>
+    <ItemGroup>
+        <Content Include="www\about.json" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\config.json" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\config.xml" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\cordova.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\cordova_plugins.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\css\fonts\icomoon.eot" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\css\fonts\icomoon.svg" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\css\fonts\icomoon.ttf" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\css\fonts\icomoon.woff" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\css\layout.css" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\css\styles.css" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\emulator\index.html" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\externallib\backbone-localstorage.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\externallib\backbone.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\externallib\html2canvas.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\externallib\jquery-ui.custom.min.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\externallib\jquery.min.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\externallib\jquery.touchSwipe.min.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\externallib\matchMedia.addListener.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\externallib\matchMedia.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\externallib\md5.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\externallib\recorder.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\externallib\recorderWorker.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\externallib\require.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\externallib\text.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\externallib\underscore.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\icon.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\arrow-right2.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\arrowleft.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\arrowright.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\bg-orange.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\collapse.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\collapsegrey.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\delete.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\download.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\expand.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\expandgrey.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\files\archive-64.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\files\audio-64.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\files\avi-64.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\files\base-64.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\files\bmp-64.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\files\calc-64.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\files\chart-64.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\files\database-64.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\files\document-64.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\files\draw-64.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\files\eps-64.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\files\flash-64.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\files\folder-64.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\files\folder-open-64.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\files\gif-64.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\files\html-64.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\files\image-64.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\files\impress-64.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\files\isf-64.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\files\jpeg-64.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\files\markup-64.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\files\math-64.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\files\moodle-64.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\files\mp3-64.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\files\mpeg-64.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\files\oth-64.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\files\pdf-64.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\files\png-64.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\files\powerpoint-64.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\files\psd-64.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\files\quicktime-64.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\files\sourcecode-64.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\files\spreadsheet-64.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\files\text-64.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\files\tiff-64.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\files\unknown-64.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\files\video-64.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\files\wav-64.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\files\wmv-64.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\files\writer-64.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\header-bg.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\header-content.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\header-home-old.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\header-home.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\header-participants.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\ico-arrowdown.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\ico-arrowright.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\ico-course.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\ico-help.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\ico-mail.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\ico-movie.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\ico-network.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\ico-news.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\ico-pencil.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\ico-picture.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\ico-presentation.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\ico-settings.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\ico-userarrowdown.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\ico-userarrowright.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\icon\.pgbomit" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\icon\android\.DS_Store" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\icon\android\icon-36-ldpi.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\icon\android\icon-48-mdpi.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\icon\android\icon-72-hdpi.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\icon\android\icon-96-xhdpi.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\icon\icon.icns" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\icon\ios\icon-120.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\icon\ios\icon-152.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\icon\ios\icon-57-2x.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\icon\ios\icon-57.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\icon\ios\icon-72-2x.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\icon\ios\icon-72.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\icon\ios\icon-76.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\info.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\list-rightarrow.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\loading.gif" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\loadingblack.gif" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\loadingwhite.gif" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\login-logo.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\logo-cva.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\logout.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\menu-back.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\mod\assign.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\mod\assignment.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\mod\book.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\mod\chat.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\mod\choice.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\mod\data.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\mod\database.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\mod\date.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\mod\external-tool.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\mod\feedback.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\mod\file.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\mod\folder.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\mod\forum.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\mod\glossary.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\mod\ims.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\mod\imscp.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\mod\label.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\mod\lesson.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\mod\lti.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\mod\page.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\mod\quiz.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\mod\resource.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\mod\scorm.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\mod\survey.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\mod\url.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\mod\wiki.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\mod\workshop.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\reload.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\reloadblack.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\reloadgrey.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\splash\.pgbomit" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\splash\android\android_hdpi_portrait.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\splash\android\android_ldpi_portrait.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\splash\android\android_mdpi_portrait.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\splash\android\android_xhdpi_portrait.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\splash\ios\ipad_landscape.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\splash\ios\ipad_portrait.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\splash\ios\ipad_retina_landscape.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\splash\ios\ipad_retina_portrait.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\splash\ios\iphone5.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\splash\ios\iphone_portrait.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\splash\ios\iphone_retina_portrait.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\website.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\index.html" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\lang\ar.json" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\lang\ca.json" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\lang\cs.json" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\lang\de.json" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\lang\en.json" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\lang\es.json" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\lang\es_mx.json" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\lang\eu.json" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\lang\fr.json" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\lang\hu.json" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\lang\it.json" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\lang\nl.json" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\lang\pt_br.json" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\lang\sv.json" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\lang\zh_tw.json" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\less\layout.less" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\less\styles.less" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\lib\app.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\lib\mm.cache.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\lib\mm.cordova.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\lib\mm.db.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\lib\mm.fs.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\lib\mm.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\lib\mm.lang.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\lib\mm.panels.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\lib\mm.rdebugger.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\lib\mm.settings.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\lib\mm.sync.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\lib\mm.tpl.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\lib\mm.util.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\lib\mm.widgets.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\lib\scroll.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\package.json" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\plugins\addcontact\main.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\plugins\addnote\main.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\plugins\com.phonegap.plugins.PushPlugin\www\PushNotification.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\plugins\contents\contents.html" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\plugins\contents\folder.html" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\plugins\contents\main.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\plugins\contents\mimetypes.json" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\plugins\contents\sections.html" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\plugins\events\event.html" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\plugins\events\events.html" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\plugins\events\icon.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\plugins\events\main.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\plugins\net.tunts.webintent\www\webintent.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\plugins\notifications\icon.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\plugins\notifications\main.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\plugins\notifications\notification.html" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\plugins\notifications\notifications.html" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\plugins\notifications\notifications_enable.html" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\plugins\notifications\notifications_full.html" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\plugins\notifications\notification_alert.html" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\plugins\org.apache.cordova.camera\src\windows8\CameraProxy.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\plugins\org.apache.cordova.camera\www\Camera.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\plugins\org.apache.cordova.camera\www\CameraConstants.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\plugins\org.apache.cordova.camera\www\CameraPopoverHandle.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\plugins\org.apache.cordova.camera\www\CameraPopoverOptions.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\plugins\org.apache.cordova.console\www\console-via-logger.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\plugins\org.apache.cordova.console\www\logger.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\plugins\org.apache.cordova.contacts\src\windows8\ContactProxy.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\plugins\org.apache.cordova.contacts\www\Contact.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\plugins\org.apache.cordova.contacts\www\ContactAddress.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\plugins\org.apache.cordova.contacts\www\ContactError.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\plugins\org.apache.cordova.contacts\www\ContactField.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\plugins\org.apache.cordova.contacts\www\ContactFindOptions.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\plugins\org.apache.cordova.contacts\www\ContactName.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\plugins\org.apache.cordova.contacts\www\ContactOrganization.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\plugins\org.apache.cordova.contacts\www\contacts.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\plugins\org.apache.cordova.device\src\windows8\DeviceProxy.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\plugins\org.apache.cordova.device\www\device.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\plugins\org.apache.cordova.file\src\windows8\FileProxy.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\plugins\org.apache.cordova.file\www\DirectoryEntry.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\plugins\org.apache.cordova.file\www\DirectoryReader.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\plugins\org.apache.cordova.file\www\Entry.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\plugins\org.apache.cordova.file\www\File.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\plugins\org.apache.cordova.file\www\FileEntry.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\plugins\org.apache.cordova.file\www\FileError.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\plugins\org.apache.cordova.file\www\FileReader.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\plugins\org.apache.cordova.file\www\FileSystem.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\plugins\org.apache.cordova.file\www\fileSystems.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\plugins\org.apache.cordova.file\www\FileUploadOptions.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\plugins\org.apache.cordova.file\www\FileUploadResult.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\plugins\org.apache.cordova.file\www\FileWriter.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\plugins\org.apache.cordova.file\www\Flags.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\plugins\org.apache.cordova.file\www\LocalFileSystem.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\plugins\org.apache.cordova.file\www\Metadata.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\plugins\org.apache.cordova.file\www\ProgressEvent.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\plugins\org.apache.cordova.file\www\requestFileSystem.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\plugins\org.apache.cordova.file\www\resolveLocalFileSystemURI.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\plugins\org.apache.cordova.file-transfer\www\FileTransfer.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\plugins\org.apache.cordova.file-transfer\www\FileTransferError.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\plugins\org.apache.cordova.file-transfer\www\windows8\FileTransferProxy.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\plugins\org.apache.cordova.globalization\www\globalization.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\plugins\org.apache.cordova.globalization\www\GlobalizationError.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\plugins\org.apache.cordova.inappbrowser\www\inappbrowser.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\plugins\org.apache.cordova.inappbrowser\www\windows8\InAppBrowserProxy.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\plugins\org.apache.cordova.media-capture\src\windows8\CaptureProxy.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\plugins\org.apache.cordova.media-capture\src\windows8\MediaFile.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\plugins\org.apache.cordova.media-capture\www\capture.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\plugins\org.apache.cordova.media-capture\www\CaptureAudioOptions.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\plugins\org.apache.cordova.media-capture\www\CaptureError.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\plugins\org.apache.cordova.media-capture\www\CaptureImageOptions.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\plugins\org.apache.cordova.media-capture\www\CaptureVideoOptions.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\plugins\org.apache.cordova.media-capture\www\MediaFile.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\plugins\org.apache.cordova.media-capture\www\MediaFileData.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\plugins\org.apache.cordova.network-information\src\windows8\NetworkInfoProxy.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\plugins\org.apache.cordova.network-information\www\Connection.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\plugins\org.apache.cordova.network-information\www\network.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\plugins\org.apache.cordova.splashscreen\www\splashscreen.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\plugins\org.apache.cordova.splashscreen\www\windows8\SplashScreenProxy.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\plugins\org.chromium.zip\tests\tests.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\plugins\org.chromium.zip\zip.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\plugins\participants\main.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\plugins\participants\participant.html" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\plugins\participants\participants.html" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\plugins\sendmessage\main.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\plugins\upload\icon.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\plugins\upload\main.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\README.md" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\reset.html" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\tests\lib\jasmine-1.3.1\jasmine-html.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\tests\lib\jasmine-1.3.1\jasmine.css" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\tests\lib\jasmine-1.3.1\jasmine.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\tests\lib\jasmine-1.3.1\MIT.LICENSE" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\tests\spec\lib\matcher.sequential.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\tests\spec\lib\mmSpec.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\tests\SpecRunner.html" />
+    </ItemGroup>
+</Project>
