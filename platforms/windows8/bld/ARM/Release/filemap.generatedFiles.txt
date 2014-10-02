@@ -1,0 +1,6 @@
+bld\ARM\Release\filemap.pri
+bld\ARM\Release\filemap.map.txt
+bld\ARM\Release\filemap.scale-140.pri
+bld\ARM\Release\filemap.scale-140.map.txt
+bld\ARM\Release\filemap.scale-180.pri
+bld\ARM\Release\filemap.scale-180.map.txt

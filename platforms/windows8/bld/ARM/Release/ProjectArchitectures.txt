@@ -1,0 +1,1 @@
+C:\Users\Dani\Development\MM\platforms\windows8\CordovaApp.jsproj;arm

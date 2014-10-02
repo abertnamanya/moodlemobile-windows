@@ -1,0 +1,6 @@
+bld\x86\Release\split.pri
+bld\x86\Release\split.map.txt
+bld\x86\Release\split.scale-140.pri
+bld\x86\Release\split.scale-140.map.txt
+bld\x86\Release\split.scale-180.pri
+bld\x86\Release\split.scale-180.map.txt

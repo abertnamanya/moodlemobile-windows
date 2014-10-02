@@ -1,0 +1,6 @@
+bld\x86\Release\filemap.pri
+bld\x86\Release\filemap.map.txt
+bld\x86\Release\filemap.scale-140.pri
+bld\x86\Release\filemap.scale-140.map.txt
+bld\x86\Release\filemap.scale-180.pri
+bld\x86\Release\filemap.scale-180.map.txt
