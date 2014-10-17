@@ -246,7 +246,6 @@ hr {
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   /* Disable selection/Copy of UIWebView */
-
 }
 /* =2.3 - BUTTON MODULE
 --------------------------------------------------------*/
@@ -673,13 +672,7 @@ hr {
 }
 .content-index li {
   width: 100%;
-  padding: 10px;
 }
-
-.content-index section:last-of-type {
-  border-bottom: 1px solid #eee;
-}
-
 .content-index .nav-item:last-of-type {
   border-bottom: 0;
 }
@@ -702,6 +695,9 @@ hr {
   font-weight: normal;
   margin: 0;
   padding-right: 80px;
+}
+.content-index .content-name.mod-label img {
+  width: auto;
 }
 .content-index .content-name.folder {
   padding: 10px;
@@ -776,6 +772,98 @@ hr {
 .back-row a {
   display: block;
   padding: 10px;
+}
+.post-counter {
+  float: right;
+  font-size: .75rem;
+  text-align: right;
+  padding: 12px;
+  margin-bottom: 0;
+}
+.path-mod-forum .forum-post {
+  padding-top: 10px;
+  border-bottom: 1px solid #eee;
+}
+.path-mod-forum .forum-post:first-of-type {
+  border-top: 1px solid #eee;
+}
+.path-mod-forum .forum-post:last-child {
+  border-bottom: 0;
+}
+.path-mod-forum .forum-post.first-post {
+  border-bottom: 15px solid #eee;
+}
+.path-mod-forum .header {
+  line-height: 20px;
+  padding-right: 10px;
+  padding-bottom: 5px;
+}
+.path-mod-forum .user-picture {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  float: left;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+.path-mod-forum time {
+  font-size: .75rem;
+  display: block;
+}
+.path-mod-forum .subject {
+  font-size: 1rem;
+  padding-top: 12px;
+  padding-right: 10px;
+  margin-left: 60px;
+  margin-bottom: 12px;
+  border-top: 1px solid #eee;
+  overflow: hidden;
+}
+.path-mod-forum .content {
+  padding-right: 10px;
+  margin-left: 60px;
+}
+.path-mod-forum .counter {
+  font-size: .75rem;
+  text-align: right;
+  padding: 6px 12px;
+  margin-bottom: 0;
+  border-top: 1px solid #eee;
+}
+.path-mod-forum .counter img {
+  margin-right: 6px;
+}
+.path-mod-forum .reply-info {
+  font-size: .75rem;
+  text-align: right;
+  padding: 6px 10px;
+  border-top: 1px solid #eee;
+}
+.path-mod-forum .reply-info span {
+  padding-left: 2px;
+  padding-right: 2px;
+}
+.path-mod-forum .reply-info img {
+  margin-left: 6px;
+  margin-right: 6px;
+}
+.path-mod-forum .attachment img {
+  width: 16px;
+}
+.path-mod-forum .forum-name img {
+  margin-left: 6px;
+  margin-right: 6px;
+}
+.path-mod-forum .forum-intro {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.path-mod-forum .sync {
+  padding-left: 10px;
+  border-bottom: 15px solid #eee;
+}
+.path-mod-forum .sync input {
+  margin-right: 5px;
 }
 .fullpath {
   width: 100%;
@@ -865,7 +953,6 @@ hr {
   width: 18px;
   height: auto;
 }
-
 .event .description {
   padding-left: 36px;
 }
@@ -1040,15 +1127,9 @@ hr {
 .checkbox-setting-s .checkbox-tic-s {
   float: right;
 }
-<<<<<<< HEAD
-.checkbox-tic-s input {
-  width: 25px;
-  height: 25px;
-=======
 .checkbox-setting-s .checkbox-tic-s input {
   width: 14px;
   height: 14px;
->>>>>>> a33343651ea54f1530e4fb6884ef1c283a6815d7
 }
 .row-right {
   float: right;
@@ -1094,13 +1175,15 @@ hr {
   right: 0;
   bottom: 0;
   left: 0;
+  z-index:9999;
   background: rgba(0, 0, 0, 0.5);
-  z-index: 99999;
   opacity: 0;
   -webkit-transition: opacity 400ms ease-in;
   -moz-transition: opacity 400ms ease-in;
   transition: opacity 400ms ease-in;
-  pointer-events: none;
+  height:10px;
+  display:none;
+
 }
 #app-dialog > div {
   width: 90%;
@@ -1209,7 +1292,7 @@ div.jqi button.jqidefaultbutton {
   background-color: #BF5E26;
 }
 .jqi .jqiarrow {
-  position: absolute;
+  position: absolute
   height: 0;
   width: 0;
   line-height: 0;

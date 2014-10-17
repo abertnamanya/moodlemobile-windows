@@ -84,7 +84,7 @@ namespace WPCordovaClassLib.Cordova.Commands
         public const int ConnectionError = 3;
         public const int AbortError = 4; // not really an error, but whatevs
 
-        private static Dictionary<string, DownloadRequestState> InProcDownloads = new Dictionary<string,DownloadRequestState>();
+        private static Dictionary<string, DownloadRequestState> InProcDownloads = new Dictionary<string, DownloadRequestState>();
 
         /// <summary>
         /// Uploading response info
@@ -246,7 +246,7 @@ namespace WPCordovaClassLib.Cordova.Commands
                     uploadOptions.Params = args[5];
 
                     bool trustAll = false;
-                    bool.TryParse(args[6],out trustAll);
+                    bool.TryParse(args[6], out trustAll);
                     uploadOptions.TrustAllHosts = trustAll;
 
                     bool doChunked = false;
@@ -302,12 +302,12 @@ namespace WPCordovaClassLib.Cordova.Commands
             }
             catch (Exception /*ex*/)
             {
-                DispatchCommandResult(new PluginResult(PluginResult.Status.ERROR, new FileTransferError(ConnectionError)),callbackId);
+                DispatchCommandResult(new PluginResult(PluginResult.Status.ERROR, new FileTransferError(ConnectionError)), callbackId);
             }
         }
 
         // example : "{\"Authorization\":\"Basic Y29yZG92YV91c2VyOmNvcmRvdmFfcGFzc3dvcmQ=\"}"
-        protected Dictionary<string,string> parseHeaders(string jsonHeaders)
+        protected Dictionary<string, string> parseHeaders(string jsonHeaders)
         {
             try
             {
@@ -357,7 +357,7 @@ namespace WPCordovaClassLib.Cordova.Commands
                 downloadOptions.FilePath = optionStrings[1];
 
                 bool trustAll = false;
-                bool.TryParse(optionStrings[2],out trustAll);
+                bool.TryParse(optionStrings[2], out trustAll);
                 downloadOptions.TrustAllHosts = trustAll;
 
                 downloadOptions.Id = optionStrings[3];

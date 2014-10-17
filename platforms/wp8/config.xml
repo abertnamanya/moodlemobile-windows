@@ -36,6 +36,9 @@
     <feature name="InAppBrowser">
         <param name="wp-package" value="InAppBrowser" />
     </feature>
+    <feature name="Media">
+        <param name="wp-package" value="Media" />
+    </feature>
     <feature name="Capture">
         <param name="wp-package" value="Capture" />
     </feature>
@@ -45,11 +48,5 @@
     <feature name="SplashScreen">
         <param name="wp-package" value="SplashScreen" />
         <param name="onload" value="true" />
-    </feature>
-    <feature name="Media">
-        <param name="wp-package" value="Media" />
-    </feature>
-    <feature name="Notification">
-        <param name="wp-package" value="Notification" />
     </feature>
 </widget>

@@ -16,8 +16,3 @@ C:\Users\Dani\Development\MM\platforms\wp8\obj\Debug\com.mm.moodlemobile.g.resou
 C:\Users\Dani\Development\MM\platforms\wp8\obj\Debug\com.mm.moodlemobile.dll
 C:\Users\Dani\Development\MM\platforms\wp8\obj\Debug\com.mm.moodlemobile.pdb
 C:\Users\Dani\Development\MM\platforms\wp8\obj\Debug\XapCacheFile.xml
-C:\Users\Dani\Development\MM\platforms\wp8\obj\Debug\MoodleMobile.csprojResolveAssemblyReference.cache
-C:\Users\Dani\Development\MM\platforms\wp8\obj\Debug\Plugins\org.apache.cordova.dialogs\NotificationBox.g.cs
-C:\Users\Dani\Development\MM\platforms\wp8\Bin\Debug\www\cordova.js
-C:\Users\Dani\Development\MM\platforms\wp8\Bin\Debug\www\plugins\contents\mimetypes.json
-C:\Users\Dani\Development\MM\platforms\wp8\Bin\Debug\www\lib\mm.js
