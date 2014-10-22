@@ -1,5 +1,5 @@
-﻿<xapCache source="C:\Users\Dani\Development\MM\platforms\wp8\Bin\Release\CordovaAppProj_Release_AnyCPU.xap" wasSigned="False" wasTritonized="False" certificateThumbprint="" TimeStampUrl="" signKeyFile="" signKeyPassword="" lastWriteTime="17/10/2014 14:45:25">
-  <file source="C:\Users\Dani\Development\MM\platforms\wp8\obj\Release\com.mm.moodlemobile.dll" archivePath="com.mm.moodlemobile.dll" lastWriteTime="17/10/2014 14:45:23" />
+﻿<xapCache source="C:\Users\Dani\Development\MM\platforms\wp8\Bin\Release\CordovaAppProj_Release_AnyCPU.xap" wasSigned="False" wasTritonized="False" certificateThumbprint="" TimeStampUrl="" signKeyFile="" signKeyPassword="" lastWriteTime="20/10/2014 14:42:43">
+  <file source="C:\Users\Dani\Development\MM\platforms\wp8\obj\Release\com.mm.moodlemobile.dll" archivePath="com.mm.moodlemobile.dll" lastWriteTime="20/10/2014 14:42:39" />
   <file source="C:\Users\Dani\Development\MM\platforms\wp8\config.xml" archivePath="config.xml" lastWriteTime="14/10/2014 11:49:17" />
   <file source="C:\Users\Dani\Development\MM\platforms\wp8\www\.gitignore" archivePath="www\.gitignore" lastWriteTime="17/10/2014 12:01:26" />
   <file source="C:\Users\Dani\Development\MM\platforms\wp8\www\about.json" archivePath="www\about.json" lastWriteTime="08/07/2014 14:07:49" />
@@ -326,7 +326,7 @@
   <file source="C:\Users\Dani\Development\MM\platforms\wp8\www\plugins\participants\participants.html" archivePath="www\plugins\participants\participants.html" lastWriteTime="08/08/2014 11:50:35" />
   <file source="C:\Users\Dani\Development\MM\platforms\wp8\www\plugins\sendmessage\main.js" archivePath="www\plugins\sendmessage\main.js" lastWriteTime="08/08/2014 11:45:46" />
   <file source="C:\Users\Dani\Development\MM\platforms\wp8\www\plugins\upload\icon.png" archivePath="www\plugins\upload\icon.png" lastWriteTime="09/07/2014 16:28:52" />
-  <file source="C:\Users\Dani\Development\MM\platforms\wp8\www\plugins\upload\main.js" archivePath="www\plugins\upload\main.js" lastWriteTime="17/10/2014 12:46:50" />
+  <file source="C:\Users\Dani\Development\MM\platforms\wp8\www\plugins\upload\main.js" archivePath="www\plugins\upload\main.js" lastWriteTime="17/10/2014 15:09:40" />
   <file source="C:\Users\Dani\Development\MM\platforms\wp8\www\plugins\url\main.js" archivePath="www\plugins\url\main.js" lastWriteTime="02/10/2014 14:02:47" />
   <file source="C:\Users\Dani\Development\MM\platforms\wp8\www\plugins\url\view.html" archivePath="www\plugins\url\view.html" lastWriteTime="02/10/2014 14:02:47" />
   <file source="C:\Users\Dani\Development\MM\platforms\wp8\www\README.md" archivePath="www\README.md" lastWriteTime="17/10/2014 12:01:35" />
@@ -350,5 +350,5 @@
   <file source="C:\Users\Dani\Development\MM\platforms\wp8\Bin\Release\ApplicationIcon.png" archivePath="ApplicationIcon.png" lastWriteTime="14/07/2014 13:07:20" />
   <file source="C:\Users\Dani\Development\MM\platforms\wp8\Bin\Release\Background.png" archivePath="Background.png" lastWriteTime="14/07/2014 13:07:02" />
   <file source="C:\Users\Dani\Development\MM\platforms\wp8\plugins\com.phonegap.plugins.PushPlugin\Newtonsoft.Json.dll" archivePath="Newtonsoft.Json.dll" lastWriteTime="14/10/2014 11:49:12" />
-  <file source="C:\Users\Dani\Development\MM\platforms\wp8\Bin\Release\Properties\WMAppManifest.xml" archivePath="WMAppManifest.xml" lastWriteTime="17/10/2014 14:45:24" />
+  <file source="C:\Users\Dani\Development\MM\platforms\wp8\Bin\Release\Properties\WMAppManifest.xml" archivePath="WMAppManifest.xml" lastWriteTime="20/10/2014 14:42:42" />
 </xapCache>
