@@ -1,4 +1,0 @@
-plugins/com.phonegap.plugins.PushPlugin/www/PushNotification.js
-plugins/net.tunts.webintent/www/webintent.js
-*.js
-cordova_plugins.js

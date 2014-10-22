@@ -70,6 +70,18 @@
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\img\download.png">
       <PackagePath>www\img\download.png</PackagePath>
     </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\img\event-course.png">
+      <PackagePath>www\img\event-course.png</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\img\event-group.png">
+      <PackagePath>www\img\event-group.png</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\img\event-site.png">
+      <PackagePath>www\img\event-site.png</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\img\event-user.png">
+      <PackagePath>www\img\event-user.png</PackagePath>
+    </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\img\expand.png">
       <PackagePath>www\img\expand.png</PackagePath>
     </AppxPackagedFile>
@@ -286,6 +298,21 @@
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\img\icon\ios\icon-76.png">
       <PackagePath>www\img\icon\ios\icon-76.png</PackagePath>
     </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\img\icon\w8\icon-150.png">
+      <PackagePath>www\img\icon\w8\icon-150.png</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\img\icon\w8\icon-30.png">
+      <PackagePath>www\img\icon\w8\icon-30.png</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\img\icon\w8\icon-50.png">
+      <PackagePath>www\img\icon\w8\icon-50.png</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\img\icon\wp8\icon-173.png">
+      <PackagePath>www\img\icon\wp8\icon-173.png</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\img\icon\wp8\icon-62.png">
+      <PackagePath>www\img\icon\wp8\icon-62.png</PackagePath>
+    </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\img\info.png">
       <PackagePath>www\img\info.png</PackagePath>
     </AppxPackagedFile>
@@ -303,6 +330,9 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\img\menu-back.png">
       <PackagePath>www\img\menu-back.png</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\img\message.png">
+      <PackagePath>www\img\message.png</PackagePath>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\img\mod\assign.png">
       <PackagePath>www\img\mod\assign.png</PackagePath>
@@ -427,6 +457,12 @@
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\img\splash\ios\iphone_retina_portrait.png">
       <PackagePath>www\img\splash\ios\iphone_retina_portrait.png</PackagePath>
     </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\img\time.png">
+      <PackagePath>www\img\time.png</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\img\userimage.png">
+      <PackagePath>www\img\userimage.png</PackagePath>
+    </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\img\website.png">
       <PackagePath>www\img\website.png</PackagePath>
     </AppxPackagedFile>
@@ -472,6 +508,15 @@
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\emulator\local_mobile_core_user_add_user_device.json">
       <PackagePath>www\emulator\local_mobile_core_user_add_user_device.json</PackagePath>
     </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\emulator\local_mobile_mod_forum_get_forums_by_courses.json">
+      <PackagePath>www\emulator\local_mobile_mod_forum_get_forums_by_courses.json</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\emulator\local_mobile_mod_forum_get_forum_discussions_paginated.json">
+      <PackagePath>www\emulator\local_mobile_mod_forum_get_forum_discussions_paginated.json</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\emulator\local_mobile_mod_forum_get_forum_discussion_posts.json">
+      <PackagePath>www\emulator\local_mobile_mod_forum_get_forum_discussion_posts.json</PackagePath>
+    </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\emulator\moodle_enrol_get_users_courses.json">
       <PackagePath>www\emulator\moodle_enrol_get_users_courses.json</PackagePath>
     </AppxPackagedFile>
@@ -508,8 +553,14 @@
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\lang\eu.json">
       <PackagePath>www\lang\eu.json</PackagePath>
     </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\lang\fa.json">
+      <PackagePath>www\lang\fa.json</PackagePath>
+    </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\lang\fr.json">
       <PackagePath>www\lang\fr.json</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\lang\he.json">
+      <PackagePath>www\lang\he.json</PackagePath>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\lang\hu.json">
       <PackagePath>www\lang\hu.json</PackagePath>
@@ -517,11 +568,17 @@
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\lang\it.json">
       <PackagePath>www\lang\it.json</PackagePath>
     </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\lang\ja.json">
+      <PackagePath>www\lang\ja.json</PackagePath>
+    </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\lang\nl.json">
       <PackagePath>www\lang\nl.json</PackagePath>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\lang\pt_br.json">
       <PackagePath>www\lang\pt_br.json</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\lang\ru.json">
+      <PackagePath>www\lang\ru.json</PackagePath>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\lang\sv.json">
       <PackagePath>www\lang\sv.json</PackagePath>
@@ -631,11 +688,17 @@
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\lib\scroll.js">
       <PackagePath>www\lib\scroll.js</PackagePath>
     </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\lib\worker.js">
+      <PackagePath>www\lib\worker.js</PackagePath>
+    </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\plugins\addcontact\main.js">
       <PackagePath>www\plugins\addcontact\main.js</PackagePath>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\plugins\addnote\main.js">
       <PackagePath>www\plugins\addnote\main.js</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\plugins\com.phonegap.plugins.PushPlugin\src\windows8\PushPluginProxy.js">
+      <PackagePath>www\plugins\com.phonegap.plugins.PushPlugin\src\windows8\PushPluginProxy.js</PackagePath>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\plugins\com.phonegap.plugins.PushPlugin\www\PushNotification.js">
       <PackagePath>www\plugins\com.phonegap.plugins.PushPlugin\www\PushNotification.js</PackagePath>
@@ -646,20 +709,26 @@
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\plugins\events\main.js">
       <PackagePath>www\plugins\events\main.js</PackagePath>
     </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\plugins\forum\main.js">
+      <PackagePath>www\plugins\forum\main.js</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\plugins\forum\worker.js">
+      <PackagePath>www\plugins\forum\worker.js</PackagePath>
+    </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\plugins\grades\main.js">
       <PackagePath>www\plugins\grades\main.js</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\plugins\label\main.js">
+      <PackagePath>www\plugins\label\main.js</PackagePath>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\plugins\myfiles\main.js">
       <PackagePath>www\plugins\myfiles\main.js</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\plugins\net.tunts.webintent\www\webintent.js">
-      <PackagePath>www\plugins\net.tunts.webintent\www\webintent.js</PackagePath>
-    </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\plugins\notifications\main.js">
       <PackagePath>www\plugins\notifications\main.js</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\plugins\org.apache.cordova.camera\src\windows8\CameraProxy.js">
-      <PackagePath>www\plugins\org.apache.cordova.camera\src\windows8\CameraProxy.js</PackagePath>
+    <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\plugins\org.apache.cordova.camera\src\windows\CameraProxy.js">
+      <PackagePath>www\plugins\org.apache.cordova.camera\src\windows\CameraProxy.js</PackagePath>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\plugins\org.apache.cordova.camera\www\Camera.js">
       <PackagePath>www\plugins\org.apache.cordova.camera\www\Camera.js</PackagePath>
@@ -715,20 +784,14 @@
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\plugins\org.apache.cordova.device\www\device.js">
       <PackagePath>www\plugins\org.apache.cordova.device\www\device.js</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\plugins\org.apache.cordova.dialogs\src\windows8\NotificationProxy.js">
-      <PackagePath>www\plugins\org.apache.cordova.dialogs\src\windows8\NotificationProxy.js</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\plugins\org.apache.cordova.dialogs\www\notification.js">
-      <PackagePath>www\plugins\org.apache.cordova.dialogs\www\notification.js</PackagePath>
+    <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\plugins\org.apache.cordova.file-transfer\src\windows\FileTransferProxy.js">
+      <PackagePath>www\plugins\org.apache.cordova.file-transfer\src\windows\FileTransferProxy.js</PackagePath>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\plugins\org.apache.cordova.file-transfer\www\FileTransfer.js">
       <PackagePath>www\plugins\org.apache.cordova.file-transfer\www\FileTransfer.js</PackagePath>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\plugins\org.apache.cordova.file-transfer\www\FileTransferError.js">
       <PackagePath>www\plugins\org.apache.cordova.file-transfer\www\FileTransferError.js</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\plugins\org.apache.cordova.file-transfer\www\windows8\FileTransferProxy.js">
-      <PackagePath>www\plugins\org.apache.cordova.file-transfer\www\windows8\FileTransferProxy.js</PackagePath>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\plugins\org.apache.cordova.file\src\windows8\FileProxy.js">
       <PackagePath>www\plugins\org.apache.cordova.file\src\windows8\FileProxy.js</PackagePath>
@@ -850,12 +913,6 @@
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\plugins\org.apache.cordova.splashscreen\www\windows8\SplashScreenProxy.js">
       <PackagePath>www\plugins\org.apache.cordova.splashscreen\www\windows8\SplashScreenProxy.js</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\plugins\org.chromium.zip\tests\tests.js">
-      <PackagePath>www\plugins\org.chromium.zip\tests\tests.js</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\plugins\org.chromium.zip\zip.js">
-      <PackagePath>www\plugins\org.chromium.zip\zip.js</PackagePath>
-    </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\plugins\participants\main.js">
       <PackagePath>www\plugins\participants\main.js</PackagePath>
     </AppxPackagedFile>
@@ -864,6 +921,9 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\plugins\upload\main.js">
       <PackagePath>www\plugins\upload\main.js</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\plugins\url\main.js">
+      <PackagePath>www\plugins\url\main.js</PackagePath>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\tests\lib\jasmine-1.3.1\jasmine-html.js">
       <PackagePath>www\tests\lib\jasmine-1.3.1\jasmine-html.js</PackagePath>
@@ -922,11 +982,26 @@
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\plugins\events\events.html">
       <PackagePath>www\plugins\events\events.html</PackagePath>
     </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\plugins\forum\attachments.html">
+      <PackagePath>www\plugins\forum\attachments.html</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\plugins\forum\discussion.html">
+      <PackagePath>www\plugins\forum\discussion.html</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\plugins\forum\discussions.html">
+      <PackagePath>www\plugins\forum\discussions.html</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\plugins\forum\view.html">
+      <PackagePath>www\plugins\forum\view.html</PackagePath>
+    </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\plugins\grades\activities.html">
       <PackagePath>www\plugins\grades\activities.html</PackagePath>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\plugins\grades\activities_total.html">
       <PackagePath>www\plugins\grades\activities_total.html</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\plugins\label\view.html">
+      <PackagePath>www\plugins\label\view.html</PackagePath>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\plugins\myfiles\files.html">
       <PackagePath>www\plugins\myfiles\files.html</PackagePath>
@@ -951,6 +1026,9 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\plugins\participants\participants.html">
       <PackagePath>www\plugins\participants\participants.html</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\plugins\url\view.html">
+      <PackagePath>www\plugins\url\view.html</PackagePath>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\reset.html">
       <PackagePath>www\reset.html</PackagePath>

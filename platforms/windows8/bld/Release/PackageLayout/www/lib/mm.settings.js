@@ -62,7 +62,6 @@ MM.settings = {
 
     _deleteSiteFilesReferences: function(siteId) {
         var els = MM.db.where('files', {'site': siteId});
-        console.log(els);
         _.each(els, function(el) {
             MM.db.remove('files', el.get("id"));
         });
@@ -122,7 +121,7 @@ MM.settings = {
         });
 
         // Render the settings as html.
-        var html = MM.widgets.renderList(settings);
+        var syncSettings = MM.widgets.renderList(settings);
 
         var syncFilter = MM.db.where('sync', {siteid: MM.config.current_site.id});
         var syncTasks = [];
@@ -157,7 +156,8 @@ MM.settings = {
                 <div style="clear: both"></div>\
             </div>';
 
-        html += MM.tpl.render(tpl, {tasks: syncTasks});
+        tpl = '<div class="settings">' + syncSettings + tpl + '</div>';
+        var html = MM.tpl.render(tpl, {tasks: syncTasks});
 
         MM.panels.show('right', html, {title: MM.lang.s("settings") + " - " + MM.lang.s("synchronization")});
         // Once the html is rendered, we pretify the widgets.
@@ -358,6 +358,8 @@ MM.settings = {
 
         // Render the settings as html.
         html += MM.widgets.render(settingsB);
+
+        html = '<div class="settings">' + html + '</div>';
         MM.panels.show('right', html, {title: MM.lang.s("settings") + " - " + MM.lang.s("development")});
 
         // Once the html is rendered, we prettify the widgets.
@@ -399,7 +401,7 @@ MM.settings = {
 
     getDeviceInfo: function() {
 
-        var info = "";
+        var info = '<div class="device-info">';
 
         // Add the version name and version code.
         info += "<p><b>Version name:</b> " + MM.config.versionname + "</p>";
@@ -453,6 +455,12 @@ MM.settings = {
         info += "<p><b>document.width</b> "+ $(document).width() +"</p>";
         info += "<p><b>document.height</b> "+ $(document).height() +"</p>";
 
+        var workerssupport = !!window.Worker && !!window.URL;
+        info += "<p><b>Device Web Workers supported</b> "+ workerssupport +"</p>";
+
+        workerssupport = MM.util.WebWorkersSupported();
+        info += "<p><b>Site Web Workers supported</b> "+ workerssupport +"</p>";
+
         var svgsupport = "No";
         if ((!!document.createElementNS && !!document.createElementNS('http://www.w3.org/2000/svg', "svg").createSVGRect) ||
              !!document.implementation.hasFeature("http://www.w3.org/TR/SVG11/feature#BasicStructure", "1.1")) {
@@ -500,6 +508,8 @@ MM.settings = {
             info += "<p><b>Node User Home:</b> <a id=\"nodehomedirectory\" href=\"#\" data-path=\" " + home + "\">"+ home +"</a></p>";
         }
 
+        info += "</div>"
+
         return info;
     },
 
@@ -510,7 +520,7 @@ MM.settings = {
         info += '<div class="centered"><a href="mailto:' + MM.config.current_site.username +'?subject=DeviceInfo&body=' + mailBody + '"><button>' + MM.lang.s("email") + '</button></a></div>';
         info += "<br /><br /><br />";
 
-        MM.panels.html("right", '<div style="padding: 8px">' + info + '</div>');
+        MM.panels.html("right", '<div class="settings">' + info + '</div>');
 
         $("#nodehomedirectory").on(MM.quickClick, function(e) {
             var gui = require('nw.gui');
@@ -592,6 +602,8 @@ MM.settings = {
 
         // Render the settings as html.
         var html = MM.widgets.render(settings);
+
+        html = '<div class="settings">' + html + '</div>';
         MM.panels.show('right', html, {title: MM.lang.s("settings") + " - " + MM.lang.s("general")});
 
         // Once the html is rendered, we prettify the widgets.

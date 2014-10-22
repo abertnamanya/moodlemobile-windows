@@ -7,7 +7,7 @@
 
     Para obtener más información acerca de los archivos de manifiesto del paquete, vea http://go.microsoft.com/fwlink/?LinkID=241727
   -->
-  <Identity Name="3312ADB7.MoodleMobile" Publisher="CN=33CDCDF6-1EB5-4827-9897-ED25C91A32F6" Version="1.6.1.18" ProcessorArchitecture="neutral" />
+  <Identity Name="3312ADB7.MoodleMobile" Publisher="CN=33CDCDF6-1EB5-4827-9897-ED25C91A32F6" Version="1.7.0.1" ProcessorArchitecture="neutral" />
   <Properties>
     <DisplayName>Moodle Mobile</DisplayName>
     <PublisherDisplayName>Moodle Pty Ltd.</PublisherDisplayName>
@@ -19,6 +19,17 @@
   </Prerequisites>
   <Resources>
     <Resource Language="EN-US" />
+    <Resource Language="ZH-HANS" />
+    <Resource Language="CS-CZ" />
+    <Resource Language="NL-NL" />
+    <Resource Language="FR-FR" />
+    <Resource Language="DE-DE" />
+    <Resource Language="HU-HU" />
+    <Resource Language="IT-IT" />
+    <Resource Language="JA-JP" />
+    <Resource Language="PT-BR" />
+    <Resource Language="RU-RU" />
+    <Resource Language="ES-ES" />
     <Resource m2:Scale="100" />
     <Resource m2:Scale="120" />
     <Resource m2:Scale="140" />
@@ -32,7 +43,7 @@
   </Resources>
   <Applications>
     <Application Id="com.mm.moodlemobile" StartPage="www/index.html">
-      <m2:VisualElements BackgroundColor="#FB9E27" Description="CordovaApp" DisplayName="Moodle Mobile" ForegroundText="light" Square150x150Logo="images\logo.png" Square30x30Logo="images\smalllogo.png" ToastCapable="true">
+      <m2:VisualElements BackgroundColor="#FB9E27" Description="CordovaApp" DisplayName="MoodleMobile" ForegroundText="light" Square150x150Logo="images\logo.png" Square30x30Logo="images\smalllogo.png" ToastCapable="true">
         <m2:DefaultTile>
           <m2:ShowNameOnTiles>
             <m2:ShowOn Tile="square150x150Logo" />

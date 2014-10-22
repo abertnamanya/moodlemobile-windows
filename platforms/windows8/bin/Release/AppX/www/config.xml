@@ -3,8 +3,8 @@
         xmlns:gap = "http://phonegap.com/ns/1.0"
         xmlns:android = "http://schemas.android.com/apk/res/android"
         id        = "com.moodle.moodlemobile"
-        versionCode = "379"
-        version   = "1.6.1">
+        versionCode = "380"
+        version   = "1.7">
     <name>Moodle Mobile</name>
 
     <description>
@@ -16,7 +16,7 @@
     </author>
 
     <gap:config-file platform="ios" parent="CFBundleShortVersionString">
-        <string>1.6.1</string>
+        <string>1.7</string>
     </gap:config-file>
 
     <feature name="http://api.phonegap.com/1.0/device" />
@@ -30,7 +30,7 @@
     <feature name="http://api.phonegap.com/1.0/media"/>
     <feature name="http://api.phonegap.com/1.0/file"/>
 
-    <preference name="phonegap-version" value="3.5.0" />
+    <preference name="phonegap-version" value="3.6.3" />
     <preference name="orientation"      value="default" />
     <preference name="target-device"    value="universal" />
     <preference name="fullscreen"       value="false" />

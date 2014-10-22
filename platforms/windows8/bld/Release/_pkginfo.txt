@@ -1,1 +1,1 @@
-C:\Users\Dani\Development\MM\platforms\windows8\AppPackages\CordovaApp_1.6.1.18_Test\CordovaApp_1.6.1.18_AnyCPU.appxbundle
+C:\Users\Dani\Development\MM\platforms\windows8\AppPackages\CordovaApp_1.7.0.1_Test\CordovaApp_1.7.0.1_AnyCPU.appxbundle

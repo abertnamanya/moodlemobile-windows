@@ -158,6 +158,21 @@
 							<Value>www\emulator\local_mobile_core_user_add_user_device.json</Value>
 						</Candidate>
 					</NamedResource>
+					<NamedResource name="local_mobile_mod_forum_get_forums_by_courses.json" uri="ms-resource://3312ADB7.MoodleMobile/Files/www/emulator/local_mobile_mod_forum_get_forums_by_courses.json">
+						<Candidate type="Path">
+							<Value>www\emulator\local_mobile_mod_forum_get_forums_by_courses.json</Value>
+						</Candidate>
+					</NamedResource>
+					<NamedResource name="local_mobile_mod_forum_get_forum_discussions_paginated.json" uri="ms-resource://3312ADB7.MoodleMobile/Files/www/emulator/local_mobile_mod_forum_get_forum_discussions_paginated.json">
+						<Candidate type="Path">
+							<Value>www\emulator\local_mobile_mod_forum_get_forum_discussions_paginated.json</Value>
+						</Candidate>
+					</NamedResource>
+					<NamedResource name="local_mobile_mod_forum_get_forum_discussion_posts.json" uri="ms-resource://3312ADB7.MoodleMobile/Files/www/emulator/local_mobile_mod_forum_get_forum_discussion_posts.json">
+						<Candidate type="Path">
+							<Value>www\emulator\local_mobile_mod_forum_get_forum_discussion_posts.json</Value>
+						</Candidate>
+					</NamedResource>
 					<NamedResource name="moodle_enrol_get_users_courses.json" uri="ms-resource://3312ADB7.MoodleMobile/Files/www/emulator/moodle_enrol_get_users_courses.json">
 						<Candidate type="Path">
 							<Value>www\emulator\moodle_enrol_get_users_courses.json</Value>
@@ -300,6 +315,26 @@
 					<NamedResource name="download.png" uri="ms-resource://3312ADB7.MoodleMobile/Files/www/img/download.png">
 						<Candidate type="Path">
 							<Value>www\img\download.png</Value>
+						</Candidate>
+					</NamedResource>
+					<NamedResource name="event-course.png" uri="ms-resource://3312ADB7.MoodleMobile/Files/www/img/event-course.png">
+						<Candidate type="Path">
+							<Value>www\img\event-course.png</Value>
+						</Candidate>
+					</NamedResource>
+					<NamedResource name="event-group.png" uri="ms-resource://3312ADB7.MoodleMobile/Files/www/img/event-group.png">
+						<Candidate type="Path">
+							<Value>www\img\event-group.png</Value>
+						</Candidate>
+					</NamedResource>
+					<NamedResource name="event-site.png" uri="ms-resource://3312ADB7.MoodleMobile/Files/www/img/event-site.png">
+						<Candidate type="Path">
+							<Value>www\img\event-site.png</Value>
+						</Candidate>
+					</NamedResource>
+					<NamedResource name="event-user.png" uri="ms-resource://3312ADB7.MoodleMobile/Files/www/img/event-user.png">
+						<Candidate type="Path">
+							<Value>www\img\event-user.png</Value>
 						</Candidate>
 					</NamedResource>
 					<NamedResource name="expand.png" uri="ms-resource://3312ADB7.MoodleMobile/Files/www/img/expand.png">
@@ -452,6 +487,11 @@
 							<Value>www\img\menu-back.png</Value>
 						</Candidate>
 					</NamedResource>
+					<NamedResource name="message.png" uri="ms-resource://3312ADB7.MoodleMobile/Files/www/img/message.png">
+						<Candidate type="Path">
+							<Value>www\img\message.png</Value>
+						</Candidate>
+					</NamedResource>
 					<NamedResource name="reload.png" uri="ms-resource://3312ADB7.MoodleMobile/Files/www/img/reload.png">
 						<Candidate type="Path">
 							<Value>www\img\reload.png</Value>
@@ -465,6 +505,16 @@
 					<NamedResource name="reloadgrey.png" uri="ms-resource://3312ADB7.MoodleMobile/Files/www/img/reloadgrey.png">
 						<Candidate type="Path">
 							<Value>www\img\reloadgrey.png</Value>
+						</Candidate>
+					</NamedResource>
+					<NamedResource name="time.png" uri="ms-resource://3312ADB7.MoodleMobile/Files/www/img/time.png">
+						<Candidate type="Path">
+							<Value>www\img\time.png</Value>
+						</Candidate>
+					</NamedResource>
+					<NamedResource name="userimage.png" uri="ms-resource://3312ADB7.MoodleMobile/Files/www/img/userimage.png">
+						<Candidate type="Path">
+							<Value>www\img\userimage.png</Value>
 						</Candidate>
 					</NamedResource>
 					<NamedResource name="website.png" uri="ms-resource://3312ADB7.MoodleMobile/Files/www/img/website.png">
@@ -749,6 +799,35 @@
 								</Candidate>
 							</NamedResource>
 						</ResourceMapSubtree>
+						<ResourceMapSubtree name="w8">
+							<NamedResource name="icon-150.png" uri="ms-resource://3312ADB7.MoodleMobile/Files/www/img/icon/w8/icon-150.png">
+								<Candidate type="Path">
+									<Value>www\img\icon\w8\icon-150.png</Value>
+								</Candidate>
+							</NamedResource>
+							<NamedResource name="icon-30.png" uri="ms-resource://3312ADB7.MoodleMobile/Files/www/img/icon/w8/icon-30.png">
+								<Candidate type="Path">
+									<Value>www\img\icon\w8\icon-30.png</Value>
+								</Candidate>
+							</NamedResource>
+							<NamedResource name="icon-50.png" uri="ms-resource://3312ADB7.MoodleMobile/Files/www/img/icon/w8/icon-50.png">
+								<Candidate type="Path">
+									<Value>www\img\icon\w8\icon-50.png</Value>
+								</Candidate>
+							</NamedResource>
+						</ResourceMapSubtree>
+						<ResourceMapSubtree name="wp8">
+							<NamedResource name="icon-173.png" uri="ms-resource://3312ADB7.MoodleMobile/Files/www/img/icon/wp8/icon-173.png">
+								<Candidate type="Path">
+									<Value>www\img\icon\wp8\icon-173.png</Value>
+								</Candidate>
+							</NamedResource>
+							<NamedResource name="icon-62.png" uri="ms-resource://3312ADB7.MoodleMobile/Files/www/img/icon/wp8/icon-62.png">
+								<Candidate type="Path">
+									<Value>www\img\icon\wp8\icon-62.png</Value>
+								</Candidate>
+							</NamedResource>
+						</ResourceMapSubtree>
 					</ResourceMapSubtree>
 					<ResourceMapSubtree name="mod">
 						<NamedResource name="assign.png" uri="ms-resource://3312ADB7.MoodleMobile/Files/www/img/mod/assign.png">
@@ -995,9 +1074,19 @@
 							<Value>www\lang\eu.json</Value>
 						</Candidate>
 					</NamedResource>
+					<NamedResource name="fa.json" uri="ms-resource://3312ADB7.MoodleMobile/Files/www/lang/fa.json">
+						<Candidate type="Path">
+							<Value>www\lang\fa.json</Value>
+						</Candidate>
+					</NamedResource>
 					<NamedResource name="fr.json" uri="ms-resource://3312ADB7.MoodleMobile/Files/www/lang/fr.json">
 						<Candidate type="Path">
 							<Value>www\lang\fr.json</Value>
+						</Candidate>
+					</NamedResource>
+					<NamedResource name="he.json" uri="ms-resource://3312ADB7.MoodleMobile/Files/www/lang/he.json">
+						<Candidate type="Path">
+							<Value>www\lang\he.json</Value>
 						</Candidate>
 					</NamedResource>
 					<NamedResource name="hu.json" uri="ms-resource://3312ADB7.MoodleMobile/Files/www/lang/hu.json">
@@ -1010,6 +1099,11 @@
 							<Value>www\lang\it.json</Value>
 						</Candidate>
 					</NamedResource>
+					<NamedResource name="ja.json" uri="ms-resource://3312ADB7.MoodleMobile/Files/www/lang/ja.json">
+						<Candidate type="Path">
+							<Value>www\lang\ja.json</Value>
+						</Candidate>
+					</NamedResource>
 					<NamedResource name="nl.json" uri="ms-resource://3312ADB7.MoodleMobile/Files/www/lang/nl.json">
 						<Candidate type="Path">
 							<Value>www\lang\nl.json</Value>
@@ -1018,6 +1112,11 @@
 					<NamedResource name="pt_br.json" uri="ms-resource://3312ADB7.MoodleMobile/Files/www/lang/pt_br.json">
 						<Candidate type="Path">
 							<Value>www\lang\pt_br.json</Value>
+						</Candidate>
+					</NamedResource>
+					<NamedResource name="ru.json" uri="ms-resource://3312ADB7.MoodleMobile/Files/www/lang/ru.json">
+						<Candidate type="Path">
+							<Value>www\lang\ru.json</Value>
 						</Candidate>
 					</NamedResource>
 					<NamedResource name="sv.json" uri="ms-resource://3312ADB7.MoodleMobile/Files/www/lang/sv.json">
@@ -1124,6 +1223,11 @@
 							<Value>www\lib\scroll.js</Value>
 						</Candidate>
 					</NamedResource>
+					<NamedResource name="worker.js" uri="ms-resource://3312ADB7.MoodleMobile/Files/www/lib/worker.js">
+						<Candidate type="Path">
+							<Value>www\lib\worker.js</Value>
+						</Candidate>
+					</NamedResource>
 				</ResourceMapSubtree>
 				<ResourceMapSubtree name="plugins">
 					<ResourceMapSubtree name="addcontact">
@@ -1141,6 +1245,15 @@
 						</NamedResource>
 					</ResourceMapSubtree>
 					<ResourceMapSubtree name="com.phonegap.plugins.PushPlugin">
+						<ResourceMapSubtree name="src">
+							<ResourceMapSubtree name="windows8">
+								<NamedResource name="PushPluginProxy.js" uri="ms-resource://3312ADB7.MoodleMobile/Files/www/plugins/com.phonegap.plugins.PushPlugin/src/windows8/PushPluginProxy.js">
+									<Candidate type="Path">
+										<Value>www\plugins\com.phonegap.plugins.PushPlugin\src\windows8\PushPluginProxy.js</Value>
+									</Candidate>
+								</NamedResource>
+							</ResourceMapSubtree>
+						</ResourceMapSubtree>
 						<ResourceMapSubtree name="www">
 							<NamedResource name="PushNotification.js" uri="ms-resource://3312ADB7.MoodleMobile/Files/www/plugins/com.phonegap.plugins.PushPlugin/www/PushNotification.js">
 								<Candidate type="Path">
@@ -1198,6 +1311,38 @@
 							</Candidate>
 						</NamedResource>
 					</ResourceMapSubtree>
+					<ResourceMapSubtree name="forum">
+						<NamedResource name="attachments.html" uri="ms-resource://3312ADB7.MoodleMobile/Files/www/plugins/forum/attachments.html">
+							<Candidate type="Path">
+								<Value>www\plugins\forum\attachments.html</Value>
+							</Candidate>
+						</NamedResource>
+						<NamedResource name="discussion.html" uri="ms-resource://3312ADB7.MoodleMobile/Files/www/plugins/forum/discussion.html">
+							<Candidate type="Path">
+								<Value>www\plugins\forum\discussion.html</Value>
+							</Candidate>
+						</NamedResource>
+						<NamedResource name="discussions.html" uri="ms-resource://3312ADB7.MoodleMobile/Files/www/plugins/forum/discussions.html">
+							<Candidate type="Path">
+								<Value>www\plugins\forum\discussions.html</Value>
+							</Candidate>
+						</NamedResource>
+						<NamedResource name="main.js" uri="ms-resource://3312ADB7.MoodleMobile/Files/www/plugins/forum/main.js">
+							<Candidate type="Path">
+								<Value>www\plugins\forum\main.js</Value>
+							</Candidate>
+						</NamedResource>
+						<NamedResource name="view.html" uri="ms-resource://3312ADB7.MoodleMobile/Files/www/plugins/forum/view.html">
+							<Candidate type="Path">
+								<Value>www\plugins\forum\view.html</Value>
+							</Candidate>
+						</NamedResource>
+						<NamedResource name="worker.js" uri="ms-resource://3312ADB7.MoodleMobile/Files/www/plugins/forum/worker.js">
+							<Candidate type="Path">
+								<Value>www\plugins\forum\worker.js</Value>
+							</Candidate>
+						</NamedResource>
+					</ResourceMapSubtree>
 					<ResourceMapSubtree name="grades">
 						<NamedResource name="activities.html" uri="ms-resource://3312ADB7.MoodleMobile/Files/www/plugins/grades/activities.html">
 							<Candidate type="Path">
@@ -1212,6 +1357,18 @@
 						<NamedResource name="main.js" uri="ms-resource://3312ADB7.MoodleMobile/Files/www/plugins/grades/main.js">
 							<Candidate type="Path">
 								<Value>www\plugins\grades\main.js</Value>
+							</Candidate>
+						</NamedResource>
+					</ResourceMapSubtree>
+					<ResourceMapSubtree name="label">
+						<NamedResource name="main.js" uri="ms-resource://3312ADB7.MoodleMobile/Files/www/plugins/label/main.js">
+							<Candidate type="Path">
+								<Value>www\plugins\label\main.js</Value>
+							</Candidate>
+						</NamedResource>
+						<NamedResource name="view.html" uri="ms-resource://3312ADB7.MoodleMobile/Files/www/plugins/label/view.html">
+							<Candidate type="Path">
+								<Value>www\plugins\label\view.html</Value>
 							</Candidate>
 						</NamedResource>
 					</ResourceMapSubtree>
@@ -1231,15 +1388,6 @@
 								<Value>www\plugins\myfiles\main.js</Value>
 							</Candidate>
 						</NamedResource>
-					</ResourceMapSubtree>
-					<ResourceMapSubtree name="net.tunts.webintent">
-						<ResourceMapSubtree name="www">
-							<NamedResource name="webintent.js" uri="ms-resource://3312ADB7.MoodleMobile/Files/www/plugins/net.tunts.webintent/www/webintent.js">
-								<Candidate type="Path">
-									<Value>www\plugins\net.tunts.webintent\www\webintent.js</Value>
-								</Candidate>
-							</NamedResource>
-						</ResourceMapSubtree>
 					</ResourceMapSubtree>
 					<ResourceMapSubtree name="notifications">
 						<NamedResource name="icon.png" uri="ms-resource://3312ADB7.MoodleMobile/Files/www/plugins/notifications/icon.png">
@@ -1280,10 +1428,10 @@
 					</ResourceMapSubtree>
 					<ResourceMapSubtree name="org.apache.cordova.camera">
 						<ResourceMapSubtree name="src">
-							<ResourceMapSubtree name="windows8">
-								<NamedResource name="CameraProxy.js" uri="ms-resource://3312ADB7.MoodleMobile/Files/www/plugins/org.apache.cordova.camera/src/windows8/CameraProxy.js">
+							<ResourceMapSubtree name="windows">
+								<NamedResource name="CameraProxy.js" uri="ms-resource://3312ADB7.MoodleMobile/Files/www/plugins/org.apache.cordova.camera/src/windows/CameraProxy.js">
 									<Candidate type="Path">
-										<Value>www\plugins\org.apache.cordova.camera\src\windows8\CameraProxy.js</Value>
+										<Value>www\plugins\org.apache.cordova.camera\src\windows\CameraProxy.js</Value>
 									</Candidate>
 								</NamedResource>
 							</ResourceMapSubtree>
@@ -1401,24 +1549,6 @@
 							</NamedResource>
 						</ResourceMapSubtree>
 					</ResourceMapSubtree>
-					<ResourceMapSubtree name="org.apache.cordova.dialogs">
-						<ResourceMapSubtree name="src">
-							<ResourceMapSubtree name="windows8">
-								<NamedResource name="NotificationProxy.js" uri="ms-resource://3312ADB7.MoodleMobile/Files/www/plugins/org.apache.cordova.dialogs/src/windows8/NotificationProxy.js">
-									<Candidate type="Path">
-										<Value>www\plugins\org.apache.cordova.dialogs\src\windows8\NotificationProxy.js</Value>
-									</Candidate>
-								</NamedResource>
-							</ResourceMapSubtree>
-						</ResourceMapSubtree>
-						<ResourceMapSubtree name="www">
-							<NamedResource name="notification.js" uri="ms-resource://3312ADB7.MoodleMobile/Files/www/plugins/org.apache.cordova.dialogs/www/notification.js">
-								<Candidate type="Path">
-									<Value>www\plugins\org.apache.cordova.dialogs\www\notification.js</Value>
-								</Candidate>
-							</NamedResource>
-						</ResourceMapSubtree>
-					</ResourceMapSubtree>
 					<ResourceMapSubtree name="org.apache.cordova.file">
 						<ResourceMapSubtree name="src">
 							<ResourceMapSubtree name="windows8">
@@ -1523,6 +1653,15 @@
 						</ResourceMapSubtree>
 					</ResourceMapSubtree>
 					<ResourceMapSubtree name="org.apache.cordova.file-transfer">
+						<ResourceMapSubtree name="src">
+							<ResourceMapSubtree name="windows">
+								<NamedResource name="FileTransferProxy.js" uri="ms-resource://3312ADB7.MoodleMobile/Files/www/plugins/org.apache.cordova.file-transfer/src/windows/FileTransferProxy.js">
+									<Candidate type="Path">
+										<Value>www\plugins\org.apache.cordova.file-transfer\src\windows\FileTransferProxy.js</Value>
+									</Candidate>
+								</NamedResource>
+							</ResourceMapSubtree>
+						</ResourceMapSubtree>
 						<ResourceMapSubtree name="www">
 							<NamedResource name="FileTransfer.js" uri="ms-resource://3312ADB7.MoodleMobile/Files/www/plugins/org.apache.cordova.file-transfer/www/FileTransfer.js">
 								<Candidate type="Path">
@@ -1534,13 +1673,6 @@
 									<Value>www\plugins\org.apache.cordova.file-transfer\www\FileTransferError.js</Value>
 								</Candidate>
 							</NamedResource>
-							<ResourceMapSubtree name="windows8">
-								<NamedResource name="FileTransferProxy.js" uri="ms-resource://3312ADB7.MoodleMobile/Files/www/plugins/org.apache.cordova.file-transfer/www/windows8/FileTransferProxy.js">
-									<Candidate type="Path">
-										<Value>www\plugins\org.apache.cordova.file-transfer\www\windows8\FileTransferProxy.js</Value>
-									</Candidate>
-								</NamedResource>
-							</ResourceMapSubtree>
 						</ResourceMapSubtree>
 					</ResourceMapSubtree>
 					<ResourceMapSubtree name="org.apache.cordova.globalization">
@@ -1688,20 +1820,6 @@
 							</ResourceMapSubtree>
 						</ResourceMapSubtree>
 					</ResourceMapSubtree>
-					<ResourceMapSubtree name="org.chromium.zip">
-						<NamedResource name="zip.js" uri="ms-resource://3312ADB7.MoodleMobile/Files/www/plugins/org.chromium.zip/zip.js">
-							<Candidate type="Path">
-								<Value>www\plugins\org.chromium.zip\zip.js</Value>
-							</Candidate>
-						</NamedResource>
-						<ResourceMapSubtree name="tests">
-							<NamedResource name="tests.js" uri="ms-resource://3312ADB7.MoodleMobile/Files/www/plugins/org.chromium.zip/tests/tests.js">
-								<Candidate type="Path">
-									<Value>www\plugins\org.chromium.zip\tests\tests.js</Value>
-								</Candidate>
-							</NamedResource>
-						</ResourceMapSubtree>
-					</ResourceMapSubtree>
 					<ResourceMapSubtree name="participants">
 						<NamedResource name="main.js" uri="ms-resource://3312ADB7.MoodleMobile/Files/www/plugins/participants/main.js">
 							<Candidate type="Path">
@@ -1735,6 +1853,18 @@
 						<NamedResource name="main.js" uri="ms-resource://3312ADB7.MoodleMobile/Files/www/plugins/upload/main.js">
 							<Candidate type="Path">
 								<Value>www\plugins\upload\main.js</Value>
+							</Candidate>
+						</NamedResource>
+					</ResourceMapSubtree>
+					<ResourceMapSubtree name="url">
+						<NamedResource name="main.js" uri="ms-resource://3312ADB7.MoodleMobile/Files/www/plugins/url/main.js">
+							<Candidate type="Path">
+								<Value>www\plugins\url\main.js</Value>
+							</Candidate>
+						</NamedResource>
+						<NamedResource name="view.html" uri="ms-resource://3312ADB7.MoodleMobile/Files/www/plugins/url/view.html">
+							<Candidate type="Path">
+								<Value>www\plugins\url\view.html</Value>
 							</Candidate>
 						</NamedResource>
 					</ResourceMapSubtree>

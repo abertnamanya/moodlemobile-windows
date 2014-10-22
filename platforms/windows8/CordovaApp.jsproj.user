@@ -6,18 +6,20 @@
   </PropertyGroup>
   <PropertyGroup>
     <ReferenceCachePath>C:\Users\Dani\AppData\Local\Temp\31z5fmfj_CordovaApp_refcache</ReferenceCachePath>
-    <AutoRefresh>true</AutoRefresh>
+    <AutoRefresh>false</AutoRefresh>
     <ShowAllFiles>true</ShowAllFiles>
     <AppxPackageIsForStore>False</AppxPackageIsForStore>
     <AppxShowAllApps>False</AppxShowAllApps>
     <AppxBuildConfigurationSelection>neutral</AppxBuildConfigurationSelection>
-    <RemoteMachine0>192.168.1.136:4018 %28surface%29</RemoteMachine0>
+    <RemoteMachine0>surface</RemoteMachine0>
     <UseAuthentication0>True</UseAuthentication0>
     <RemoteMachine1>192.168.1.138:4018 %28surface%29</RemoteMachine1>
     <UseAuthentication1>True</UseAuthentication1>
+    <RemoteMachine2>192.168.1.136:4018 %28surface%29</RemoteMachine2>
+    <UseAuthentication2>True</UseAuthentication2>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DebuggerFlavor>AppHostLocalDebugger</DebuggerFlavor>
+    <DebuggerFlavor>AppHostSimulatorDebugger</DebuggerFlavor>
     <MachineName>surface</MachineName>
   </PropertyGroup>
 </Project>

@@ -211,8 +211,6 @@ define(templates, function (filesTpl) {
             filename = decodeURIComponent(filename);
             filename = filename.replace(" ", "_");
 
-            
-
             if (MM.deviceOS == 'windows8') {
                 var directory = siteId + "\\files\\" + linkId;
                 directory = directory.replace("/", "\\");
@@ -222,8 +220,6 @@ define(templates, function (filesTpl) {
                 var directory = siteId + "/files/" + linkId;
                 var filePath = directory + "/" + filename;
             }
-
-
 
             MM.fs.init(function() {
                 if (MM.deviceConnected()) {
@@ -250,7 +246,7 @@ define(templates, function (filesTpl) {
                                     site: siteId,
                                     localpath: fullpath
                                 };
-                                MM.db.insert("files", file);
+                               MM.db.insert("files", file);
 
                                 $(downCssId).remove();
                                 $(linkCssId).attr("href", fullpath);

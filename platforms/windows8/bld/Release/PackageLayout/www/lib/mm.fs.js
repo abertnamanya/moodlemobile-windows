@@ -30,28 +30,28 @@ MM.fs = {
     basePath: '',
     defaultSize: 0,
 
-    init: function(callBack) {
+    init: function (callBack) {
         MM.log('Loading File System', 'FS');
 
         // This means that or Cordova or the emulator are not yet loaded, so we must delay this.
-        if (typeof(LocalFileSystem) == "undefined") {
+        if (typeof (LocalFileSystem) == "undefined") {
             MM.log("LocalFileSystem not defined yet", "FS");
-            setTimeout(function() {
+            setTimeout(function () {
                 MM.fs.init(callBack);
             }, 5000);
             return;
         }
 
-        if( MM.getOS() == 'android' && typeof(MM.config.app_id) == "undefined" ){
+        if (MM.getOS() == 'android' && typeof (MM.config.app_id) == "undefined") {
             MM.log("MM.config not defined yet", "FS");
-            setTimeout(function() {
+            setTimeout(function () {
                 MM.fs.init(callBack);
             }, 2000);
             return;
         }
 
         if (!callBack) {
-            callBack = function() {};
+            callBack = function () { };
         }
 
         if (MM.fs.loaded()) {
@@ -62,23 +62,23 @@ MM.fs = {
         }
 
         if (MM.getOS() == 'android') {
-            MM.fs.basePath = 'Android/data/'+MM.config.app_id;
+            MM.fs.basePath = 'Android/data/' + MM.config.app_id;
         }
 
         MM.fs.loadFS(callBack);
     },
 
-    loaded: function() {
-        return typeof(MM.fs.fileSystemRoot) != 'undefined';
+    loaded: function () {
+        return typeof (MM.fs.fileSystemRoot) != 'undefined';
     },
 
-    getRoot: function() {
+    getRoot: function () {
 
         if (!MM.fs.fileSystemRoot) {
             MM.fs.loadFS(function () {
                 MM.fs.entryURL(MM.fs.fileSystemRoot);
             });
-        }else{
+        } else {
             var path = MM.fs.entryURL(MM.fs.fileSystemRoot);
             // Android 4.2 and onwards
             //path = path.replace("storage/emulated/0", "sdcard");
@@ -87,19 +87,19 @@ MM.fs = {
 
     },
 
-    loadFS: function(callBack) {
+    loadFS: function (callBack) {
         window.requestFileSystem(LocalFileSystem.PERSISTENT, MM.fs.defaultSize,
-            function(fileSystem) {
+            function (fileSystem) {
                 MM.log("FileSystem quota: " + MM.fs.defaultSize, "FS");
                 MM.fs.fileSystemRoot = fileSystem.root;
                 if (MM.fs.basePath) {
                     MM.fs.fileSystemRoot.getDirectory(
-                        MM.fs.basePath, {create: true, exclusive: false},
-                        function(entry) {
+                        MM.fs.basePath, { create: true, exclusive: false },
+                        function (entry) {
                             MM.fs.fileSystemRoot = entry;
                             callBack();
                         },
-                        function(err) {
+                        function (err) {
                             var msg = 'Critical error accessing file system, directory ' + MM.fs.basePath + ' can\'t be created';
                             MM.log(msg);
                             if (err) {
@@ -111,22 +111,22 @@ MM.fs = {
                 } else {
                     callBack();
                 }
-            }, function() {
+            }, function () {
                 MM.popErrorMessage('Critical error accessing file system');
             }
        );
     },
 
-    fileExists: function(path, successCallback, errorCallback) {
-        var directory = path.substring(0, path.lastIndexOf('/') );
+    fileExists: function (path, successCallback, errorCallback) {
+        var directory = path.substring(0, path.lastIndexOf('/'));
         var filename = path.substr(path.lastIndexOf('/') + 1);
         MM.fs.fileSystemRoot.getDirectory(
             directory,
             { create: false },
-            function(entry) {
+            function (entry) {
                 entry.getFile(
                     filename, { create: false },
-                    function(entryFile) {
+                    function (entryFile) {
                         successCallback(MM.fs.entryURL(entryFile));
                     },
                     errorCallback
@@ -136,7 +136,7 @@ MM.fs = {
         );
     },
 
-    createDir: function(path, successCallback, dirEntry) {
+    createDir: function (path, successCallback, dirEntry) {
         path = path.replace('file:///', '');
         MM.log('FS: Creating full directory ' + path);
 
@@ -150,8 +150,8 @@ MM.fs = {
         MM.log('FS: Creating directory ' + paths[0] + 'in' + MM.fs.entryURL(baseRoot));
         baseRoot.getDirectory(
             paths[0],
-            {create: true, exclusive: false},
-            function(newDirEntry) {
+            { create: true, exclusive: false },
+            function (newDirEntry) {
                 if (paths.length == 1) {
                     successCallback(newDirEntry);
                     return;
@@ -160,7 +160,7 @@ MM.fs = {
                 paths.shift();
                 MM.fs.createDir(paths.join('/'), successCallback, newDirEntry);
             },
-            function(err) {
+            function (err) {
                 MM.popErrorMessage('Critical error creating directory: ' + paths[0]);
                 if (err) {
                     MM.log("Error dump", "FS");
@@ -176,7 +176,7 @@ MM.fs = {
      * @param  {object} successCallback Success callback function
      * @param  {object} errorCallback   Error callback function
      */
-    removeDirectory: function(path, successCallback, errorCallback) {
+    removeDirectory: function (path, successCallback, errorCallback) {
         MM.log('FS: Removing full directory ' + path);
 
         var baseRoot = MM.fs.fileSystemRoot;
@@ -186,8 +186,8 @@ MM.fs = {
         }
         baseRoot.getDirectory(
             path,
-            {create: false, exclusive: false},
-            function(dirEntry) {
+            { create: false, exclusive: false },
+            function (dirEntry) {
                 dirEntry.removeRecursively(successCallback, errorCallback);
             },
             errorCallback
@@ -202,30 +202,30 @@ MM.fs = {
      * @param  {[type]} successCallback     Success Callback
      * @param  {[type]} errorCallback       Error Callback
      */
-    directorySize: function(path, successCallback, errorCallback) {
+    directorySize: function (path, successCallback, errorCallback) {
         var baseRoot = MM.fs.fileSystemRoot;
         var fileCounter = 1;    // Are files sizes pending to be retrieved?
         var totalSize = 0;      // Total size of files.
         var running = 0;        // There are async calls pending?
         var directoryReader;
 
-        MM.log('Calculating directory size: ' + path , 'FS');
-        var sizeHelper = function(entry) {
+        MM.log('Calculating directory size: ' + path, 'FS');
+        var sizeHelper = function (entry) {
             if (entry.isDirectory) {
                 fileCounter--;
                 running++;
                 directoryReader = entry.createReader();
-                directoryReader.readEntries(function(entries) {
+                directoryReader.readEntries(function (entries) {
                     running--;
                     fileCounter += entries.length;
                     var i;
-                    for (i=0; i<entries.length; i++) {
+                    for (i = 0; i < entries.length; i++) {
                         sizeHelper(entries[i]);
                     }
                 }, errorCallback);
             } else if (entry.isFile) {
                 entry.file(
-                    function(file) {
+                    function (file) {
                         totalSize += file.size;
                         fileCounter--;
                         if (!fileCounter && !running) {
@@ -233,7 +233,7 @@ MM.fs = {
                             successCallback(totalSize);
                         }
                     },
-                    function() {
+                    function () {
                         fileCounter--;
                         if (!fileCounter && !running) {
                             MM.log('Directory size for: ' + path + ' is ' + totalSize + ' bytes', 'FS');
@@ -248,11 +248,11 @@ MM.fs = {
         if (baseRoot) {
             baseRoot.getDirectory(
                 path,
-                {create: false},
-                function(entry) {
+                { create: false },
+                function (entry) {
                     sizeHelper(entry);
                 },
-                function() {
+                function () {
                     errorCallback();
                 }
             );
@@ -269,14 +269,14 @@ MM.fs = {
      * @param  {[type]} successCallback     Success Callback
      * @param  {[type]} errorCallback       Error Callback
      */
-    getDirectoryContents: function(path, successCallback, errorCallback) {
+    getDirectoryContents: function (path, successCallback, errorCallback) {
         var baseRoot = MM.fs.fileSystemRoot;
         var directoryReader;
 
-        MM.log('Reading directory contents: ' + path , 'FS');
-        var contentsHelper = function(entry) {
+        MM.log('Reading directory contents: ' + path, 'FS');
+        var contentsHelper = function (entry) {
             directoryReader = entry.createReader();
-            directoryReader.readEntries(function(entries) {
+            directoryReader.readEntries(function (entries) {
                 successCallback(entries);
             }, errorCallback);
         };
@@ -284,12 +284,12 @@ MM.fs = {
         if (baseRoot) {
             baseRoot.getDirectory(
                 path,
-                {create: false},
-                function(entry) {
+                { create: false },
+                function (entry) {
                     contentsHelper(entry);
                 },
-                function() {
-                    MM.log('Directory doesn\'t exist: ' + path , 'FS');
+                function () {
+                    MM.log('Directory doesn\'t exist: ' + path, 'FS');
                     errorCallback();
                 }
             );
@@ -307,15 +307,15 @@ MM.fs = {
      * @param  {object} errorCallback   Error Callback
      * @return {float}                  The estimated free space in bytes
      */
-    calculateFreeSpace: function(callBack, errorCallback) {
+    calculateFreeSpace: function (callBack, errorCallback) {
 
         var tooMuch = false;
         var tooLessCounter = 0;
         var iterations = 50;
 
-        calculateByRequest = function(size, ratio, iterations, callBack) {
+        calculateByRequest = function (size, ratio, iterations, callBack) {
             window.requestFileSystem(LocalFileSystem.PERSISTENT, size,
-                function() {
+                function () {
 
                     tooLessCounter++;
 
@@ -329,7 +329,7 @@ MM.fs = {
                     }
                     calculateByRequest(size * ratio, ratio, iterations, callBack);
                 },
-                function() {
+                function () {
                     tooMuch = true;
                     calculateByRequest(size / ratio, ratio, iterations, callBack);
                 }
@@ -338,7 +338,7 @@ MM.fs = {
 
         if (window.requestFileSystem) {
             // General calculation, base 1MB and increasing factor 1.3.
-            calculateByRequest(1048576, 1.3, iterations, function(size) {
+            calculateByRequest(1048576, 1.3, iterations, function (size) {
                 tooMuch = false;
                 tooLessCounter = 0;
                 iterations = 10;
@@ -355,8 +355,8 @@ MM.fs = {
      * @param  {object} entry File/Directory entry
      * @return {string}       URL for the file
      */
-    entryURL: function(entry) {
-        if (typeof(entry.toNativeURL) == "function") {
+    entryURL: function (entry) {
+        if (typeof (entry.toNativeURL) == "function") {
             return entry.toNativeURL();
         } else {
             return entry.toURL();

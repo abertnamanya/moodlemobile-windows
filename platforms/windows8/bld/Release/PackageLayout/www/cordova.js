@@ -1260,7 +1260,7 @@ module.exports = {
         };
 
         if (!window.WinJS) {
-            // <script src="//Microsoft.WinJS.2.0/js/base.js"></script>
+            // <script src="//Microsoft.WinJS.1.0/js/base.js"></script>
             var scriptElem = document.createElement("script");
             if (navigator.appVersion.indexOf("MSAppHost/2.0;") > -1) {
                 // windows 8.1 + IE 11
@@ -1268,7 +1268,7 @@ module.exports = {
             }
             else {
                 // windows 8.0 + IE 10
-                scriptElem.src = "//Microsoft.WinJS.2.0/js/base.js";
+                scriptElem.src = "//Microsoft.WinJS.1.0/js/base.js";
             }
             scriptElem.addEventListener("load", onWinJSReady);
             document.head.appendChild(scriptElem);

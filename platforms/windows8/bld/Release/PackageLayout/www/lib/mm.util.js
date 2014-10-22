@@ -37,7 +37,7 @@ MM.util = {
      * @returns {boolean} True if supports touch events
      */
     isTouchDevice: function() {
-        if ('ontouchstart' in window || document.ontouchstart || window.ontouchstart) {
+       /* if ('ontouchstart' in window || document.ontouchstart || window.ontouchstart) {
             return true;
         }
 
@@ -46,7 +46,7 @@ MM.util = {
             return true;
         } catch (e) {
             return false;
-        }
+        }*/
 
         return false;
     },
@@ -57,10 +57,10 @@ MM.util = {
      * @returns {Boolean} True if supported
      */
     overflowScrollingSupported: function() {
-        return ('WebkitOverflowScrolling' in document.body.style
-            || 'webkitOverflowScrolling' in document.body.style
-            || 'webkitOverflowScrolling' in document.documentElement.style
-            || 'WebkitOverflowScrolling' in document.documentElement.style);
+        return ('WebkitOverflowScrolling' in document.body.style ||
+            'webkitOverflowScrolling' in document.body.style ||
+            'webkitOverflowScrolling' in document.documentElement.style ||
+            'WebkitOverflowScrolling' in document.documentElement.style);
     },
 
     /**
@@ -144,7 +144,7 @@ MM.util = {
      */
     formatText: function (text, clean, courseId) {
         // Links should open in new browser.
-        text = text.replace(/<a([^>]+)>/g,"<a target=\"_blank\" $1>");;
+        text = text.replace(/<a([^>]+)>/g,"<a target=\"_blank\" $1>");
 
         // Multilang tags
         // Match the current language
@@ -234,12 +234,18 @@ MM.util = {
     },
 
     /**
-     * This function downloads a file from Moodle if
+     * This function downloads a file from Moodle if the file is already downloaded the function replaces the www reference with
+     * the internal file system reference
      *
      * @param  {string} file The file path (usually a url)
      * @return {string}      A local or URL path
      */
     getMoodleFilePath: function (fileurl, courseId, siteId, token) {
+
+        // This function is used in regexp callbacks, better not to risk!!
+        if (!fileurl) {
+            return '';
+        }
 
         if (!courseId) {
             courseId = 1;
@@ -469,5 +475,171 @@ MM.util = {
         var dataView = new DataView(arrayBuffer);
         var blob = new Blob([dataView], { type: mimeString });
         return blob;
+    },
+
+    /**
+     * Format nicely time "X day month year.. ago"
+     * Credits: http://stackoverflow.com/questions/3177836/how-to-format-time-since-xxx-e-g-4-minutes-ago-similar-to-stack-exchange-site
+     *
+     * @param  {Number} date UNIX timestamp (in seconds)
+     * @return {String}      The time nicely formatted
+     */
+    printTimeAgo: function(date) {
+        // Convert to javascript timestamp (millisecs)
+        date *= 1000;
+        var seconds = Math.floor((new Date() - date) / 1000);
+
+        var intervalType;
+
+        var interval = Math.floor(seconds / 31536000);
+        if (interval >= 1) {
+            intervalType = 'years';
+        } else {
+            interval = Math.floor(seconds / 2592000);
+            if (interval >= 1) {
+                intervalType = 'months';
+            } else {
+                interval = Math.floor(seconds / 86400);
+                if (interval >= 1) {
+                    intervalType = 'days';
+                } else {
+                    interval = Math.floor(seconds / 3600);
+                    if (interval >= 1) {
+                        intervalType = "hours";
+                    } else {
+                        interval = Math.floor(seconds / 60);
+                        if (interval >= 1) {
+                            intervalType = "minutes";
+                        } else {
+                            interval = seconds;
+                            intervalType = "seconds";
+                        }
+                    }
+                }
+            }
+        }
+
+        return interval + " " + MM.lang.s(intervalType).toLowerCase();
+    },
+
+    pagingBar: function(count, page, perPage, baseURL, pageVar) {
+        var pageLinks = [];
+        var firstLink, lastLink, nextLink, link, previousLink, currPage;
+
+        // Force integer numbers.
+        count = parseInt(count, 10);
+        page = parseInt(page, 10);
+        perPage = parseInt(perPage, 10);
+
+        // Max number of links to be displayed.
+        var maxDisplay = 10;
+        if (MM.deviceType == 'tablet') {
+            maxDisplay = 18;
+        }
+
+        if (count > perPage) {
+            var pageNum = page - 1;
+
+            if (page > 0) {
+                link = baseURL.replace(pageVar, pageNum);
+                previousLink = '<a href="' + link + '" class="previous">' + MM.lang.s("previous") + '</a>';
+            }
+
+            if (perPage > 0) {
+                lastPage = Math.ceil(count / perPage);
+            } else {
+                lastPage = 1;
+            }
+
+            if (page > Math.round((maxDisplay/3)*2)) {
+                currPage = page - Math.round(maxDisplay/3);
+                link = baseURL.replace(pageVar, 0);
+                firstLink = '<a href="' + link + '" class="first">1</a>';
+            } else {
+                currPage = 0;
+            }
+
+            var displayCount = 0;
+            var displayPage = 0;
+
+            while (displayCount < maxDisplay && currPage < lastPage) {
+                displayPage = currPage + 1;
+
+                if (page == currPage) {
+                    pageLinks.push('<span class="current">' + displayPage + '</span>');
+                } else {
+                    link = baseURL.replace(pageVar, currPage);
+                    pageLinks.push('<a href="' + link + '">' + displayPage + '</a>');
+                }
+
+                displayCount++;
+                currPage++;
+            }
+
+            if (currPage < lastPage) {
+                var lastPageActual = lastPage - 1;
+                link = baseURL.replace(pageVar, lastPageActual);
+                lastLink = '<a href="' + link + '" class="last">' + lastPage + '</a>';
+            }
+
+            pageNum = page + 1;
+
+            if (pageNum != displayPage) {
+                link = baseURL.replace(pageVar, pageNum);
+                nextLink = '<a href="' + link + '" class="next">' + MM.lang.s("next") + '</a>';
+            }
+
+            var html = '<div class="paging-bar">';
+
+            if (previousLink) {
+                html += '&#160;(' + previousLink + ')&#160;';
+            }
+
+            if (firstLink) {
+                html += '&#160;' + firstLink + '&#160;...';
+            }
+
+            _.each(pageLinks, function(link) {
+                html += '&#160;&#160;' + link;
+            });
+
+            if (lastLink) {
+                html += '&#160;...' + lastLink + '&#160;';
+            }
+
+            if (nextLink) {
+                html += '&#160;&#160;(' + nextLink + ')';
+            }
+
+            html += '</div>';
+            return html;
+        }
+    },
+
+    inEmulatedSite: function() {
+        if (MM.siteurl == "mmtest" ||
+                (MM.config.current_site && MM.config.current_site.siteurl.indexOf("emulator/index.html") > -1)) {
+            return true;
+        }
+        return false;
+    },
+
+    /**
+     * Detects if the device support WebWorkers
+     * @return {Boolean} True if the device supports it
+     */
+    WebWorkersSupported: function() {
+        // The build-in test site doesn't support WebWorkers.
+        if (MM.util.inEmulatedSite() || MM.deviceOS == 'windows8') {
+            return false;
+        }
+
+        // WebWorkers needs CORS enabled at the Moodle site, only the plugin local_mobile currently support it.
+        // We check if the local_mobile plugin installed at the Modole site supports CORS checking this funciton.
+        if (!MM.util.wsAvailable('local_mobile_mod_forum_get_forum_discussions_paginated')) {
+            return false;
+        }
+
+        return !!window.Worker && !!window.URL;
     }
 };

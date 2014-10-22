@@ -597,14 +597,50 @@ define(templates,function (sectionsTpl, contentsTpl, folderTpl, mimeTypes) {
 
             // We store in the sdcard the contents in site/course/modname/id/contentIndex/filename
 
-            if (MM.deviceOS == 'windows8') {
-                var path = MM.config.current_site.id + "\\" + courseId + "\\" + modId;
-                var newfile = path + "\\" + filename;
-            }else{
-                var path = MM.config.current_site.id + "/" + courseId + "/" + modId;
-                var newfile = path + "/" + filename;
-            }
+            // Check if the file is in a Moodle virtual directory.
 
+            switch (MM.deviceOS) {
+                case "windows8":
+
+                    var path = MM.config.current_site.id + "\\" + courseId + "\\" + modId;
+
+                    if (file.filepath) {
+                        path += file.filepath;
+                        newfile = path + filename;
+                    } else {
+                        newfile = path + "\\" + filename;
+                    }
+                    
+                    path = path.replace("/", "\\");
+                    newfile = newfile.replace("/", "\\");
+
+                    break;
+                case "wp8":
+                    // Fix the paths
+                    var path = '//' + MM.config.current_site.id + "/" + courseId + "/" + modId;
+                    path = path.replace('////', '//');
+
+                    if (file.filepath) {
+                        path += file.filepath;
+                        newfile = path + filename;
+                    } else {
+                        newfile = path + "/" + filename;
+                    }
+
+                    break;
+                default:
+
+                    var path = MM.config.current_site.id + "/" + courseId + "/" + modId;
+
+                    if (file.filepath) {
+                        path += file.filepath;
+                        newfile = path + filename;
+                    } else {
+                        newfile = path + "/" + filename;
+                    }
+
+                    break;
+            }
             return {
                 directory: path,
                 file: newfile

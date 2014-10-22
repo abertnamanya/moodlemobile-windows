@@ -118,6 +118,9 @@ Powershell -ExecutionPolicy RemoteSigned Unblock-File '$(ProjectDir)\cordova\lib
     <Content Include="www\emulator\local_mobile_core_grades_get_grades.json" />
     <Content Include="www\emulator\local_mobile_core_message_get_messages.json" />
     <Content Include="www\emulator\local_mobile_core_user_add_user_device.json" />
+    <Content Include="www\emulator\local_mobile_mod_forum_get_forums_by_courses.json" />
+    <Content Include="www\emulator\local_mobile_mod_forum_get_forum_discussions_paginated.json" />
+    <Content Include="www\emulator\local_mobile_mod_forum_get_forum_discussion_posts.json" />
     <Content Include="www\emulator\moodle_enrol_get_users_courses.json" />
     <Content Include="www\emulator\moodle_user_get_course_participants_by_id.json" />
     <Content Include="www\emulator\moodle_user_get_users_by_courseid.json" />
@@ -195,6 +198,10 @@ Powershell -ExecutionPolicy RemoteSigned Unblock-File '$(ProjectDir)\cordova\lib
     <Content Include="www\img\download.png" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="www\img\event-course.png" />
+    <Content Include="www\img\event-group.png" />
+    <Content Include="www\img\event-site.png" />
+    <Content Include="www\img\event-user.png" />
     <Content Include="www\img\expand.png" />
   </ItemGroup>
   <ItemGroup>
@@ -420,6 +427,11 @@ Powershell -ExecutionPolicy RemoteSigned Unblock-File '$(ProjectDir)\cordova\lib
     <Content Include="www\img\icon\ios\icon-76.png" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="www\img\icon\w8\icon-150.png" />
+    <Content Include="www\img\icon\w8\icon-30.png" />
+    <Content Include="www\img\icon\w8\icon-50.png" />
+    <Content Include="www\img\icon\wp8\icon-173.png" />
+    <Content Include="www\img\icon\wp8\icon-62.png" />
     <Content Include="www\img\info.png" />
   </ItemGroup>
   <ItemGroup>
@@ -447,6 +459,7 @@ Powershell -ExecutionPolicy RemoteSigned Unblock-File '$(ProjectDir)\cordova\lib
     <Content Include="www\img\menu-back.png" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="www\img\message.png" />
     <Content Include="www\img\mod\assign.png" />
   </ItemGroup>
   <ItemGroup>
@@ -573,6 +586,8 @@ Powershell -ExecutionPolicy RemoteSigned Unblock-File '$(ProjectDir)\cordova\lib
     <Content Include="www\img\splash\ios\iphone_retina_portrait.png" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="www\img\time.png" />
+    <Content Include="www\img\userimage.png" />
     <Content Include="www\img\website.png" />
   </ItemGroup>
   <ItemGroup>
@@ -603,21 +618,25 @@ Powershell -ExecutionPolicy RemoteSigned Unblock-File '$(ProjectDir)\cordova\lib
     <Content Include="www\lang\eu.json" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="www\lang\fa.json" />
     <Content Include="www\lang\fr.json" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="www\lang\he.json" />
     <Content Include="www\lang\hu.json" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="www\lang\it.json" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="www\lang\ja.json" />
     <Content Include="www\lang\nl.json" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="www\lang\pt_br.json" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="www\lang\ru.json" />
     <Content Include="www\lang\sv.json" />
   </ItemGroup>
   <ItemGroup>
@@ -674,11 +693,13 @@ Powershell -ExecutionPolicy RemoteSigned Unblock-File '$(ProjectDir)\cordova\lib
     <Content Include="www\lib\scroll.js" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="www\lib\worker.js" />
     <Content Include="www\package.json" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="www\plugins\addcontact\main.js" />
     <Content Include="www\plugins\addnote\main.js" />
+    <Content Include="www\plugins\com.phonegap.plugins.PushPlugin\src\windows8\PushPluginProxy.js" />
     <Content Include="www\plugins\com.phonegap.plugins.PushPlugin\www\PushNotification.js" />
     <Content Include="www\plugins\contents\contents.html" />
     <Content Include="www\plugins\contents\folder.html" />
@@ -689,13 +710,20 @@ Powershell -ExecutionPolicy RemoteSigned Unblock-File '$(ProjectDir)\cordova\lib
     <Content Include="www\plugins\events\events.html" />
     <Content Include="www\plugins\events\icon.png" />
     <Content Include="www\plugins\events\main.js" />
+    <Content Include="www\plugins\forum\attachments.html" />
+    <Content Include="www\plugins\forum\discussion.html" />
+    <Content Include="www\plugins\forum\discussions.html" />
+    <Content Include="www\plugins\forum\main.js" />
+    <Content Include="www\plugins\forum\view.html" />
+    <Content Include="www\plugins\forum\worker.js" />
     <Content Include="www\plugins\grades\activities.html" />
     <Content Include="www\plugins\grades\activities_total.html" />
     <Content Include="www\plugins\grades\main.js" />
+    <Content Include="www\plugins\label\main.js" />
+    <Content Include="www\plugins\label\view.html" />
     <Content Include="www\plugins\myfiles\files.html" />
     <Content Include="www\plugins\myfiles\icon.png" />
     <Content Include="www\plugins\myfiles\main.js" />
-    <Content Include="www\plugins\net.tunts.webintent\www\webintent.js" />
     <Content Include="www\plugins\notifications\icon.png" />
     <Content Include="www\plugins\notifications\main.js" />
     <Content Include="www\plugins\notifications\notification.html" />
@@ -703,7 +731,7 @@ Powershell -ExecutionPolicy RemoteSigned Unblock-File '$(ProjectDir)\cordova\lib
     <Content Include="www\plugins\notifications\notifications_enable.html" />
     <Content Include="www\plugins\notifications\notifications_full.html" />
     <Content Include="www\plugins\notifications\notification_alert.html" />
-    <Content Include="www\plugins\org.apache.cordova.camera\src\windows8\CameraProxy.js" />
+    <Content Include="www\plugins\org.apache.cordova.camera\src\windows\CameraProxy.js" />
     <Content Include="www\plugins\org.apache.cordova.camera\www\Camera.js" />
     <Content Include="www\plugins\org.apache.cordova.camera\www\CameraConstants.js" />
     <Content Include="www\plugins\org.apache.cordova.camera\www\CameraPopoverHandle.js" />
@@ -722,11 +750,9 @@ Powershell -ExecutionPolicy RemoteSigned Unblock-File '$(ProjectDir)\cordova\lib
     <Content Include="www\plugins\org.apache.cordova.contacts\www\contacts.js" />
     <Content Include="www\plugins\org.apache.cordova.device\src\windows8\DeviceProxy.js" />
     <Content Include="www\plugins\org.apache.cordova.device\www\device.js" />
-    <Content Include="www\plugins\org.apache.cordova.dialogs\src\windows8\NotificationProxy.js" />
-    <Content Include="www\plugins\org.apache.cordova.dialogs\www\notification.js" />
+    <Content Include="www\plugins\org.apache.cordova.file-transfer\src\windows\FileTransferProxy.js" />
     <Content Include="www\plugins\org.apache.cordova.file-transfer\www\FileTransfer.js" />
     <Content Include="www\plugins\org.apache.cordova.file-transfer\www\FileTransferError.js" />
-    <Content Include="www\plugins\org.apache.cordova.file-transfer\www\windows8\FileTransferProxy.js" />
     <Content Include="www\plugins\org.apache.cordova.file\src\windows8\FileProxy.js" />
     <Content Include="www\plugins\org.apache.cordova.file\www\DirectoryEntry.js" />
     <Content Include="www\plugins\org.apache.cordova.file\www\DirectoryReader.js" />
@@ -767,14 +793,14 @@ Powershell -ExecutionPolicy RemoteSigned Unblock-File '$(ProjectDir)\cordova\lib
     <Content Include="www\plugins\org.apache.cordova.network-information\www\network.js" />
     <Content Include="www\plugins\org.apache.cordova.splashscreen\www\splashscreen.js" />
     <Content Include="www\plugins\org.apache.cordova.splashscreen\www\windows8\SplashScreenProxy.js" />
-    <Content Include="www\plugins\org.chromium.zip\tests\tests.js" />
-    <Content Include="www\plugins\org.chromium.zip\zip.js" />
     <Content Include="www\plugins\participants\main.js" />
     <Content Include="www\plugins\participants\participant.html" />
     <Content Include="www\plugins\participants\participants.html" />
     <Content Include="www\plugins\sendmessage\main.js" />
     <Content Include="www\plugins\upload\icon.png" />
     <Content Include="www\plugins\upload\main.js" />
+    <Content Include="www\plugins\url\main.js" />
+    <Content Include="www\plugins\url\view.html" />
     <Content Include="www\README.md" />
     <Content Include="www\reset.html" />
   </ItemGroup>

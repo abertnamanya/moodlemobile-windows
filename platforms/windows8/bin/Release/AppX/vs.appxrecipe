@@ -8,19 +8,19 @@
     <PackageArchitecture>neutral</PackageArchitecture>
     <PackageIdentityName>3312ADB7.MoodleMobile</PackageIdentityName>
     <IntermediateOutputPath>C:\Users\Dani\Development\MM\platforms\windows8\bld\Release\</IntermediateOutputPath>
-    <RegisteredManifestChecksum>9CF22B7FEE7A1E22A2316AE065DDE7303A7870A396EDEA4C2254B9D62B57EEF9</RegisteredManifestChecksum>
-    <RegisteredPackageMoniker>3312ADB7.MoodleMobile_1.6.1.17_neutral__t8q4t8fsbshw4</RegisteredPackageMoniker>
+    <RegisteredManifestChecksum>50F1B8F6333C949525EFD14540CE030906760E2BEE5EE89D1A0F7C3C9E910AE2</RegisteredManifestChecksum>
+    <RegisteredPackageMoniker>3312ADB7.MoodleMobile_0.0.1.7_neutral__t8q4t8fsbshw4</RegisteredPackageMoniker>
     <RegisteredUserModeAppID>3312ADB7.MoodleMobile_t8q4t8fsbshw4!com.mm.moodlemobile</RegisteredUserModeAppID>
     <RegisteredPackageID>3312ADB7.MoodleMobile</RegisteredPackageID>
     <RegisteredPackagePublisher>CN=33CDCDF6-1EB5-4827-9897-ED25C91A32F6</RegisteredPackagePublisher>
-    <RegisteredVersion>1.6.1.17</RegisteredVersion>
+    <RegisteredVersion>0.0.1.7</RegisteredVersion>
     <JitOptimizationSuppressed>True</JitOptimizationSuppressed>
   </PropertyGroup>
   <ItemGroup>
     <AppXManifest Include="C:\Users\Dani\Development\MM\platforms\windows8\bin\Release\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2014-09-22T11:15:22.635</Modified>
+      <Modified>2014-10-21T10:06:50.557</Modified>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
@@ -93,6 +93,22 @@
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\img\download.png">
       <PackagePath>www\img\download.png</PackagePath>
       <Modified>2014-07-08T12:07:49.577</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\img\event-course.png">
+      <PackagePath>www\img\event-course.png</PackagePath>
+      <Modified>2014-08-05T13:30:36.499</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\img\event-group.png">
+      <PackagePath>www\img\event-group.png</PackagePath>
+      <Modified>2014-08-05T13:30:36.502</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\img\event-site.png">
+      <PackagePath>www\img\event-site.png</PackagePath>
+      <Modified>2014-08-05T13:30:36.504</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\img\event-user.png">
+      <PackagePath>www\img\event-user.png</PackagePath>
+      <Modified>2014-08-05T13:30:36.507</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\img\expand.png">
       <PackagePath>www\img\expand.png</PackagePath>
@@ -382,6 +398,26 @@
       <PackagePath>www\img\icon\ios\icon-76.png</PackagePath>
       <Modified>2014-07-08T12:07:49.779</Modified>
     </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\img\icon\w8\icon-150.png">
+      <PackagePath>www\img\icon\w8\icon-150.png</PackagePath>
+      <Modified>2014-10-02T12:02:46.635</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\img\icon\w8\icon-30.png">
+      <PackagePath>www\img\icon\w8\icon-30.png</PackagePath>
+      <Modified>2014-10-02T12:02:46.637</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\img\icon\w8\icon-50.png">
+      <PackagePath>www\img\icon\w8\icon-50.png</PackagePath>
+      <Modified>2014-10-02T12:02:46.639</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\img\icon\wp8\icon-173.png">
+      <PackagePath>www\img\icon\wp8\icon-173.png</PackagePath>
+      <Modified>2014-10-02T12:02:46.642</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\img\icon\wp8\icon-62.png">
+      <PackagePath>www\img\icon\wp8\icon-62.png</PackagePath>
+      <Modified>2014-10-02T12:02:46.645</Modified>
+    </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\img\info.png">
       <PackagePath>www\img\info.png</PackagePath>
       <Modified>2014-07-08T12:07:49.782</Modified>
@@ -405,6 +441,10 @@
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\img\menu-back.png">
       <PackagePath>www\img\menu-back.png</PackagePath>
       <Modified>2014-07-08T12:07:49.801</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\img\message.png">
+      <PackagePath>www\img\message.png</PackagePath>
+      <Modified>2014-10-02T12:02:46.647</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\img\mod\assign.png">
       <PackagePath>www\img\mod\assign.png</PackagePath>
@@ -570,6 +610,14 @@
       <PackagePath>www\img\splash\ios\iphone_retina_portrait.png</PackagePath>
       <Modified>2014-07-08T12:07:49.996</Modified>
     </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\img\time.png">
+      <PackagePath>www\img\time.png</PackagePath>
+      <Modified>2014-10-02T12:02:46.649</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\img\userimage.png">
+      <PackagePath>www\img\userimage.png</PackagePath>
+      <Modified>2014-10-02T12:02:46.651</Modified>
+    </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\img\website.png">
       <PackagePath>www\img\website.png</PackagePath>
       <Modified>2014-09-15T14:47:11.193</Modified>
@@ -600,7 +648,7 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\config.json">
       <PackagePath>www\config.json</PackagePath>
-      <Modified>2014-09-15T14:47:11.184</Modified>
+      <Modified>2014-10-20T13:40:43.632</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\emulator\core_calendar_get_calendar_events.json">
       <PackagePath>www\emulator\core_calendar_get_calendar_events.json</PackagePath>
@@ -608,7 +656,7 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\emulator\core_course_get_contents.json">
       <PackagePath>www\emulator\core_course_get_contents.json</PackagePath>
-      <Modified>2014-07-11T08:56:56.322</Modified>
+      <Modified>2014-10-02T12:02:46.181</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\emulator\core_get_component_strings.json">
       <PackagePath>www\emulator\core_get_component_strings.json</PackagePath>
@@ -630,6 +678,18 @@
       <PackagePath>www\emulator\local_mobile_core_user_add_user_device.json</PackagePath>
       <Modified>2014-07-11T08:56:56.329</Modified>
     </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\emulator\local_mobile_mod_forum_get_forums_by_courses.json">
+      <PackagePath>www\emulator\local_mobile_mod_forum_get_forums_by_courses.json</PackagePath>
+      <Modified>2014-10-02T12:02:46.206</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\emulator\local_mobile_mod_forum_get_forum_discussions_paginated.json">
+      <PackagePath>www\emulator\local_mobile_mod_forum_get_forum_discussions_paginated.json</PackagePath>
+      <Modified>2014-10-10T13:25:22.191</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\emulator\local_mobile_mod_forum_get_forum_discussion_posts.json">
+      <PackagePath>www\emulator\local_mobile_mod_forum_get_forum_discussion_posts.json</PackagePath>
+      <Modified>2014-10-02T12:02:46.196</Modified>
+    </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\emulator\moodle_enrol_get_users_courses.json">
       <PackagePath>www\emulator\moodle_enrol_get_users_courses.json</PackagePath>
       <Modified>2014-07-11T08:56:56.331</Modified>
@@ -644,67 +704,83 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\emulator\moodle_webservice_get_siteinfo.json">
       <PackagePath>www\emulator\moodle_webservice_get_siteinfo.json</PackagePath>
-      <Modified>2014-08-06T06:23:15.976</Modified>
+      <Modified>2014-10-10T13:25:22.195</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\lang\ar.json">
       <PackagePath>www\lang\ar.json</PackagePath>
-      <Modified>2014-09-15T14:47:11.204</Modified>
+      <Modified>2014-10-10T13:45:55.389</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\lang\ca.json">
       <PackagePath>www\lang\ca.json</PackagePath>
-      <Modified>2014-09-15T14:47:11.213</Modified>
+      <Modified>2014-10-10T13:37:03.516</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\lang\cs.json">
       <PackagePath>www\lang\cs.json</PackagePath>
-      <Modified>2014-09-15T14:47:11.223</Modified>
+      <Modified>2014-10-10T13:37:03.527</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\lang\de.json">
       <PackagePath>www\lang\de.json</PackagePath>
-      <Modified>2014-09-15T15:12:06.070</Modified>
+      <Modified>2014-10-10T14:00:46.145</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\lang\en.json">
       <PackagePath>www\lang\en.json</PackagePath>
-      <Modified>2014-08-06T12:13:50.656</Modified>
+      <Modified>2014-10-10T13:58:53.687</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\lang\es.json">
       <PackagePath>www\lang\es.json</PackagePath>
-      <Modified>2014-09-15T14:47:11.232</Modified>
+      <Modified>2014-10-10T13:45:19.282</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\lang\es_mx.json">
       <PackagePath>www\lang\es_mx.json</PackagePath>
-      <Modified>2014-09-15T14:47:11.244</Modified>
+      <Modified>2014-10-02T12:21:15.879</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\lang\eu.json">
       <PackagePath>www\lang\eu.json</PackagePath>
-      <Modified>2014-09-15T14:47:11.254</Modified>
+      <Modified>2014-10-10T13:37:03.537</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\lang\fa.json">
+      <PackagePath>www\lang\fa.json</PackagePath>
+      <Modified>2014-10-02T12:02:46.728</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\lang\fr.json">
       <PackagePath>www\lang\fr.json</PackagePath>
-      <Modified>2014-09-15T14:47:11.263</Modified>
+      <Modified>2014-10-10T13:37:03.549</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\lang\he.json">
+      <PackagePath>www\lang\he.json</PackagePath>
+      <Modified>2014-09-15T14:47:11.280</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\lang\hu.json">
       <PackagePath>www\lang\hu.json</PackagePath>
-      <Modified>2014-09-15T14:47:11.290</Modified>
+      <Modified>2014-10-10T13:37:03.559</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\lang\it.json">
       <PackagePath>www\lang\it.json</PackagePath>
-      <Modified>2014-09-15T14:47:11.298</Modified>
+      <Modified>2014-10-10T13:25:22.811</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\lang\ja.json">
+      <PackagePath>www\lang\ja.json</PackagePath>
+      <Modified>2014-10-02T12:02:46.759</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\lang\nl.json">
       <PackagePath>www\lang\nl.json</PackagePath>
-      <Modified>2014-09-15T14:47:11.314</Modified>
+      <Modified>2014-10-10T13:45:05.682</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\lang\pt_br.json">
       <PackagePath>www\lang\pt_br.json</PackagePath>
-      <Modified>2014-09-15T14:47:11.322</Modified>
+      <Modified>2014-10-10T13:37:03.568</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\lang\ru.json">
+      <PackagePath>www\lang\ru.json</PackagePath>
+      <Modified>2014-10-10T13:25:22.830</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\lang\sv.json">
       <PackagePath>www\lang\sv.json</PackagePath>
-      <Modified>2014-09-15T14:47:11.340</Modified>
+      <Modified>2014-10-10T13:37:03.578</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\lang\zh_tw.json">
       <PackagePath>www\lang\zh_tw.json</PackagePath>
-      <Modified>2014-09-15T14:47:11.348</Modified>
+      <Modified>2014-10-02T12:21:48.918</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\package.json">
       <PackagePath>www\package.json</PackagePath>
@@ -716,131 +792,135 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\config.xml">
       <PackagePath>www\config.xml</PackagePath>
-      <Modified>2014-09-15T14:47:11.820</Modified>
+      <Modified>2014-10-20T14:04:52.014</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\cordova.js">
       <PackagePath>www\cordova.js</PackagePath>
-      <Modified>2014-07-08T13:20:54.724</Modified>
+      <Modified>2014-10-20T14:04:52.086</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\externallib\backbone-localstorage.js">
       <PackagePath>www\externallib\backbone-localstorage.js</PackagePath>
-      <Modified>2014-08-08T08:30:12.159</Modified>
+      <Modified>2014-10-21T08:44:16.418</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\externallib\backbone.js">
       <PackagePath>www\externallib\backbone.js</PackagePath>
-      <Modified>2014-08-08T08:32:28.416</Modified>
+      <Modified>2014-10-21T08:44:15.500</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\externallib\html2canvas.js">
       <PackagePath>www\externallib\html2canvas.js</PackagePath>
-      <Modified>2014-08-08T08:32:49.199</Modified>
+      <Modified>2014-10-21T09:39:21.021</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\externallib\jquery-ui.custom.min.js">
       <PackagePath>www\externallib\jquery-ui.custom.min.js</PackagePath>
-      <Modified>2014-08-08T08:33:11.527</Modified>
+      <Modified>2014-10-21T08:58:43.354</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\externallib\jquery.min.js">
       <PackagePath>www\externallib\jquery.min.js</PackagePath>
-      <Modified>2014-08-08T08:34:17.208</Modified>
+      <Modified>2014-10-21T08:44:53.552</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\externallib\jquery.touchSwipe.min.js">
       <PackagePath>www\externallib\jquery.touchSwipe.min.js</PackagePath>
-      <Modified>2014-08-08T08:34:37.305</Modified>
+      <Modified>2014-10-21T08:45:04.911</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\externallib\matchMedia.addListener.js">
       <PackagePath>www\externallib\matchMedia.addListener.js</PackagePath>
-      <Modified>2014-08-08T08:34:48.645</Modified>
+      <Modified>2014-10-21T09:39:34.115</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\externallib\matchMedia.js">
       <PackagePath>www\externallib\matchMedia.js</PackagePath>
-      <Modified>2014-08-08T08:34:58.396</Modified>
+      <Modified>2014-10-21T08:55:58.091</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\externallib\md5.js">
       <PackagePath>www\externallib\md5.js</PackagePath>
-      <Modified>2014-08-08T08:35:09.338</Modified>
+      <Modified>2014-10-21T08:56:06.559</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\externallib\recorder.js">
       <PackagePath>www\externallib\recorder.js</PackagePath>
-      <Modified>2014-08-08T08:35:22.579</Modified>
+      <Modified>2014-10-21T08:56:32.488</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\externallib\recorderWorker.js">
       <PackagePath>www\externallib\recorderWorker.js</PackagePath>
-      <Modified>2014-08-08T08:35:32.077</Modified>
+      <Modified>2014-10-21T08:56:41.941</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\externallib\require.js">
       <PackagePath>www\externallib\require.js</PackagePath>
-      <Modified>2014-08-08T08:35:41.853</Modified>
+      <Modified>2014-10-21T08:56:53.725</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\externallib\text.js">
       <PackagePath>www\externallib\text.js</PackagePath>
-      <Modified>2014-08-08T08:35:52.817</Modified>
+      <Modified>2014-10-21T08:57:04.553</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\externallib\underscore.js">
       <PackagePath>www\externallib\underscore.js</PackagePath>
-      <Modified>2014-08-08T08:36:15.338</Modified>
+      <Modified>2014-10-21T09:39:46.924</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\lib\app.js">
       <PackagePath>www\lib\app.js</PackagePath>
-      <Modified>2014-08-08T08:36:29.853</Modified>
+      <Modified>2014-10-21T08:57:30.474</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\lib\mm.cache.js">
       <PackagePath>www\lib\mm.cache.js</PackagePath>
-      <Modified>2014-08-08T08:40:03.314</Modified>
+      <Modified>2014-10-21T09:01:29.557</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\lib\mm.db.js">
       <PackagePath>www\lib\mm.db.js</PackagePath>
-      <Modified>2014-08-08T08:40:16.056</Modified>
+      <Modified>2014-10-21T09:01:20.765</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\lib\mm.emulator.js">
       <PackagePath>www\lib\mm.emulator.js</PackagePath>
-      <Modified>2014-09-15T14:36:00.408</Modified>
+      <Modified>2014-10-21T09:40:01.240</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\lib\mm.fs.js">
       <PackagePath>www\lib\mm.fs.js</PackagePath>
-      <Modified>2014-08-08T08:40:35.249</Modified>
+      <Modified>2014-10-21T09:01:04.085</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\lib\mm.js">
       <PackagePath>www\lib\mm.js</PackagePath>
-      <Modified>2014-09-22T11:15:06.986</Modified>
+      <Modified>2014-10-21T09:00:51.135</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\lib\mm.lang.js">
       <PackagePath>www\lib\mm.lang.js</PackagePath>
-      <Modified>2014-08-08T09:25:33.814</Modified>
+      <Modified>2014-10-21T08:59:08.109</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\lib\mm.panels.js">
       <PackagePath>www\lib\mm.panels.js</PackagePath>
-      <Modified>2014-09-15T15:12:02.901</Modified>
+      <Modified>2014-10-21T09:00:39.147</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\lib\mm.rdebugger.js">
       <PackagePath>www\lib\mm.rdebugger.js</PackagePath>
-      <Modified>2014-08-08T09:25:55.924</Modified>
+      <Modified>2014-10-21T09:00:27.436</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\lib\mm.settings.js">
       <PackagePath>www\lib\mm.settings.js</PackagePath>
-      <Modified>2014-09-17T08:16:59.812</Modified>
+      <Modified>2014-10-21T09:00:11.299</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\lib\mm.sync.js">
       <PackagePath>www\lib\mm.sync.js</PackagePath>
-      <Modified>2014-08-08T09:26:08.919</Modified>
+      <Modified>2014-10-21T09:00:00.425</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\lib\mm.tpl.js">
       <PackagePath>www\lib\mm.tpl.js</PackagePath>
-      <Modified>2014-08-08T09:26:15.522</Modified>
+      <Modified>2014-10-21T08:59:51.414</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\lib\mm.util.js">
       <PackagePath>www\lib\mm.util.js</PackagePath>
-      <Modified>2014-09-15T14:47:11.570</Modified>
+      <Modified>2014-10-21T08:58:28.052</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\lib\mm.widgets.js">
       <PackagePath>www\lib\mm.widgets.js</PackagePath>
-      <Modified>2014-08-08T09:26:30.119</Modified>
+      <Modified>2014-10-21T08:58:28.007</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\lib\mm.windows8.js">
       <PackagePath>www\lib\mm.windows8.js</PackagePath>
-      <Modified>2014-09-22T11:15:16.192</Modified>
+      <Modified>2014-10-21T06:49:58.945</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\lib\scroll.js">
       <PackagePath>www\lib\scroll.js</PackagePath>
-      <Modified>2014-08-08T09:26:43.685</Modified>
+      <Modified>2014-10-21T09:40:13.384</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\lib\worker.js">
+      <PackagePath>www\lib\worker.js</PackagePath>
+      <Modified>2014-10-21T09:40:20.841</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\plugins\addcontact\main.js">
       <PackagePath>www\plugins\addcontact\main.js</PackagePath>
@@ -850,297 +930,293 @@
       <PackagePath>www\plugins\addnote\main.js</PackagePath>
       <Modified>2014-08-08T09:27:16.050</Modified>
     </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\plugins\com.phonegap.plugins.PushPlugin\src\windows8\PushPluginProxy.js">
+      <PackagePath>www\plugins\com.phonegap.plugins.PushPlugin\src\windows8\PushPluginProxy.js</PackagePath>
+      <Modified>2014-10-20T14:04:57.589</Modified>
+    </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\plugins\com.phonegap.plugins.PushPlugin\www\PushNotification.js">
       <PackagePath>www\plugins\com.phonegap.plugins.PushPlugin\www\PushNotification.js</PackagePath>
-      <Modified>2014-08-08T09:27:40.723</Modified>
+      <Modified>2014-10-20T14:04:57.607</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\plugins\contents\main.js">
       <PackagePath>www\plugins\contents\main.js</PackagePath>
-      <Modified>2014-09-17T08:23:13.372</Modified>
+      <Modified>2014-10-21T07:59:26.760</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\plugins\events\main.js">
       <PackagePath>www\plugins\events\main.js</PackagePath>
       <Modified>2014-09-17T08:22:55.347</Modified>
     </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\plugins\forum\main.js">
+      <PackagePath>www\plugins\forum\main.js</PackagePath>
+      <Modified>2014-10-21T09:02:31.756</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\plugins\forum\worker.js">
+      <PackagePath>www\plugins\forum\worker.js</PackagePath>
+      <Modified>2014-10-21T09:02:25.522</Modified>
+    </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\plugins\grades\main.js">
       <PackagePath>www\plugins\grades\main.js</PackagePath>
       <Modified>2014-09-17T08:23:25.273</Modified>
     </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\plugins\label\main.js">
+      <PackagePath>www\plugins\label\main.js</PackagePath>
+      <Modified>2014-10-21T09:03:01.562</Modified>
+    </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\plugins\myfiles\main.js">
       <PackagePath>www\plugins\myfiles\main.js</PackagePath>
-      <Modified>2014-09-17T08:22:44.091</Modified>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\plugins\net.tunts.webintent\www\webintent.js">
-      <PackagePath>www\plugins\net.tunts.webintent\www\webintent.js</PackagePath>
-      <Modified>2014-08-08T09:28:31.543</Modified>
+      <Modified>2014-10-21T08:02:09.767</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\plugins\notifications\main.js">
       <PackagePath>www\plugins\notifications\main.js</PackagePath>
       <Modified>2014-09-17T08:23:34.784</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\plugins\org.apache.cordova.camera\src\windows8\CameraProxy.js">
-      <PackagePath>www\plugins\org.apache.cordova.camera\src\windows8\CameraProxy.js</PackagePath>
-      <Modified>2014-08-08T09:29:01.754</Modified>
+    <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\plugins\org.apache.cordova.camera\src\windows\CameraProxy.js">
+      <PackagePath>www\plugins\org.apache.cordova.camera\src\windows\CameraProxy.js</PackagePath>
+      <Modified>2014-10-20T14:59:20.412</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\plugins\org.apache.cordova.camera\www\Camera.js">
       <PackagePath>www\plugins\org.apache.cordova.camera\www\Camera.js</PackagePath>
-      <Modified>2014-08-08T09:29:15.999</Modified>
+      <Modified>2014-10-20T14:04:57.635</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\plugins\org.apache.cordova.camera\www\CameraConstants.js">
       <PackagePath>www\plugins\org.apache.cordova.camera\www\CameraConstants.js</PackagePath>
-      <Modified>2014-08-08T09:29:22.161</Modified>
+      <Modified>2014-10-20T14:04:57.643</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\plugins\org.apache.cordova.camera\www\CameraPopoverHandle.js">
       <PackagePath>www\plugins\org.apache.cordova.camera\www\CameraPopoverHandle.js</PackagePath>
-      <Modified>2014-08-08T09:29:27.562</Modified>
+      <Modified>2014-10-20T14:04:57.655</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\plugins\org.apache.cordova.camera\www\CameraPopoverOptions.js">
       <PackagePath>www\plugins\org.apache.cordova.camera\www\CameraPopoverOptions.js</PackagePath>
-      <Modified>2014-08-08T09:29:33.991</Modified>
+      <Modified>2014-10-20T14:04:57.664</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\plugins\org.apache.cordova.console\www\console-via-logger.js">
       <PackagePath>www\plugins\org.apache.cordova.console\www\console-via-logger.js</PackagePath>
-      <Modified>2014-08-08T09:29:42.495</Modified>
+      <Modified>2014-10-21T09:03:26.850</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\plugins\org.apache.cordova.console\www\logger.js">
       <PackagePath>www\plugins\org.apache.cordova.console\www\logger.js</PackagePath>
-      <Modified>2014-08-08T09:29:52.255</Modified>
+      <Modified>2014-10-21T09:03:16.135</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\plugins\org.apache.cordova.contacts\src\windows8\ContactProxy.js">
       <PackagePath>www\plugins\org.apache.cordova.contacts\src\windows8\ContactProxy.js</PackagePath>
-      <Modified>2014-08-08T09:30:14.524</Modified>
+      <Modified>2014-10-21T09:03:46.224</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\plugins\org.apache.cordova.contacts\www\Contact.js">
       <PackagePath>www\plugins\org.apache.cordova.contacts\www\Contact.js</PackagePath>
-      <Modified>2014-08-08T09:30:22.314</Modified>
+      <Modified>2014-10-21T09:06:06.092</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\plugins\org.apache.cordova.contacts\www\ContactAddress.js">
       <PackagePath>www\plugins\org.apache.cordova.contacts\www\ContactAddress.js</PackagePath>
-      <Modified>2014-08-08T09:30:28.273</Modified>
+      <Modified>2014-10-21T09:05:51.860</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\plugins\org.apache.cordova.contacts\www\ContactError.js">
       <PackagePath>www\plugins\org.apache.cordova.contacts\www\ContactError.js</PackagePath>
-      <Modified>2014-08-08T09:30:35.153</Modified>
+      <Modified>2014-10-21T09:05:43.361</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\plugins\org.apache.cordova.contacts\www\ContactField.js">
       <PackagePath>www\plugins\org.apache.cordova.contacts\www\ContactField.js</PackagePath>
-      <Modified>2014-08-08T09:30:41.653</Modified>
+      <Modified>2014-10-21T09:05:12.567</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\plugins\org.apache.cordova.contacts\www\ContactFieldType.js">
       <PackagePath>www\plugins\org.apache.cordova.contacts\www\ContactFieldType.js</PackagePath>
-      <Modified>2014-08-08T09:30:51.584</Modified>
+      <Modified>2014-10-21T09:05:04.740</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\plugins\org.apache.cordova.contacts\www\ContactFindOptions.js">
       <PackagePath>www\plugins\org.apache.cordova.contacts\www\ContactFindOptions.js</PackagePath>
-      <Modified>2014-08-08T09:31:02.212</Modified>
+      <Modified>2014-10-21T09:04:57.426</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\plugins\org.apache.cordova.contacts\www\ContactName.js">
       <PackagePath>www\plugins\org.apache.cordova.contacts\www\ContactName.js</PackagePath>
-      <Modified>2014-08-08T09:31:13.633</Modified>
+      <Modified>2014-10-21T09:04:49.146</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\plugins\org.apache.cordova.contacts\www\ContactOrganization.js">
       <PackagePath>www\plugins\org.apache.cordova.contacts\www\ContactOrganization.js</PackagePath>
-      <Modified>2014-08-08T09:31:19.771</Modified>
+      <Modified>2014-10-21T09:04:37.338</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\plugins\org.apache.cordova.contacts\www\contacts.js">
       <PackagePath>www\plugins\org.apache.cordova.contacts\www\contacts.js</PackagePath>
-      <Modified>2014-08-08T09:31:26.589</Modified>
+      <Modified>2014-10-21T09:04:26.492</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\plugins\org.apache.cordova.device\src\windows8\DeviceProxy.js">
       <PackagePath>www\plugins\org.apache.cordova.device\src\windows8\DeviceProxy.js</PackagePath>
-      <Modified>2014-08-08T09:31:36.684</Modified>
+      <Modified>2014-10-20T14:04:57.818</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\plugins\org.apache.cordova.device\www\device.js">
       <PackagePath>www\plugins\org.apache.cordova.device\www\device.js</PackagePath>
-      <Modified>2014-08-08T09:31:45.681</Modified>
+      <Modified>2014-10-20T14:04:57.831</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\plugins\org.apache.cordova.dialogs\src\windows8\NotificationProxy.js">
-      <PackagePath>www\plugins\org.apache.cordova.dialogs\src\windows8\NotificationProxy.js</PackagePath>
-      <Modified>2014-08-08T09:32:28.808</Modified>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\plugins\org.apache.cordova.dialogs\www\notification.js">
-      <PackagePath>www\plugins\org.apache.cordova.dialogs\www\notification.js</PackagePath>
-      <Modified>2014-08-08T09:32:48.291</Modified>
+    <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\plugins\org.apache.cordova.file-transfer\src\windows\FileTransferProxy.js">
+      <PackagePath>www\plugins\org.apache.cordova.file-transfer\src\windows\FileTransferProxy.js</PackagePath>
+      <Modified>2014-10-20T14:04:58.099</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\plugins\org.apache.cordova.file-transfer\www\FileTransfer.js">
       <PackagePath>www\plugins\org.apache.cordova.file-transfer\www\FileTransfer.js</PackagePath>
-      <Modified>2014-08-08T09:38:35.597</Modified>
+      <Modified>2014-10-20T14:04:58.113</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\plugins\org.apache.cordova.file-transfer\www\FileTransferError.js">
       <PackagePath>www\plugins\org.apache.cordova.file-transfer\www\FileTransferError.js</PackagePath>
-      <Modified>2014-08-08T09:38:42.371</Modified>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\plugins\org.apache.cordova.file-transfer\www\windows8\FileTransferProxy.js">
-      <PackagePath>www\plugins\org.apache.cordova.file-transfer\www\windows8\FileTransferProxy.js</PackagePath>
-      <Modified>2014-08-08T09:38:28.835</Modified>
+      <Modified>2014-10-20T14:04:58.124</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\plugins\org.apache.cordova.file\src\windows8\FileProxy.js">
       <PackagePath>www\plugins\org.apache.cordova.file\src\windows8\FileProxy.js</PackagePath>
-      <Modified>2014-08-08T09:33:02.844</Modified>
+      <Modified>2014-10-21T09:06:39.765</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\plugins\org.apache.cordova.file\www\DirectoryEntry.js">
       <PackagePath>www\plugins\org.apache.cordova.file\www\DirectoryEntry.js</PackagePath>
-      <Modified>2014-08-08T09:33:11.431</Modified>
+      <Modified>2014-10-21T09:06:52.475</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\plugins\org.apache.cordova.file\www\DirectoryReader.js">
       <PackagePath>www\plugins\org.apache.cordova.file\www\DirectoryReader.js</PackagePath>
-      <Modified>2014-08-08T09:33:38.159</Modified>
+      <Modified>2014-10-21T09:09:39.292</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\plugins\org.apache.cordova.file\www\Entry.js">
       <PackagePath>www\plugins\org.apache.cordova.file\www\Entry.js</PackagePath>
-      <Modified>2014-08-08T09:33:44.180</Modified>
+      <Modified>2014-10-21T09:09:29.165</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\plugins\org.apache.cordova.file\www\File.js">
       <PackagePath>www\plugins\org.apache.cordova.file\www\File.js</PackagePath>
-      <Modified>2014-08-08T09:33:50.202</Modified>
+      <Modified>2014-10-21T09:09:21.512</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\plugins\org.apache.cordova.file\www\FileEntry.js">
       <PackagePath>www\plugins\org.apache.cordova.file\www\FileEntry.js</PackagePath>
-      <Modified>2014-08-08T09:33:56.182</Modified>
+      <Modified>2014-10-21T09:09:13.505</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\plugins\org.apache.cordova.file\www\FileError.js">
       <PackagePath>www\plugins\org.apache.cordova.file\www\FileError.js</PackagePath>
-      <Modified>2014-08-08T09:34:02.163</Modified>
+      <Modified>2014-10-21T09:09:05.594</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\plugins\org.apache.cordova.file\www\FileReader.js">
       <PackagePath>www\plugins\org.apache.cordova.file\www\FileReader.js</PackagePath>
-      <Modified>2014-08-08T09:34:08.871</Modified>
+      <Modified>2014-10-21T09:40:43.659</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\plugins\org.apache.cordova.file\www\FileSystem.js">
       <PackagePath>www\plugins\org.apache.cordova.file\www\FileSystem.js</PackagePath>
-      <Modified>2014-08-08T09:34:57.829</Modified>
+      <Modified>2014-10-21T09:08:54.061</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\plugins\org.apache.cordova.file\www\fileSystems.js">
       <PackagePath>www\plugins\org.apache.cordova.file\www\fileSystems.js</PackagePath>
-      <Modified>2014-08-08T09:34:27.038</Modified>
+      <Modified>2014-10-21T09:08:45.323</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\plugins\org.apache.cordova.file\www\FileUploadOptions.js">
       <PackagePath>www\plugins\org.apache.cordova.file\www\FileUploadOptions.js</PackagePath>
-      <Modified>2014-08-08T09:34:35.177</Modified>
+      <Modified>2014-10-21T09:08:37.384</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\plugins\org.apache.cordova.file\www\FileUploadResult.js">
       <PackagePath>www\plugins\org.apache.cordova.file\www\FileUploadResult.js</PackagePath>
-      <Modified>2014-08-08T09:34:41.520</Modified>
+      <Modified>2014-10-21T09:08:29.094</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\plugins\org.apache.cordova.file\www\FileWriter.js">
       <PackagePath>www\plugins\org.apache.cordova.file\www\FileWriter.js</PackagePath>
-      <Modified>2014-08-08T09:34:47.320</Modified>
+      <Modified>2014-10-21T09:08:20.872</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\plugins\org.apache.cordova.file\www\Flags.js">
       <PackagePath>www\plugins\org.apache.cordova.file\www\Flags.js</PackagePath>
-      <Modified>2014-08-08T09:34:56.371</Modified>
+      <Modified>2014-10-21T09:08:12.793</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\plugins\org.apache.cordova.file\www\LocalFileSystem.js">
       <PackagePath>www\plugins\org.apache.cordova.file\www\LocalFileSystem.js</PackagePath>
-      <Modified>2014-08-08T09:35:03.865</Modified>
+      <Modified>2014-10-21T09:08:05.047</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\plugins\org.apache.cordova.file\www\Metadata.js">
       <PackagePath>www\plugins\org.apache.cordova.file\www\Metadata.js</PackagePath>
-      <Modified>2014-08-08T09:35:18.114</Modified>
+      <Modified>2014-10-21T09:07:57.205</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\plugins\org.apache.cordova.file\www\ProgressEvent.js">
       <PackagePath>www\plugins\org.apache.cordova.file\www\ProgressEvent.js</PackagePath>
-      <Modified>2014-08-08T09:35:28.771</Modified>
+      <Modified>2014-10-21T09:07:49.200</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\plugins\org.apache.cordova.file\www\requestFileSystem.js">
       <PackagePath>www\plugins\org.apache.cordova.file\www\requestFileSystem.js</PackagePath>
-      <Modified>2014-08-08T09:35:36.431</Modified>
+      <Modified>2014-10-21T09:07:38.602</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\plugins\org.apache.cordova.file\www\resolveLocalFileSystemURI.js">
       <PackagePath>www\plugins\org.apache.cordova.file\www\resolveLocalFileSystemURI.js</PackagePath>
-      <Modified>2014-08-08T09:35:43.057</Modified>
+      <Modified>2014-10-21T09:07:25.785</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\plugins\org.apache.cordova.globalization\www\globalization.js">
       <PackagePath>www\plugins\org.apache.cordova.globalization\www\globalization.js</PackagePath>
-      <Modified>2014-08-08T09:38:50.999</Modified>
+      <Modified>2014-10-21T09:17:18.762</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\plugins\org.apache.cordova.globalization\www\GlobalizationError.js">
       <PackagePath>www\plugins\org.apache.cordova.globalization\www\GlobalizationError.js</PackagePath>
-      <Modified>2014-08-08T09:38:56.868</Modified>
+      <Modified>2014-10-21T09:17:31.794</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\plugins\org.apache.cordova.inappbrowser\www\inappbrowser.js">
       <PackagePath>www\plugins\org.apache.cordova.inappbrowser\www\inappbrowser.js</PackagePath>
-      <Modified>2014-08-08T09:39:12.857</Modified>
+      <Modified>2014-10-21T09:29:10.181</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\plugins\org.apache.cordova.inappbrowser\www\windows8\InAppBrowserProxy.js">
       <PackagePath>www\plugins\org.apache.cordova.inappbrowser\www\windows8\InAppBrowserProxy.js</PackagePath>
-      <Modified>2014-08-08T09:39:06.703</Modified>
+      <Modified>2014-10-21T09:29:23.949</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\plugins\org.apache.cordova.media-capture\src\windows8\CaptureProxy.js">
       <PackagePath>www\plugins\org.apache.cordova.media-capture\src\windows8\CaptureProxy.js</PackagePath>
-      <Modified>2014-08-08T09:39:48.451</Modified>
+      <Modified>2014-10-21T09:30:12.941</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\plugins\org.apache.cordova.media-capture\src\windows8\MediaFile.js">
       <PackagePath>www\plugins\org.apache.cordova.media-capture\src\windows8\MediaFile.js</PackagePath>
-      <Modified>2014-08-08T09:39:54.924</Modified>
+      <Modified>2014-10-21T09:30:19.805</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\plugins\org.apache.cordova.media-capture\www\capture.js">
       <PackagePath>www\plugins\org.apache.cordova.media-capture\www\capture.js</PackagePath>
-      <Modified>2014-08-08T09:40:08.238</Modified>
+      <Modified>2014-10-21T09:30:30.184</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\plugins\org.apache.cordova.media-capture\www\CaptureAudioOptions.js">
       <PackagePath>www\plugins\org.apache.cordova.media-capture\www\CaptureAudioOptions.js</PackagePath>
-      <Modified>2014-08-08T09:40:16.105</Modified>
+      <Modified>2014-10-21T09:30:39.162</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\plugins\org.apache.cordova.media-capture\www\CaptureError.js">
       <PackagePath>www\plugins\org.apache.cordova.media-capture\www\CaptureError.js</PackagePath>
-      <Modified>2014-08-08T09:40:27.815</Modified>
+      <Modified>2014-10-21T09:30:46.510</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\plugins\org.apache.cordova.media-capture\www\CaptureImageOptions.js">
       <PackagePath>www\plugins\org.apache.cordova.media-capture\www\CaptureImageOptions.js</PackagePath>
-      <Modified>2014-08-08T09:40:33.567</Modified>
+      <Modified>2014-10-21T09:30:57.393</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\plugins\org.apache.cordova.media-capture\www\CaptureVideoOptions.js">
       <PackagePath>www\plugins\org.apache.cordova.media-capture\www\CaptureVideoOptions.js</PackagePath>
-      <Modified>2014-08-08T09:40:39.315</Modified>
+      <Modified>2014-10-21T09:31:04.727</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\plugins\org.apache.cordova.media-capture\www\MediaFile.js">
       <PackagePath>www\plugins\org.apache.cordova.media-capture\www\MediaFile.js</PackagePath>
-      <Modified>2014-08-08T09:40:44.654</Modified>
+      <Modified>2014-10-21T09:31:11.590</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\plugins\org.apache.cordova.media-capture\www\MediaFileData.js">
       <PackagePath>www\plugins\org.apache.cordova.media-capture\www\MediaFileData.js</PackagePath>
-      <Modified>2014-08-08T09:40:50.245</Modified>
+      <Modified>2014-10-21T09:31:27.679</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\plugins\org.apache.cordova.media\src\windows8\MediaProxy.js">
       <PackagePath>www\plugins\org.apache.cordova.media\src\windows8\MediaProxy.js</PackagePath>
-      <Modified>2014-08-08T09:39:22.810</Modified>
+      <Modified>2014-10-21T09:29:41.821</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\plugins\org.apache.cordova.media\www\Media.js">
       <PackagePath>www\plugins\org.apache.cordova.media\www\Media.js</PackagePath>
-      <Modified>2014-08-08T09:39:31.856</Modified>
+      <Modified>2014-10-21T09:29:49.560</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\plugins\org.apache.cordova.media\www\MediaError.js">
       <PackagePath>www\plugins\org.apache.cordova.media\www\MediaError.js</PackagePath>
-      <Modified>2014-08-08T09:39:37.859</Modified>
+      <Modified>2014-10-21T09:29:56.866</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\plugins\org.apache.cordova.network-information\src\windows8\NetworkInfoProxy.js">
       <PackagePath>www\plugins\org.apache.cordova.network-information\src\windows8\NetworkInfoProxy.js</PackagePath>
-      <Modified>2014-08-08T09:41:00.619</Modified>
+      <Modified>2014-10-21T09:31:45.101</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\plugins\org.apache.cordova.network-information\www\Connection.js">
       <PackagePath>www\plugins\org.apache.cordova.network-information\www\Connection.js</PackagePath>
-      <Modified>2014-08-08T09:41:07.577</Modified>
+      <Modified>2014-10-21T09:31:53.730</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\plugins\org.apache.cordova.network-information\www\network.js">
       <PackagePath>www\plugins\org.apache.cordova.network-information\www\network.js</PackagePath>
-      <Modified>2014-08-08T09:41:13.762</Modified>
+      <Modified>2014-10-21T09:32:00.882</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\plugins\org.apache.cordova.splashscreen\www\splashscreen.js">
       <PackagePath>www\plugins\org.apache.cordova.splashscreen\www\splashscreen.js</PackagePath>
-      <Modified>2014-08-08T09:41:32.337</Modified>
+      <Modified>2014-10-21T09:32:22.589</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\plugins\org.apache.cordova.splashscreen\www\windows8\SplashScreenProxy.js">
       <PackagePath>www\plugins\org.apache.cordova.splashscreen\www\windows8\SplashScreenProxy.js</PackagePath>
-      <Modified>2014-08-08T09:41:24.804</Modified>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\plugins\org.chromium.zip\tests\tests.js">
-      <PackagePath>www\plugins\org.chromium.zip\tests\tests.js</PackagePath>
-      <Modified>2014-08-08T09:41:45.519</Modified>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\plugins\org.chromium.zip\zip.js">
-      <PackagePath>www\plugins\org.chromium.zip\zip.js</PackagePath>
-      <Modified>2014-08-08T09:41:53.930</Modified>
+      <Modified>2014-10-21T09:32:31.104</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\plugins\participants\main.js">
       <PackagePath>www\plugins\participants\main.js</PackagePath>
@@ -1152,27 +1228,31 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\plugins\upload\main.js">
       <PackagePath>www\plugins\upload\main.js</PackagePath>
-      <Modified>2014-09-15T14:47:11.387</Modified>
+      <Modified>2014-10-20T15:37:26.281</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\plugins\url\main.js">
+      <PackagePath>www\plugins\url\main.js</PackagePath>
+      <Modified>2014-10-21T09:33:48.139</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\tests\lib\jasmine-1.3.1\jasmine-html.js">
       <PackagePath>www\tests\lib\jasmine-1.3.1\jasmine-html.js</PackagePath>
-      <Modified>2014-08-08T09:46:46.056</Modified>
+      <Modified>2014-10-21T09:33:55.507</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\tests\lib\jasmine-1.3.1\jasmine.js">
       <PackagePath>www\tests\lib\jasmine-1.3.1\jasmine.js</PackagePath>
-      <Modified>2014-08-08T09:46:37.747</Modified>
+      <Modified>2014-10-21T09:33:46.853</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\tests\spec\lib\matcher.sequential.js">
       <PackagePath>www\tests\spec\lib\matcher.sequential.js</PackagePath>
-      <Modified>2014-08-08T09:47:04.228</Modified>
+      <Modified>2014-10-21T09:34:24.742</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\tests\spec\lib\mmSpec.js">
       <PackagePath>www\tests\spec\lib\mmSpec.js</PackagePath>
-      <Modified>2014-08-08T09:47:12.503</Modified>
+      <Modified>2014-10-21T09:34:17.653</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\cordova_plugins.js">
       <PackagePath>www\cordova_plugins.js</PackagePath>
-      <Modified>2014-08-08T08:29:55.546</Modified>
+      <Modified>2014-10-20T14:19:02.137</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\css\fonts\icomoon.eot">
       <PackagePath>www\css\fonts\icomoon.eot</PackagePath>
@@ -1192,23 +1272,23 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\css\layout.css">
       <PackagePath>www\css\layout.css</PackagePath>
-      <Modified>2014-08-08T09:51:12.648</Modified>
+      <Modified>2014-10-21T09:36:22.046</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\css\styles.css">
       <PackagePath>www\css\styles.css</PackagePath>
-      <Modified>2014-09-17T08:38:01.873</Modified>
+      <Modified>2014-10-21T09:36:27.906</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\tests\lib\jasmine-1.3.1\jasmine.css">
       <PackagePath>www\tests\lib\jasmine-1.3.1\jasmine.css</PackagePath>
-      <Modified>2014-08-08T09:51:40.718</Modified>
+      <Modified>2014-10-21T09:36:40.888</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\emulator\index.html">
       <PackagePath>www\emulator\index.html</PackagePath>
-      <Modified>2014-08-08T09:47:58.758</Modified>
+      <Modified>2014-10-10T13:37:02.886</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\index.html">
       <PackagePath>www\index.html</PackagePath>
-      <Modified>2014-09-16T09:30:15.177</Modified>
+      <Modified>2014-10-20T14:37:59.696</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\plugins\contents\contents.html">
       <PackagePath>www\plugins\contents\contents.html</PackagePath>
@@ -1230,6 +1310,22 @@
       <PackagePath>www\plugins\events\events.html</PackagePath>
       <Modified>2014-08-08T09:48:56.259</Modified>
     </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\plugins\forum\attachments.html">
+      <PackagePath>www\plugins\forum\attachments.html</PackagePath>
+      <Modified>2014-10-21T09:35:02.836</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\plugins\forum\discussion.html">
+      <PackagePath>www\plugins\forum\discussion.html</PackagePath>
+      <Modified>2014-10-21T09:35:09.418</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\plugins\forum\discussions.html">
+      <PackagePath>www\plugins\forum\discussions.html</PackagePath>
+      <Modified>2014-10-21T09:35:18.538</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\plugins\forum\view.html">
+      <PackagePath>www\plugins\forum\view.html</PackagePath>
+      <Modified>2014-10-21T09:35:25.084</Modified>
+    </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\plugins\grades\activities.html">
       <PackagePath>www\plugins\grades\activities.html</PackagePath>
       <Modified>2014-08-08T09:49:07.314</Modified>
@@ -1238,9 +1334,13 @@
       <PackagePath>www\plugins\grades\activities_total.html</PackagePath>
       <Modified>2014-08-08T09:49:13.987</Modified>
     </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\plugins\label\view.html">
+      <PackagePath>www\plugins\label\view.html</PackagePath>
+      <Modified>2014-10-21T09:35:43.272</Modified>
+    </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\plugins\myfiles\files.html">
       <PackagePath>www\plugins\myfiles\files.html</PackagePath>
-      <Modified>2014-09-15T14:47:11.443</Modified>
+      <Modified>2014-10-21T08:34:22.680</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\plugins\notifications\notification.html">
       <PackagePath>www\plugins\notifications\notification.html</PackagePath>
@@ -1270,17 +1370,21 @@
       <PackagePath>www\plugins\participants\participants.html</PackagePath>
       <Modified>2014-08-08T09:50:35.538</Modified>
     </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\plugins\url\view.html">
+      <PackagePath>www\plugins\url\view.html</PackagePath>
+      <Modified>2014-10-21T09:35:55.307</Modified>
+    </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\reset.html">
       <PackagePath>www\reset.html</PackagePath>
-      <Modified>2014-08-08T09:47:42.684</Modified>
+      <Modified>2014-10-21T09:34:44.710</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\tests\SpecRunner.html">
       <PackagePath>www\tests\SpecRunner.html</PackagePath>
-      <Modified>2014-08-08T09:50:55.236</Modified>
+      <Modified>2014-10-21T09:36:08.238</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\externallib\backbone-min.map">
       <PackagePath>www\externallib\backbone-min.map</PackagePath>
-      <Modified>2014-07-23T07:33:23.592</Modified>
+      <Modified>2014-10-20T13:21:21.379</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\img\icon\.pgbomit">
       <PackagePath>www\img\icon\.pgbomit</PackagePath>
@@ -1304,23 +1408,23 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\img\loadingblack.gif">
       <PackagePath>www\img\loadingblack.gif</PackagePath>
-      <Modified>2014-07-08T12:07:49.789</Modified>
+      <Modified>2014-10-20T13:21:15.384</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\img\loadingwhite.gif">
       <PackagePath>www\img\loadingwhite.gif</PackagePath>
-      <Modified>2014-07-08T12:07:49.792</Modified>
+      <Modified>2014-10-20T13:21:15.384</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\less\layout.less">
       <PackagePath>www\less\layout.less</PackagePath>
-      <Modified>2014-08-06T12:13:50.666</Modified>
+      <Modified>2014-10-20T13:40:42.109</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\less\styles.less">
       <PackagePath>www\less\styles.less</PackagePath>
-      <Modified>2014-09-17T07:47:02.856</Modified>
+      <Modified>2014-10-20T13:48:32.295</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\README.md">
       <PackagePath>www\README.md</PackagePath>
-      <Modified>2014-07-08T12:07:49.059</Modified>
+      <Modified>2014-10-20T13:40:41.543</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\www\tests\lib\jasmine-1.3.1\MIT.LICENSE">
       <PackagePath>www\tests\lib\jasmine-1.3.1\MIT.LICENSE</PackagePath>
@@ -1328,7 +1432,7 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dani\Development\MM\platforms\windows8\bin\Release\ReverseMap\resources.pri">
       <PackagePath>resources.pri</PackagePath>
-      <Modified>2014-09-22T11:15:22.393</Modified>
+      <Modified>2014-10-21T10:06:50.239</Modified>
     </AppxPackagedFile>
   </ItemGroup>
   <ItemGroup>

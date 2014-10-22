@@ -21,10 +21,9 @@
  * @version 1.2
  */
 
-
 // Base path for all the files required.
 var userAgent = MM._getUserAgent();
-if (userAgent.indexOf('windows phone 8.0') !== -1){
+if (userAgent.indexOf('windows phone 8.0') !== -1) {
     requirejs.config({
         paths: {
             root: 'x-wmapp0://www'
@@ -35,37 +34,34 @@ if (userAgent.indexOf('windows phone 8.0') !== -1){
         paths: {
             root: '..'
         }
-    });  
+    });
 }
 
 
 // Requirements for launching the app, the function is not executed until both
 // files are fully loaded.
 // We need at least the config.json file with all the settings and the language file.
-requirejs(['root/externallib/text!root/config.json', 'root/externallib/text!root/lang/en.json'],
-function(config, lang) {
+var required = ['root/externallib/text!root/config.json',
+                'root/externallib/text!root/lang/en.json',
+                'root/externallib/text!root/lib/worker.js'];
+
+requirejs(required,
+function(config, lang, worker) {
     config = JSON.parse(config);
 
     // Init the app.
     MM.init(config);
     MM.lang.base = JSON.parse(lang);
+    MM.webWorker = worker;
 
     // Once the config and base lang are loaded, we load all the plugins defined in the config.json file.
+    requirejs.config({
+        baseUrl: 'plugins',
+        packages: config.plugins
+    });
 
-    if (userAgent.indexOf('windows phone 8.0') !== -1) {
-        requirejs.config({
-            baseUrl: 'x-wmapp0:www/plugins/',
-            packages: config.plugins
-        });
-    } else {
-        requirejs.config({
-            baseUrl: 'plugins',
-            packages: config.plugins
-        });
-        
-    }
     // We load extra languages if are present in the config file.
-    var lang = MM.lang.determine()
+    var lang = MM.lang.determine();
     var extraLang = 'root/externallib/text!root/lang/' + lang + '.json';
     config.plugins.unshift(extraLang);
 

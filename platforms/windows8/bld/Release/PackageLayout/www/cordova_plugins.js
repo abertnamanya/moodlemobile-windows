@@ -1,13 +1,6 @@
 ﻿cordova.define('cordova/plugin_list', function(require, exports, module) {
 module.exports = [
     {
-        "file": "plugins/net.tunts.webintent/www/webintent.js",
-        "id": "net.tunts.webintent.WebIntent",
-        "clobbers": [
-            "WebIntent"
-        ]
-    },
-    {
         "file": "plugins/com.phonegap.plugins.PushPlugin/www/PushNotification.js",
         "id": "com.phonegap.plugins.PushPlugin.PushNotification",
         "clobbers": [
@@ -15,15 +8,11 @@ module.exports = [
         ]
     },
     {
-        "file": "plugins/org.chromium.zip/zip.js",
-        "id": "org.chromium.zip.Zip",
-        "clobbers": [
-            "zip"
+        "file": "plugins/com.phonegap.plugins.PushPlugin/src/windows8/PushPluginProxy.js",
+        "id": "com.phonegap.plugins.PushPlugin.PushPlugin",
+        "merges": [
+            ""
         ]
-    },
-    {
-        "file": "plugins/org.chromium.zip/tests/tests.js",
-        "id": "org.chromium.zip.tests"
     },
     {
         "file": "plugins/org.apache.cordova.camera/www/CameraConstants.js",
@@ -54,7 +43,7 @@ module.exports = [
         ]
     },
     {
-        "file": "plugins/org.apache.cordova.camera/src/windows8/CameraProxy.js",
+        "file": "plugins/org.apache.cordova.camera/src/windows/CameraProxy.js",
         "id": "org.apache.cordova.camera.CameraProxy",
         "merges": [
             ""
@@ -132,7 +121,10 @@ module.exports = [
     },
     {
         "file": "plugins/org.apache.cordova.contacts/www/ContactFieldType.js",
-        "id": "org.apache.cordova.contacts.ContactFieldType"
+        "id": "org.apache.cordova.contacts.ContactFieldType",
+        "merges": [
+            ""
+        ]
     },
     {
         "file": "plugins/org.apache.cordova.contacts/src/windows8/ContactProxy.js",
@@ -170,7 +162,7 @@ module.exports = [
         ]
     },
     {
-        "file": "plugins/org.apache.cordova.file-transfer/www/windows8/FileTransferProxy.js",
+        "file": "plugins/org.apache.cordova.file-transfer/src/windows/FileTransferProxy.js",
         "id": "org.apache.cordova.file-transfer.FileTransferProxy",
         "clobbers": [
             ""
@@ -325,20 +317,6 @@ module.exports = [
         ]
     },
     {
-        "file": "plugins/org.apache.cordova.dialogs/www/notification.js",
-        "id": "org.apache.cordova.dialogs.notification",
-        "merges": [
-            "navigator.notification"
-        ]
-    },
-    {
-        "file": "plugins/org.apache.cordova.dialogs/src/windows8/NotificationProxy.js",
-        "id": "org.apache.cordova.dialogs.NotificationProxy",
-        "merges": [
-            ""
-        ]
-    },
-    {
         "file": "plugins/org.apache.cordova.file/www/DirectoryEntry.js",
         "id": "org.apache.cordova.file.DirectoryEntry",
         "clobbers": [
@@ -475,24 +453,19 @@ module.exports = [
 module.exports.metadata = 
 // TOP OF METADATA
 {
-    "net.tunts.webintent": "0.2.1",
-    "com.phonegap.plugins.PushPlugin": "2.2.0",
-    "org.chromium.zip": "2.1.0",
-    "nl.x-services.plugins.launchmyapp": "3.2.0",
-    "com.phonegap.plugin.statusbar": "1.1.0",
-    "org.apache.cordova.camera": "0.3.0",
-    "org.apache.cordova.console": "0.2.9",
-    "org.apache.cordova.contacts": "0.2.11",
-    "org.apache.cordova.device": "0.2.10",
-    "org.apache.cordova.file-transfer": "0.4.4",
-    "org.apache.cordova.globalization": "0.2.8",
-    "org.apache.cordova.inappbrowser": "0.5.0",
-    "org.apache.cordova.media-capture": "0.3.1",
-    "org.apache.cordova.network-information": "0.2.10",
-    "org.apache.cordova.splashscreen": "0.3.1",
-    "org.apache.cordova.media": "0.2.11",
-    "org.apache.cordova.dialogs": "0.2.8",
-    "org.apache.cordova.file": "1.2.0"
+    "com.phonegap.plugins.PushPlugin": "2.4.0",
+    "org.apache.cordova.camera": "0.3.2",
+    "org.apache.cordova.console": "0.2.11",
+    "org.apache.cordova.contacts": "0.2.13",
+    "org.apache.cordova.device": "0.2.12",
+    "org.apache.cordova.file-transfer": "0.4.6",
+    "org.apache.cordova.globalization": "0.3.1",
+    "org.apache.cordova.inappbrowser": "0.5.2",
+    "org.apache.cordova.media-capture": "0.3.3",
+    "org.apache.cordova.network-information": "0.2.12",
+    "org.apache.cordova.splashscreen": "0.3.3",
+    "org.apache.cordova.media": "0.2.13",
+    "org.apache.cordova.file": "1.3.1"
 }
 // BOTTOM OF METADATA
 });

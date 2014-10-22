@@ -29,7 +29,7 @@ if (typeof (MSApp) !== "undefined") {
     // check resizing screen
     $(window).resize(function () {
         console.log("Resize Screen to " + $(document).innerWidth());
-        
+
         var width = $(document).innerWidth();
         var half = $(window).width();
         var panelLeftWidth = $('#panel-left').width();
@@ -37,7 +37,7 @@ if (typeof (MSApp) !== "undefined") {
         var headerWidth = width;
 
         //console.log('half ' + half);
-        
+
         $("#panel-left").show();
         $("#panel-center").css("width", resizeWidth);
         $('#panel-right').css("width", $(document).innerWidth() + 50);
@@ -48,7 +48,7 @@ if (typeof (MSApp) !== "undefined") {
         $(".header-wrapper").css("width", headerWidth);
         /*$(".header-wrapper").css("left", 'auto');
         $(".header-wrapper").css("right", '0px');*/
-       
+
     });
 
     function captureAudioW8(captureSuccess, captureError, args) {
