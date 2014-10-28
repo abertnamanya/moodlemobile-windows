@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/2010/manifest" xmlns:m2="http://schemas.microsoft.com/appx/2013/manifest">
-    <Identity Name="3312ADB7.MoodleMobile" Publisher="CN=33CDCDF6-1EB5-4827-9897-ED25C91A32F6" Version="1.7.0.1" />
+    <Identity Name="3312ADB7.MoodleMobile" Publisher="CN=33CDCDF6-1EB5-4827-9897-ED25C91A32F6" Version="1.7.0.13" />
     <Properties>
         <DisplayName>Moodle Mobile</DisplayName>
         <PublisherDisplayName>Moodle Pty Ltd.</PublisherDisplayName>
@@ -11,18 +11,7 @@
         <OSMaxVersionTested>6.2.1</OSMaxVersionTested>
     </Prerequisites>
     <Resources>
-        <Resource Language="en-us" />
-        <Resource Language="zh-hans" />
-        <Resource Language="cs-cz" />
-        <Resource Language="nl-nl" />
-        <Resource Language="fr-fr" />
-        <Resource Language="de-de" />
-        <Resource Language="hu-hu" />
-        <Resource Language="it-it" />
-        <Resource Language="ja-jp" />
-        <Resource Language="pt-br" />
-        <Resource Language="ru-ru" />
-        <Resource Language="es-es" />
+        <Resource Language="x-generate" />
     </Resources>
     <Applications>
         <Application Id="com.mm.moodlemobile" StartPage="www/index.html">
