@@ -1,4 +1,4 @@
-﻿// Licensed to the Apache Software Foundation (ASF) under one
+// Licensed to the Apache Software Foundation (ASF) under one
 // or more contributor license agreements.  See the NOTICE file
 // distributed with this work for additional information
 // regarding copyright ownership.  The ASF licenses this file
@@ -23,21 +23,11 @@
 
 
 // Base path for all the files required.
-var userAgent = MM._getUserAgent();
-if (userAgent.indexOf('windows phone 8.0') !== -1){
-    requirejs.config({
-        paths: {
-            root: 'x-wmapp0://www'
-        }
-    });
-} else {
-    requirejs.config({
-        paths: {
-            root: '..'
-        }
-    });  
-}
-
+requirejs.config({
+    paths: {
+        root: '..'
+    }
+});
 
 // Requirements for launching the app, the function is not executed until both
 // files are fully loaded.
@@ -56,19 +46,11 @@ function(config, lang, worker) {
     MM.webWorker = worker;
 
     // Once the config and base lang are loaded, we load all the plugins defined in the config.json file.
+    requirejs.config({
+        baseUrl: 'x-wmapp0:www/plugins/',
+        packages: config.plugins
+    });
 
-    if (userAgent.indexOf('windows phone 8.0') !== -1) {
-        requirejs.config({
-            baseUrl: 'x-wmapp0:www/plugins/',
-            packages: config.plugins
-        });
-    } else {
-        requirejs.config({
-            baseUrl: 'plugins',
-            packages: config.plugins
-        });
-        
-    }
     // We load extra languages if are present in the config file.
     var lang = MM.lang.determine();
     var extraLang = 'root/externallib/text!root/lang/' + lang + '.json';

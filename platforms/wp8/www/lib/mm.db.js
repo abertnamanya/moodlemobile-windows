@@ -1,4 +1,4 @@
-﻿// Licensed to the Apache Software Foundation (ASF) under one
+// Licensed to the Apache Software Foundation (ASF) under one
 // or more contributor license agreements.  See the NOTICE file
 // distributed with this work for additional information
 // regarding copyright ownership.  The ASF licenses this file
@@ -26,25 +26,25 @@
   * @namespace Holds all the MoodleMobile database functionality.
  */
 MM.db = {
-    get: function (collection, id) {
+    get: function(collection, id) {
         // Fetch all the elements from the collection.
         MM.collections[collection].fetch();
         return MM.collections[collection].get(id);
     },
-    where: function (collection, conditions) {
+    where: function(collection, conditions) {
         // Fetch all the elements from the collection.
         MM.collections[collection].fetch();
         return MM.collections[collection].where(conditions);
     },
-    each: function (collection, fn) {
+    each: function(collection, fn) {
         // Fetch all the elements from the collection.
         MM.collections[collection].fetch();
         MM.collections[collection].each(fn);
     },
-    insert: function (collection, model) {
+    insert: function(collection, model) {
         return MM.collections[collection].create(model);
     },
-    remove: function (collection, modelId) {
+    remove: function(collection, modelId) {
         var model = MM.db.get(collection, modelId);
         if (model) {
             return model.destroy();
@@ -52,7 +52,7 @@ MM.db = {
             return false;
         }
     },
-    length: function (collection) {
+    length: function(collection) {
         MM.collections[collection].fetch();
         return MM.collections[collection].length;
     }

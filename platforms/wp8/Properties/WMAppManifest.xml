@@ -16,7 +16,7 @@
     <Language code="ru" />
     <Language code="es" />
   </Languages>
-  <App Author="Moodle" BitsPerPixel="32" Description="Apache Cordova for Windows Phone" Genre="apps.normal" ProductID="{592bf1a0-5387-11e4-a7da-3f19ea4df4e1}" Publisher="MoodleMobile" PublisherID="{db093ed5-53b1-45f7-af72-751e8f36ab80}" RuntimeType="Silverlight" Title="MoodleMobile" Version="1.7" xmlns="">
+  <App Author="Moodle" BitsPerPixel="32" Description="Moodle Mobile oficial app" Genre="apps.normal" ProductID="{592bf1a0-5387-11e4-a7da-3f19ea4df4e1}" Publisher="MoodleMobile" PublisherID="{db093ed5-53b1-45f7-af72-751e8f36ab80}" RuntimeType="Silverlight" Title="MoodleMobile" Version="1.9" xmlns="">
     <IconPath IsRelative="true" IsResource="false">ApplicationIcon.png</IconPath>
     <Capabilities>
       <Capability Name="ID_CAP_WEBBROWSERCOMPONENT" />

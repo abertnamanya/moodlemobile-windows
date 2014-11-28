@@ -1,4 +1,4 @@
-﻿// Licensed to the Apache Software Foundation (ASF) under one
+// Licensed to the Apache Software Foundation (ASF) under one
 // or more contributor license agreements.  See the NOTICE file
 // distributed with this work for additional information
 // regarding copyright ownership.  The ASF licenses this file
@@ -54,7 +54,7 @@ var MM = {
      * @this {MM}
      * @param {Object.<>} Settings loaded from /config.json.
      */
-    init: function (config) {
+    init: function(config) {
         MM.log('Initializating app');
         this.config = config;
         this.setEventTypes();
@@ -74,7 +74,7 @@ var MM = {
     /**
      * Set which events we should bind interaction handlers to.
      */
-    setEventTypes: function () {
+    setEventTypes: function() {
         if (MM.util.isTouchDevice()) {
             MM.clickType = 'touchend';
             MM.quickClick = 'touchstart';
@@ -88,7 +88,7 @@ var MM = {
      * Detect the current device type (tablet or phone).
      */
     setDeviceType: function () {
-        if (typeof (MSApp) !== "undefined") {
+        if (typeof (MSApp) !== "undefined"){
             this.deviceType = 'tablet';
             $('body').addClass('tablet');
         } else if (matchMedia(MM.mq).matches) {
@@ -104,14 +104,14 @@ var MM = {
      * Required to test against different user agents
      * @return string The userAgent in lowercase.
      */
-    _getUserAgent: function () {
+    _getUserAgent: function() {
         return navigator.userAgent.toLowerCase();
     },
 
     /**
      * Set the current device OS, based on the userAgent string.
      */
-    setDeviceOS: function () {
+    setDeviceOS: function() {
         this.deviceOS = 'null';
         var userAgent = MM._getUserAgent();
         if (userAgent.indexOf('ipad') !== -1) {
@@ -131,7 +131,7 @@ var MM = {
      * Set the inComputer flag if the app is running in a computer (as opposed to
      * a mobile device).
      */
-    setInComputerState: function () {
+    setInComputerState: function() {
         MM.inComputer = navigator.userAgent.indexOf('Chrome') >= 0 ||
                         navigator.userAgent.indexOf('Safari') >= 0 ||
                         navigator.userAgent.indexOf('MSIE') >= 0 ||
@@ -140,7 +140,7 @@ var MM = {
         // Check deviceOs
         MM.inComputer = MM.deviceOS != "ios" && MM.deviceOS != "android" && MM.deviceOS != "windows8" && MM.deviceOS != "wp8";
         // Check if Phonegap Javascript is loaded.
-        MM.inComputer = MM.inComputer && typeof (window.device) == "undefined";
+        MM.inComputer = MM.inComputer && typeof(window.device) == "undefined";
         MM.inComputer = MM.inComputer && !MM.deviceReady;
 
         MM.webApp = location.href.indexOf('http') == 0;
@@ -150,16 +150,16 @@ var MM = {
      * Set the inNodeWK flag if the app is running using Node Webkit
      * on a computer.
      */
-    setInNodeWKState: function () {
-        MM.inNodeWK = typeof (process) !== "undefined";
+    setInNodeWKState: function() {
+        MM.inNodeWK = typeof(process) !== "undefined";
     },
 
     /**
      * Set the inMMSimulator flag if the app is running using Moodle Mobile simulator
      * on a computer.
      */
-    setInMMSimulatorState: function () {
-        if (parent && parent.MOODLE_MOBILE_SIMULATOR && parent.MOODLE_MOBILE_SIMULATOR === 1) {
+    setInMMSimulatorState: function() {
+        if(parent && parent.MOODLE_MOBILE_SIMULATOR && parent.MOODLE_MOBILE_SIMULATOR === 1) {
             MM.inMMSimulator = true;
         } else {
             MM.inMMSimulator = false;
@@ -171,13 +171,13 @@ var MM = {
      * Load the cordova emulator if necessary (if the app isn't running on a
      * mobile device).
      */
-    loadCordova: function () {
+    loadCordova: function() {
         // If we are testing in a computer, we load the Cordova emulating javascript, waiting a few seconds.
         // If meanwhile Phonegap is loaded, the loadEmulator will do nothing.
         if (MM.inComputer || MM.webApp) {
             // If we are running node-webkit, load the emulator immediately.
-            var seconds = (MM.inNodeWK) ? 100 : 4000;
-            setTimeout(function () {
+            var seconds = (MM.inNodeWK)? 100 : 4000;
+            setTimeout(function() {
                 MM.log('MM: Loading Cordova Emulator, we are in a ' + navigator.userAgent);
                 MM.cordova.loadEmulator();
             }, seconds);
@@ -187,7 +187,7 @@ var MM = {
     /**
      * Load the Backbone URL router.
      */
-    loadBackboneRouter: function () {
+    loadBackboneRouter: function() {
         var appRouter = Backbone.Router.extend();
         MM.Router = new appRouter;
     },
@@ -197,15 +197,15 @@ var MM = {
      * Even jQuery say this isn't recommended.
      * TODO: Remove.
      */
-    checkAjax: function () {
-        $.ajaxSetup({ 'error': MM._defaultErrorFunction });
+    checkAjax: function() {
+        $.ajaxSetup({'error': MM._defaultErrorFunction});
     },
 
     /**
      * The default error function as set in MM.checkAjax
      * Moved outside of checkAjax for ease of testing.
      */
-    _defaultErrorFunction: function (xhr, textStatus, errorThrown) {
+    _defaultErrorFunction: function(xhr, textStatus, errorThrown) {
         var error = MM.lang.s('cannotconnect');
         if (xhr.status == 404) {
             error = MM.lang.s('invalidscheme');
@@ -220,31 +220,31 @@ var MM = {
      * @param {integer} myParam Description
      * @return {boolean} Description
      */
-    loadCoreModels: function () {
+    loadCoreModels: function() {
         // Load Models.
         // Elements for the core storage model.
         var storage = {
             setting: {
                 type: 'model',
                 bbproperties: {
-                    initialize: function () {
+                    initialize: function() {
                         MM.config[this.get('name')] = this.get('value');
-                    }
+                   }
                 }
             },
-            settings: { type: 'collection', model: 'setting' },
-            site: { type: 'model' },
-            sites: { type: 'collection', model: 'site' },
-            course: { type: 'model' },
-            courses: { type: 'collection', model: 'course' },
-            user: { type: 'model' },
-            users: { type: 'collection', model: 'user' },
-            cacheEl: { type: 'model' },
-            cache: { type: 'collection', model: 'cacheEl' },
-            syncEl: { type: 'model' },
-            sync: { type: 'collection', model: 'syncEl' },
-            service: { type: 'model' },
-            services: { type: 'collection', model: 'service' }
+            settings: {type: 'collection', model: 'setting'},
+            site: {type: 'model'},
+            sites: {type: 'collection', model: 'site'},
+            course: {type: 'model'},
+            courses: {type: 'collection', model: 'course'},
+            user: {type: 'model'},
+            users: {type: 'collection', model: 'user'},
+            cacheEl: {type: 'model'},
+            cache: {type: 'collection', model: 'cacheEl'},
+            syncEl: {type: 'model'},
+            sync: {type: 'collection', model: 'syncEl'},
+            service: {type: 'model'},
+            services: {type: 'collection', model: 'service'}
         };
         this.loadModels(storage);
     },
@@ -254,9 +254,9 @@ var MM = {
      * in the config.
      * @return {void}
      */
-    loadSettings: function () {
+    loadSettings: function() {
         // Load settings from database.
-        MM.db.each('settings', function (e) {
+        MM.db.each('settings', function(e) {
             MM.config[e.get('name')] = e.get('value');
         });
         // Init global flag for debugging.
@@ -269,7 +269,7 @@ var MM = {
      *
      * @return {Object} The network object if one exists.
      */
-    _getNetwork: function () {
+    _getNetwork: function() {
         return navigator.network;
     },
 
@@ -279,18 +279,18 @@ var MM = {
      *
      * @return {boolean} True if the device is connected.
      */
-    deviceConnected: function () {
+    deviceConnected: function() {
         var connected = true;
 
         var network = MM._getNetwork();
-        if (typeof (network) != 'undefined') {
+        if (typeof(network) != 'undefined') {
             var networkState = network.connection.type;
             connected = (networkState != Connection.NONE && networkState != Connection.UNKNOWN);
             MM.log('Internet connection checked ' + connected);
         }
 
         var offline = MM.getConfig('dev_offline');
-        if (typeof (offline) != 'undefined' && offline) {
+        if (typeof(offline) != 'undefined' && offline) {
             // Ugly hack for only emulate offline if we are logged in the app.
             var displayed = $('#main-wrapper').css('display');
             if (displayed == 'block') {
@@ -301,28 +301,28 @@ var MM = {
         return connected;
     },
 
-    _renderManageAccounts: function (sites) {
+    _renderManageAccounts: function(sites) {
         if (!sites) {
             sites = [];
-            MM.db.each('sites', function (el) {
+            MM.db.each('sites', function(el) {
                 sites.push(el.toJSON());
             });
         }
-        var tpl = MM.tpl.render($('#manage-accounts_template').html(), { sites: sites });
+        var tpl = MM.tpl.render($('#manage-accounts_template').html(), {sites: sites});
         $('#manage-accounts').html(tpl);
     },
 
     /**
      * Loads the non site specific CSS layout of the app and handles orientation/state changes.
      */
-    loadLayout: function () {
+    loadLayout: function() {
         MM.log('Loading layout');
 
         var tpl = MM.tpl.render($('#add-site_template').html());
         $('#add-site').html(tpl);
 
         var sites = [];
-        MM.db.each('sites', function (el) {
+        MM.db.each('sites', function(el) {
             sites.push(el.toJSON());
         });
 
@@ -345,9 +345,10 @@ var MM = {
 
         var mq = matchMedia(MM.mq);
         mq.addListener(MM.mediaQueryChangeHandler);
+        mq.addListener(MM.mediaQueryChangeHandler);
         if (MM.deviceOS == 'windows8') {
             MM.setUpTabletModeLayout();
-        } else {
+        }else{
             if (mq.matches) {
                 MM.setUpTabletModeLayout();
             } else {
@@ -361,7 +362,7 @@ var MM = {
         $("#panel-left, #panel-center, #panel-right").addClass("overflow-scroll");
 
         // First we try to use native scrolling for overflow divs.
-        if (MM.util.isTouchDevice() && MM.util.overflowScrollingSupported()) {
+        if (MM.util.isTouchDevice() && MM.util.overflowScrollingSupported()){
             MM.setUpOverflowScrolling();
         } else {
             if (MM.deviceType == "phone" && !MM.util.overflowScrollingSupported()) {
@@ -374,7 +375,7 @@ var MM = {
         // Display the add site screen if no sites added.
         var current_site = MM.getConfig('current_site');
 
-        if (typeof (current_site) != 'undefined' && current_site && current_site.id) {
+        if (typeof(current_site) != 'undefined' && current_site && current_site.id) {
             if (MM.db.get('sites', current_site.id)) {
                 // We should wait for Phonegap/Cordova prior to start calling WS, etc..
                 MM.loadSite(current_site.id);
@@ -394,17 +395,20 @@ var MM = {
         MM.loadExtraJs();
     },
 
-    _displayAddSite: function () {
+    _displayAddSite: function() {
         $('#manage-accounts').css('display', 'none');
         $('#add-site').css('display', 'block');
+        $('#url').focus();
+        // Dealy needed because of the splash screen.
+        setTimeout(MM.util.showKeyboard, 1000);
     },
 
-    _displayManageAccounts: function () {
+    _displayManageAccounts: function() {
         $('#manage-accounts').css('display', 'block');
         $('#add-site').css('display', 'none');
     },
 
-    _showMainAppPanels: function () {
+    _showMainAppPanels: function() {
         // Hide the Add Site panel.
         $('#add-site').css('display', 'none');
         // Hide manage accounts.
@@ -417,7 +421,7 @@ var MM = {
      * Handle device orientation change events.
      * @param {object} e The event object.
      */
-    orientationChangeHandler: function (e) {
+    orientationChangeHandler: function(e) {
         MM.log("MM: orientationchange fired, old width old height " + $(document).innerHeight());
         $('#main-wrapper, #panel-left').css('height', $(document).innerHeight());
 
@@ -434,6 +438,7 @@ var MM = {
 
         if (MM.deviceType == 'phone') {
             //$('#panel-right').css("width", $(document).innerWidth() + 50);
+            $('#panel-right').css("width", $(document).innerWidth());
             $("#panel-right .content-index").css("width", $(document).innerWidth());
         } else {
             MM.panels.resizePanels();
@@ -443,11 +448,10 @@ var MM = {
     },
 
     /**
-     * Handle media query change events, refresh the vie
-     ort.
+     * Handle media query change events, refresh the viewport.
      * @param {object} mq The media query object.
      */
-    mediaQueryChangeHandler: function (mq) {
+    mediaQueryChangeHandler: function(mq) {
         MM.log('media queries match');
         if (mq.matches && MM.deviceType == 'phone') {
             // We were in phone resolution view, now we are in tablet resolution view. Reload all the layout.
@@ -461,11 +465,11 @@ var MM = {
     /**
      * Set up tablet mode layout.
      */
-    setUpTabletModeLayout: function () {
+    setUpTabletModeLayout: function() {
         MM.panels.calculatePanelsSizes();
         MM.panels.fixPanelsSize();
 
-        $('#mainmenu').bind(MM.quickClick, function (e) {
+        $('#mainmenu').bind(MM.quickClick, function(e) {
             MM.panels.menuShow();
             e.preventDefault();
             e.stopPropagation();
@@ -473,15 +477,15 @@ var MM = {
 
         // Swipe detection.
         $('#panel-center, #panel-right').swipe({
-            swipeLeft: function (event, direction, distance, duration, fingerCount) {
+            swipeLeft: function(event, direction, distance, duration, fingerCount) {
                 MM.log('Swipe' + direction + ' fingers ' + fingerCount);
                 MM.panels.menuShow(false);
             },
-            swipeRight: function (event, direction, distance, duration, fingerCount) {
+            swipeRight: function(event, direction, distance, duration, fingerCount) {
                 MM.log('Swipe' + direction + ' fingers ' + fingerCount);
                 MM.panels.menuShow(true);
             },
-            click: function (event, direction, distance, duration, fingerCount) {
+            click: function(event, direction, distance, duration, fingerCount) {
             },
             threshold: 50,
             excludedElements: "button, input, select, textarea, .noSwipe"
@@ -491,8 +495,8 @@ var MM = {
     /**
      * Set up phone mode layout.
      */
-    setUpPhoneModeLayout: function () {
-        $('#mainmenu').bind(MM.quickClick, function (e) {
+    setUpPhoneModeLayout: function() {
+        $('#mainmenu').bind(MM.quickClick, function(e) {
             MM.panels.goBack();
             e.preventDefault();
         });
@@ -503,15 +507,15 @@ var MM = {
         }
 
         $('#panel-center, #panel-right').swipe({
-            swipeRight: function (event, direction, distance, duration, fingerCount) {
+            swipeRight: function(event, direction, distance, duration, fingerCount) {
                 MM.log('Swipe right');
                 MM.panels.goBack();
             },
-            swipeLeft: function (event, direction, distance, duration, fingerCount) {
+            swipeLeft: function(event, direction, distance, duration, fingerCount) {
                 MM.log('Swipe left');
                 MM.panels.goFront();
             },
-            click: function (event, direction, distance, duration, fingerCount) {
+            click: function(event, direction, distance, duration, fingerCount) {
             },
             threshold: 50,
             excludedElements: excludedElements
@@ -521,16 +525,16 @@ var MM = {
     /**
      * Set up overflow scrolling.
      */
-    setUpOverflowScrolling: function () {
+    setUpOverflowScrolling: function() {
         MM.log('Overflow supported');
         MM.scrollType = "Native overflow scrolling touch";
         MM.util.setPanelsScreenHeight();
         $("#panel-left, #panel-center, #panel-right").addClass("touch-overflow-scroll");
         // We must detect that are touch moving for avoid opening links fired by javascript events...
-        $("#panel-left, #panel-center, #panel-right").bind('touchmove', function (event) {
+        $("#panel-left, #panel-center, #panel-right").bind('touchmove', function(event) {
             MM.touchMoving = true;
         });
-        $("#panel-left, #panel-center, #panel-right").bind('touchend', function (event) {
+        $("#panel-left, #panel-center, #panel-right").bind('touchend', function(event) {
             MM.touchMoving = false;
         });
     },
@@ -538,7 +542,7 @@ var MM = {
     /**
      * Set up native scrolling.
      */
-    setUpNativeScrolling: function () {
+    setUpNativeScrolling: function() {
         MM.log("Omitting using overflow scroll");
         MM.scrollType = "Native scrolling";
         MM.util.setPanelsMinScreenHeight();
@@ -551,7 +555,7 @@ var MM = {
     /**
      * Set up javascript scrolling.
      */
-    setUpJavascriptScrolling: function () {
+    setUpJavascriptScrolling: function() {
         MM.scrollType = "Javascript scrolling";
         MM.util.setPanelsScreenHeight();
         // These lines makes the iPad scroll working (not momentum).
@@ -565,7 +569,7 @@ var MM = {
      *
      * @param {string} siteId The site id.
      */
-    loadSite: function (siteId, force) {
+    loadSite: function(siteId, force) {
         MM.log('Loading site');
         MM.site = MM.db.get('sites', siteId);
         MM.sync.init();
@@ -573,25 +577,25 @@ var MM = {
         MM.loadCachedRemoteCSS();
         MM.setUpLanguages();
 
-        var settings = { omitExpires: true };
-        if (typeof (force) != "undefined") {
+        var settings = {omitExpires: true};
+        if (typeof(force) != "undefined") {
             settings = {};
         }
 
         // For loading a site, we need the list of courses.
         MM.moodleWSCall(
-            method = 'moodle_enrol_get_users_courses',
-            data = { userid: MM.site.get('userid') },
-            callBack = MM.loadCourses,
-            preSets = settings,
-            errorCallBack = MM._displayAddSite
+            method          = 'moodle_enrol_get_users_courses',
+            data            = {userid: MM.site.get('userid')},
+            callBack        = MM.loadCourses,
+            preSets         = settings,
+            errorCallBack   = MM._displayAddSite
         );
     },
 
     /**
      * Set up config.
      */
-    setUpConfig: function () {
+    setUpConfig: function() {
         MM.setConfig('current_site', MM.site.toJSON());
         MM.setConfig('current_token', MM.site.get('token'));
     },
@@ -599,7 +603,7 @@ var MM = {
     /**
      * Set up languages.
      */
-    setUpLanguages: function () {
+    setUpLanguages: function() {
         MM.lang.setup();
         for (var el in MM.config.plugins) {
             var index = MM.config.plugins[el];
@@ -611,13 +615,12 @@ var MM = {
                 MM.lang.setup(plugin.settings.name);
             }
         }
-        MM.lang.sync();
     },
 
     /**
      * Load cached remote CSS.
      */
-    loadCachedRemoteCSS: function () {
+    loadCachedRemoteCSS: function() {
 
         // Load cached remote CSS
         var remoteCSS = MM.cache.getElement('css', true);
@@ -634,7 +637,7 @@ var MM = {
     /**
      * Load courses.
      */
-    loadCourses: function (courses) {
+    loadCourses: function(courses) {
         var plugins = [];
         var coursePlugins = [];
 
@@ -646,7 +649,7 @@ var MM = {
             }
             // Check if the plugin is Visible.
             // If the iPluginVisible function is undefined, we assume the plugin is visible without additional checks.
-            if (typeof (plugin.isPluginVisible) == 'function' && !plugin.isPluginVisible()) {
+            if (typeof(plugin.isPluginVisible) == 'function' && !plugin.isPluginVisible()) {
                 continue;
             }
             if (plugin.settings.type == 'general') {
@@ -688,14 +691,17 @@ var MM = {
         MM.panels.html('left', output);
 
         $('.submenu').hide();
-        $('.toogler').bind(MM.clickType, function (e) {
+        $('.toogler').bind(MM.clickType, function(e) {
             // This prevents open the toogler when we are scrolling.
             if (MM.touchMoving) {
                 MM.touchMoving = false;
             } else {
                 e.preventDefault();
-                $(this).next().slideToggle(300);
+                // Hide expanded (accordion effect).
+                $(".nav.submenu .toogler.collapse").not($(this)).toggleClass("collapse expand").next().slideToggle(150);
+
                 $(this).toggleClass("collapse expand");
+                $(this).next().slideToggle(300);
             }
         });
 
@@ -714,16 +720,16 @@ var MM = {
 
         if (MM.deviceType == 'tablet') {
             MM.panels.html('center', '<div class="welcome">' + MM.lang.s("welcome") + '</div>');
-            MM.panels.menuShow(true, { animate: false });
+            MM.panels.menuShow(true, {animate: false});
             MM.panels.hide('right', '');
         }
     },
 
-    getClickType: function () {
+    getClickType: function() {
         return MM.clickType;
     },
 
-    getTouchMoving: function () {
+    getTouchMoving: function() {
         return MM.touchMoving;
     },
 
@@ -733,7 +739,7 @@ var MM = {
      * @param  {string} siteURL The site URL
      * @return {string}         The service shortname
      */
-    _determineService: function (siteURL) {
+    _determineService: function(siteURL) {
         // We need to try siteURL in both https or http (due to loginhttps setting).
 
         // First http://
@@ -766,7 +772,7 @@ var MM = {
      * @param  {Object} successCallBack Success callback
      * @param  {Object} errorCallback   Error callback
      */
-    _checkMobileLocalPlugin: function (siteURL, successCallBack, errorCallback) {
+    _checkMobileLocalPlugin: function(siteURL, successCallBack, errorCallback) {
         // First check if is disabled by config.
         if (!MM.config.wsextservice) {
             errorCallback();
@@ -774,20 +780,20 @@ var MM = {
         }
         $.ajax({
             url: siteURL + "/local/mobile/check.php",
-            type: 'POST',
-            data: {
+            type:'POST',
+            data:{
                 service: MM.config.wsextservice
             },
             dataType: "json",
-            success: successCallBack,
-            error: errorCallback
+            success:  successCallBack,
+            error:    errorCallback
         });
     },
 
     /**
      * Reset the add site form
      */
-    _resetAddSiteForm: function () {
+    _resetAddSiteForm: function() {
         $('#username').val("");
         $('#password').val("");
         $("#url").removeAttr("disabled");
@@ -795,32 +801,34 @@ var MM = {
         $('#add-site form').off('submit', MM.addSite);
         $('#add-site form').on('submit', MM.checkSite);
         $("#login-credentials").css("display", "none");
-        $("#login-details").animate({ paddingTop: "40px" });
+        $("#login-details").animate({paddingTop: "40px"});
         $("#resetsitebutton").css("display", "none");
         $('#username').focus();
+        MM.util.showKeyboard();
     },
 
     /**
      * Expand the add site form with the username and password fields
      */
-    _expandAddSiteForm: function () {
-        $("#url").attr('disabled', 'disabled');
-        $("#login-details").animate({ paddingTop: "0px" });
+    _expandAddSiteForm: function() {
+        $("#url").attr('disabled','disabled');
+        $("#login-details").animate({paddingTop: "0px"});
         $("#login-credentials").css("display", "block");
         $("#resetsitebutton").css("display", "inline");
         $('#add-site form').off('submit', MM.checkSite);
         $('#add-site form').on('submit', MM.addSite);
-        $("#resetsitebutton").on(MM.clickType, function () {
+        $("#resetsitebutton").on(MM.clickType, function() {
             MM._resetAddSiteForm();
         });
         $('#username').focus();
+        MM.util.showKeyboard();
     },
 
-    _appLaunchedByURL: function (url) {
+    _appLaunchedByURL: function(url) {
 
         // We have to wait until the app is initialized.
-        if (typeof (MM.config.launchSiteURL) == "undefined") {
-            setTimeout(function () {
+        if (typeof(MM.config.launchSiteURL) == "undefined") {
+            setTimeout(function() {
                 MM._appLaunchedByURL(url);
             }, 1000);
             return;
@@ -840,7 +848,7 @@ var MM = {
         passport = MM.getConfig("launchPassport");
 
         // Reset temporary values.
-        MM.setConfig("launchSiteURL", null);
+        MM.setConfig("launchSiteURL",  null);
         MM.setConfig("launchPassport", null);
 
         if (!launchSiteURL || !passport) {
@@ -879,7 +887,7 @@ var MM = {
      * @param {string} protocol The procol entered in the url.
      */
 
-    checkSite: function (e, protocol) {
+    checkSite: function(e, protocol) {
         if (e) {
             e.preventDefault();
         }
@@ -927,7 +935,7 @@ var MM = {
         // We need a timeout because some sites that doesn't have https configured can not close the connection for a long time.
         var timeout = 15000;
 
-        if (typeof (protocol) == "undefined") {
+        if (typeof(protocol) == "undefined") {
             protocol = "https://";
         }
 
@@ -936,10 +944,10 @@ var MM = {
 
         // First, check that the site exists.
         $.ajax({
-            url: siteurl + "/login/token.php",
+            url:  siteurl + "/login/token.php",
             type: 'HEAD',
             timeout: timeout,
-            success: function () {
+            success:function() {
 
                 // First of all, replace the url field with the normalized/validated one.
                 $("#url").val(siteurl);
@@ -948,8 +956,8 @@ var MM = {
                 // We need to check if we are going to use extended services and also if SSO is configured.
                 MM._checkMobileLocalPlugin(siteurl,
                     // Success.
-                    function (response) {
-                        if (typeof (response.code) == "undefined") {
+                    function(response) {
+                        if (typeof(response.code) == "undefined") {
                             MM.popErrorMessage(MM.lang.s("unexpectederror"));
                             return;
                         }
@@ -1000,12 +1008,12 @@ var MM = {
                                     MM._expandAddSiteForm();
                                     break;
                                 case 2:
-                                    MM.popConfirm(MM.lang.s('logininsiterequired'), function () {
+                                    MM.popConfirm(MM.lang.s('logininsiterequired'), function() {
                                         var passport = Math.random() * 1000;
                                         var url = siteurl + "/local/mobile/launch.php?service=" + MM.config.wsextservice;
                                         url += "&passport=" + passport;
 
-                                        MM.setConfig("launchSiteURL", siteurl);
+                                        MM.setConfig("launchSiteURL",  siteurl);
                                         MM.setConfig("launchPassport", passport);
                                         window.open(url, "_system");
                                         if (navigator.app) {
@@ -1020,13 +1028,13 @@ var MM = {
                     },
                     // Error. The plugin is not installed.
                     // We are going to perform then a normal login process.
-                    function () {
+                    function() {
                         MM.log("Checking site: local_mobile plugin is not installed");
                         MM._expandAddSiteForm();
                     }
                 );
             },
-            error: function (xhr, textStatus, errorThrown) {
+            error:function(xhr, textStatus, errorThrown) {
                 var error = MM.lang.s('cannotconnect');
 
                 if (siteurl.indexOf("https://") === 0) {
@@ -1038,7 +1046,7 @@ var MM = {
                 }
                 MM.popErrorMessage(error);
             },
-            complete: function () {
+            complete: function() {
                 $("#url").removeClass("url-loading");
             }
         });
@@ -1050,7 +1058,7 @@ var MM = {
      *
      * @param {!Object} Javascript event.
      */
-    addSite: function (e) {
+    addSite: function(e) {
 
         e.preventDefault();
 
@@ -1092,7 +1100,7 @@ var MM = {
      * @return {bool} TRUE if the url matches the expected pattern.
      *                FALSE otherwise.
      */
-    validateURL: function (url) {
+    validateURL: function(url) {
         return /^http(s)?\:\/\/.*/i.test(url)
     },
 
@@ -1102,7 +1110,7 @@ var MM = {
      * @param  {str} username Username
      * @return {[type]}          [description]
      */
-    _saveToken: function (token) {
+    _saveToken: function(token) {
 
         MM.setConfig('current_token', token);
         MM.config.current_token = token;
@@ -1115,12 +1123,12 @@ var MM = {
         };
 
         // We have a valid token, try to get the site info.
-        MM.moodleWSCall('moodle_webservice_get_siteinfo', {}, function (site) {
+        MM.moodleWSCall('moodle_webservice_get_siteinfo', {}, function(site) {
             // Now we check for the minimum required version.
             // We check for WebServices present, not for Moodle version.
             // This may allow some hacks like using local plugins for adding missin functions in previous versions.
             var validMoodleVersion = false;
-            $.each(site.functions, function (index, el) {
+            $.each(site.functions, function(index, el) {
                 // core_get_component_strings Since Moodle 2.4
                 if (el.name.indexOf("component_strings") > -1) {
                     validMoodleVersion = true;
@@ -1150,7 +1158,7 @@ var MM = {
      * @param {string} siteurl The site url.
      * @return {boolean} Allways returns false
      */
-    saveSite: function (username, password, siteurl) {
+    saveSite: function(username, password, siteurl) {
         MM.showModalLoading(MM.lang.s("authenticating"));
         var loginURL = siteurl + '/login/token.php';
         MM.siteurl = siteurl;
@@ -1158,28 +1166,28 @@ var MM = {
         var service = MM._determineService(siteurl);
         // Now, we try to get a valid token.
         $.ajax({
-            url: loginURL,
-            type: 'POST',
-            data: {
+            url:loginURL,
+            type:'POST',
+            data:{
                 username: username,
                 password: password,
-                service: service
+                service:  service
             },
-            dataType: "json",
-            success: function (json) {
-                if (typeof (json.token) != 'undefined') {
+            dataType:"json",
+            success:function(json) {
+                if (typeof(json.token) != 'undefined') {
                     // Save the token, and load the site.
                     MM._saveToken(json.token);
                 } else {
                     var error = MM.lang.s('invalidaccount');
 
-                    if (typeof (json.error) != 'undefined') {
+                    if (typeof(json.error) != 'undefined') {
                         error = json.error;
                     }
                     MM.popErrorMessage(error);
                 }
             },
-            error: function (xhr, textStatus, errorThrown) {
+            error:function(xhr, textStatus, errorThrown) {
                 var error = MM.lang.s('cannotconnect');
 
                 if (xhr.status == 404) {
@@ -1198,7 +1206,7 @@ var MM = {
      *
      * @param {!Object} And object representing a plugin.
      */
-    registerPlugin: function (plugin) {
+    registerPlugin: function(plugin) {
         var pluginName = plugin.settings.name;
 
         // Load the plugin in the main Namespace.
@@ -1212,7 +1220,7 @@ var MM = {
         this.loadModels(plugin.storage);
 
         // Sync hooks (like cron jobs)
-        if (typeof (plugin.sync) != 'undefined') {
+        if (typeof(plugin.sync) != 'undefined') {
             MM.sync.registerHook(pluginName, plugin.sync);
         }
 
@@ -1229,7 +1237,7 @@ var MM = {
      *
      * @return {Store} A store object for the model.
      */
-    _createNewStore: function (modelName) {
+    _createNewStore: function(modelName) {
         return new Store(modelName);
     },
 
@@ -1238,7 +1246,7 @@ var MM = {
      *
      * @param {Array.<Object>} elements The models to be loaded.
      */
-    loadModels: function (elements) {
+    loadModels: function(elements) {
 
         for (var el in elements) {
             var obj = elements[el];
@@ -1264,7 +1272,7 @@ var MM = {
     /**
      * Loads backbone routes.
      */
-    loadRoutes: function () {
+    loadRoutes: function() {
         var routes = [
             ['helpmelogin', 'helpmelogin', MM.util.helpMeLogin],
             ['settings', 'settings', MM.settings.display],
@@ -1274,8 +1282,7 @@ var MM = {
             ['settings/sites/add', 'settings_sites_add_site', MM.settings.addSite],
             ['settings/sites/delete/:siteid', 'settings_sites_delete_site', MM.settings.deleteSite],
             ['settings/general/purgecaches', 'settings_general_purgecaches', MM.cache.purge],
-            ['settings/sync/lang', 'settings_sync_lang', function () { MM.lang.sync(true); }],
-            ['settings/sync/css', 'settings_sync_css', function () { MM.sync.css(true); }],
+            ['settings/sync/css', 'settings_sync_css', function() { MM.sync.css(true); }],
             ['settings/spaceusage/empty/:siteid', 'settings_spaceusage_empty_site', MM.settings.deleteSiteFiles],
             ['settings/development/log/:filter', 'settings_sync_css', MM.showLog],
             ['add-site', 'add_site', MM._displayAddSite],
@@ -1294,27 +1301,27 @@ var MM = {
      * @param {Object} preSets The presets to check
      * @return {Object} The completed list of presets.
      */
-    _verifyPresets: function (preSets) {
-        if (typeof (preSets) == 'undefined' || preSets == null) {
+    _verifyPresets: function(preSets) {
+        if (typeof(preSets) == 'undefined' || preSets == null) {
             preSets = {};
         }
-        if (typeof (preSets.getFromCache) == 'undefined') {
+        if (typeof(preSets.getFromCache) == 'undefined') {
             preSets.getFromCache = 1;
         }
-        if (typeof (preSets.saveToCache) == 'undefined') {
+        if (typeof(preSets.saveToCache) == 'undefined') {
             preSets.saveToCache = 1;
         }
-        if (typeof (preSets.sync) == 'undefined') {
+        if (typeof(preSets.sync) == 'undefined') {
             preSets.sync = 0;
         }
-        if (typeof (preSets.silently) == 'undefined') {
+        if (typeof(preSets.silently) == 'undefined') {
             preSets.silently = false;
         }
-        if (typeof (preSets.omitExpires) == 'undefined') {
+        if (typeof(preSets.omitExpires) == 'undefined') {
             preSets.omitExpires = false;
         }
 
-        if (typeof (preSets.wstoken) == 'undefined') {
+        if (typeof(preSets.wstoken) == 'undefined') {
             preSets.wstoken = MM.config.current_token;
             if (!preSets.wstoken) {
                 MM.popErrorMessage(MM.lang.s("unexpectederror"));
@@ -1322,7 +1329,7 @@ var MM = {
             }
         }
 
-        if (typeof (preSets.siteurl) == 'undefined') {
+        if (typeof(preSets.siteurl) == 'undefined') {
             preSets.siteurl = MM.config.current_site.siteurl;
             if (!preSets.siteurl) {
                 MM.popErrorMessage(MM.lang.s("unexpectederror"));
@@ -1342,7 +1349,7 @@ var MM = {
      * @param {Function} errorCallBack The callback to use in the event of failure.
      * @return {void}
      */
-    _getDataFromCache: function (preSets, ajaxData, callBack, errorCallBack) {
+    _getDataFromCache: function(preSets, ajaxData, callBack, errorCallBack) {
         // Try to get the data from cache.
         if (preSets.getFromCache || (preSets.saveToCache && !MM.deviceConnected())) {
             // In case the device is not connected, we prefer expired cache than nothing.
@@ -1376,7 +1383,7 @@ var MM = {
      * @return {Object} The cleaned object, with multilevel array and objects
      *                  preserved.
      */
-    _convertValuesToString: function (data) {
+    _convertValuesToString: function(data) {
         var result = [];
         if (!_.isArray(data) && _.isObject(data)) {
             result = {};
@@ -1402,7 +1409,7 @@ var MM = {
      *      sync For indicate that is a call in a sync process
      *      silently For not raising erronors.
      */
-    moodleWSCall: function (method, data, callBack, preSets, errorCallBack) {
+    moodleWSCall: function(method, data, callBack, preSets, errorCallBack) {
 
         data = MM._convertValuesToString(data);
         preSets = MM._verifyPresets(preSets);
@@ -1410,8 +1417,8 @@ var MM = {
         // First check if we are using the "emulated" site feature (not connecting to a server).
         if (MM.util.inEmulatedSite()) {
             // Load the WS emulated response.
-            $.getJSON("emulator/" + method + ".json", function (data) {
-                setTimeout(function () {
+            $.getJSON("emulator/" + method + ".json", function(data) {
+                setTimeout(function() {
                     callBack(data);
                 }, 100);
             });
@@ -1440,7 +1447,7 @@ var MM = {
                     syncattempts: 0
                 };
                 MM.db.insert('sync', el);
-                MM.popMessage(MM.lang.s('addedtoqueue'), { title: preSets.syncData.name });
+                MM.popMessage(MM.lang.s('addedtoqueue'), {title: preSets.syncData.name});
                 return true;
             }
         }
@@ -1451,7 +1458,7 @@ var MM = {
 
         // If we arrive here, and we are not connected, thrown a network error message.
         if (!MM.deviceConnected()) {
-            if (typeof (errorCallBack) === "function") {
+            if (typeof(errorCallBack) === "function"){
                 errorCallBack(MM.lang.s('networkerrormsg'));
             } else {
                 MM.popErrorMessage(MM.lang.s('networkerrormsg'));
@@ -1470,7 +1477,7 @@ var MM = {
             data: ajaxData,
             dataType: 'json',
 
-            success: function (data) {
+            success: function(data) {
                 // Some moodle web services return null.
                 // If the responseExpected value is set then so long as no data
                 // is returned, we create a blank object.
@@ -1487,7 +1494,7 @@ var MM = {
                     return;
                 }
 
-                if (typeof (data.exception) != 'undefined') {
+                if (typeof(data.exception) != 'undefined') {
                     MM.closeModalLoading();
                     if (data.errorcode == "invalidtoken" || data.errorcode == "accessexception") {
 
@@ -1497,24 +1504,24 @@ var MM = {
                         MM.log("Critical error: " + JSON.stringify(data));
 
                         // TODO: Rewrite setTimeout to work off an event call instead.
-                        setTimeout(function () {
+                        setTimeout(function(){
                             MM.setConfig("current_site", null);
                             location.href = "index.html";
                         }, 10000); // 10 seconds later - redirect.
                         return;
                     } else {
                         if (errorCallBack) {
-                            errorCallBack('Error. ' + data.message);
+                            errorCallBack(data.message);
                         } else {
                             if (!preSets.silently) {
-                                MM.popErrorMessage('Error. ' + data.message);
+                                MM.popErrorMessage(data.message);
                             }
                         }
                         return;
                     }
                 }
 
-                if (typeof (data.debuginfo) != 'undefined') {
+                if (typeof(data.debuginfo) != 'undefined') {
                     MM.closeModalLoading();
                     if (errorCallBack) {
                         errorCallBack('Error. ' + data.message);
@@ -1526,10 +1533,10 @@ var MM = {
                     return;
                 }
 
-                MM.log('WS: Data received from WS ' + typeof (data));
+                MM.log('WS: Data received from WS '+ typeof(data));
 
-                if (typeof (data) == 'object' && typeof (data.length) != 'undefined') {
-                    MM.log('WS: Data number of elements ' + data.length);
+                if (typeof(data) == 'object' && typeof(data.length) != 'undefined') {
+                    MM.log('WS: Data number of elements '+ data.length);
                 }
 
                 if (preSets.saveToCache) {
@@ -1541,7 +1548,7 @@ var MM = {
                 // prevent errors if in the callback the object is modified.
                 callBack(JSON.parse(JSON.stringify(data)));
             },
-            error: function (xhr, ajaxOptions, thrownError) {
+            error: function(xhr, ajaxOptions, thrownError) {
 
                 MM.closeModalLoading();
 
@@ -1570,8 +1577,8 @@ var MM = {
      * @param {Object} errorCallBack Function to be called on error.
      * @param {Object} preSets Extra settings.
      */
-    moodleUploadFile: function (data, fileOptions, successCallBack, errorCallBack, presets) {
-        MM.log('Trying to upload file (' + data.length + ' chars)', 'Sync');
+    moodleUploadFile: function(data, fileOptions, successCallBack, errorCallBack, presets) {
+        MM.log('Trying to upload file ('+ data.length + ' chars)', 'Sync');
         if (!MM.deviceConnected()) MM.handleDisconnectedFileUpload(data, fileOptions);
 
         MM.log('Initializing uploader');
@@ -1580,11 +1587,11 @@ var MM = {
         options.fileName = fileOptions.fileName;
         options.mimeType = fileOptions.mimeType;
         options.params = {
-            token: MM.config.current_token
+            token:MM.config.current_token
         };
         options.chunkedMode = false;
         options.headers = {
-            Connection: "close"
+          Connection: "close"
         };
 
         MM.log('Uploading');
@@ -1593,11 +1600,11 @@ var MM = {
         ft.upload(
             data,
             MM.config.current_site.siteurl + '/webservice/upload.php',
-            function () {
+            function() {
                 MM.closeModalLoading();
                 successCallBack();
             },
-            function () {
+            function() {
                 MM.closeModalLoading();
                 errorCallBack();
             },
@@ -1610,7 +1617,7 @@ var MM = {
      * disconnected). Log the sync attempt, and pop up a message for theuser.
      * @param {object} json The JSON response.
      */
-    handleDisconnectedFileUpload: function (data, fileOptions) {
+    handleDisconnectedFileUpload: function(data, fileOptions) {
         var el = {
             id: hex_md5(MM.config.current_site.siteurl + JSON.stringify(fileOptions)),
             data: data,
@@ -1623,7 +1630,7 @@ var MM = {
             type: 'upload'
         };
         MM.db.insert('sync', el);
-        MM.popMessage(MM.lang.s('addedtoqueue'), { title: el.syncData.name });
+        MM.popMessage(MM.lang.s('addedtoqueue'), {title: el.syncData.name});
         return true;
     },
 
@@ -1635,27 +1642,14 @@ var MM = {
      * @param {Object} successCallBack Function to be called on success.
      * @param {Object} errorCallBack Function to be called on error.
      */
+    moodleDownloadFile: function(url, path, successCallBack, errorCallBack, background) {
 
-    moodleDownloadFile: function (url, path, successCallBack, errorCallBack) {
-        var ft = MM._wsGetFileTransfer();
-
-        // Set the Root in the persistent file system.
-        if (MM.deviceOS == 'windows8') {
-            path = MM.fs.getRoot() + "\/" + path;
-            path = path.replace("/", "\\");
-        } else {
-            path = MM.fs.getRoot() + "/" + path;
-        }
-
-
-        // in wp8 sometimes there are four /
-        if (MM.deviceOS == 'wp8') {
-            path = path.replace('////', '//');
-        }
+        path = MM.fs.getRoot() + "/" + path;
+        path = path.replace('////', '//');
 
         // Background download. Check if we are using the external service that supports CORS download.
         // We check for the local_mobile_mod_forum_get_forums_by_courses since the version including that funciton supports CORS.
-        if (typeof(background) != "undefined" &&
+        if (background &&
                 MM.util.WebWorkersSupported &&
                 MM.util.wsAvailable('local_mobile_mod_forum_get_forums_by_courses')) {
 
@@ -1663,28 +1657,28 @@ var MM = {
             // Create dinamically a Worker script. Workers from file:// are not supported.
             if (!MM.blobWorker) {
                 MM.blobWorker = new Blob([MM.webWorker]);
-            }   
+            }
 
             var worker = new Worker(window.URL.createObjectURL(MM.blobWorker));
-            worker.onmessage = function (e) {
+            worker.onmessage = function(e) {
                 // Cache the results of the XHR call.
                 if (e.data && e.data.status == "success") {
                     // Emulator support.
                     path = path.replace("filesystem:file:///persistent/", "");
 
-                    MM.fs.fileSystemRoot.getFile(path, { create: true }, function (fileEntry) {
+                    MM.fs.fileSystemRoot.getFile(path, {create: true}, function(fileEntry) {
                         fileEntry.createWriter(
-                            function (writer) {
-                                writer.onerror = function (e) {
+                            function(writer) {
+                                writer.onerror = function(e) {
                                     errorCallback(path);
                                 };
                                 writer.write(e.data.fileContents);
                                 successCallBack(path);
                             },
-                            function (e) {
+                            function(e) {
                                 errorCallBack(path);
                             });
-                    }, function (e) {
+                    }, function(e) {
                         errorCallBack(path);
                     });
                 } else {
@@ -1701,24 +1695,30 @@ var MM = {
             worker.postMessage(data);
 
         } else {
-            var ft = MM._wsGetFileTransfer();
-            ft.download(url, path,
-                function () {
-                    successCallBack(path);
+            MM.fs.fileSystemRoot.getFile(path, {create: true},
+                function(fileEntry) {
+                    var ft = MM._wsGetFileTransfer();
+                    ft.download(url, fileEntry.toURL(),
+                        function(fileDownloaded) {
+                            successCallBack(fileDownloaded.toURL());
+                        },
+                        function() {
+                            errorCallBack(path);
+                        }
+                    );
                 },
-                function () {
+                function() {
                     errorCallBack(path);
                 }
             );
         }
-
     },
 
     /**
      * Launches the WS sync process for operations done offline
      * There is a queue of tasks performed when the device was offline.
      */
-    wsSync: function () {
+    wsSync: function() {
         MM.log('Executing WS sync process', 'Sync');
         var syncWsOn = MM.getConfig('sync_ws_on');
         if (!syncWsOn) {
@@ -1735,7 +1735,7 @@ var MM = {
      * @param {Object} Backbone Object specifying what to sync based on type of
      *                 the underlying object
      */
-    _wsSyncType: function (sync, silently) {
+    _wsSyncType: function(sync, silently) {
         sync = sync.toJSON();
         sync.lastattempt = MM.util.timestamp();
         sync.syncattempts++;
@@ -1757,18 +1757,18 @@ var MM = {
     /**
      * Performs a web service sync.
      */
-    wsSyncWebService: function (sync, silently) {
-        if (typeof (silently) === "undefined") {
+    wsSyncWebService: function(sync, silently) {
+        if (typeof(silently) === "undefined") {
             silently = true;
         }
         MM.log('Executing WS sync operation:' + JSON.stringify(sync.syncData) + ' url:' + sync.url, 'Sync');
-        MM.moodleWSCall(sync.data.wsfunction, sync.data, function (d) {
-            MM.log('Executing WS sync operation FINISHED:' + sync.data.wsfunction, 'Sync');
-            MM.db.remove('sync', sync.id);
-            if (!silently) {
-                MM.popMessage(MM.lang.s("webservicesuccessfullyexecuted"));
-            }
-        },
+        MM.moodleWSCall(sync.data.wsfunction, sync.data, function(d) {
+                MM.log('Executing WS sync operation FINISHED:' + sync.data.wsfunction, 'Sync');
+                MM.db.remove('sync', sync.id);
+                if (!silently) {
+                    MM.popMessage(MM.lang.s("webservicesuccessfullyexecuted"));
+                }
+            },
             {
                 getFromCache: false,
                 saveToCache: false,
@@ -1782,7 +1782,7 @@ var MM = {
      * Function created for ease of testing.
      * @return {Object} FileTransfer Object
      */
-    _wsGetFileTransfer: function () {
+    _wsGetFileTransfer: function() {
         return new FileTransfer();
     },
 
@@ -1791,20 +1791,20 @@ var MM = {
      * Function created for ease of testing.
      * @return {Object} FileUploadOptions Object
      */
-    _wsGetFileUploadOptions: function () {
+    _wsGetFileUploadOptions: function() {
         return new FileUploadOptions();
     },
 
     /*
      * Performs a file upload sync.
      */
-    wsSyncUpload: function (sync, silently) {
-        if (typeof (silently) === "undefined") {
+    wsSyncUpload: function(sync, silently) {
+        if (typeof(silently) === "undefined") {
             silently = true;
         }
         MM.log('Starting upload', 'Sync');
         var ft = MM._wsGetFileTransfer();
-        var params = { token: MM.config.current_token };
+        var params = {token: MM.config.current_token};
         var options = MM._wsGetFileUploadOptions();
         options.fileKey = sync.options.fileKey;
         options.fileName = sync.options.fileName;
@@ -1813,14 +1813,14 @@ var MM = {
         ft.upload(
             sync.data,
             MM.config.current_site.siteurl + '/webservice/upload.php',
-            function () {
+            function() {
                 MM.log('Executing Upload sync operation FINISHED:' + sync.options.filename, 'Sync');
                 MM.db.remove('sync', sync.id);
                 if (!silently) {
                     MM.popMessage(MM.lang.s("fileuploaded"));
                 }
             },
-            function () {
+            function() {
                 if (!silently) {
                     MM.popMessage(MM.lang.s("errordownloading"));
                 }
@@ -1833,8 +1833,8 @@ var MM = {
     /*
      * Performs a file download sync.
      */
-    wsSyncDownload: function (sync, silently) {
-        if (typeof (silently) === "undefined") {
+    wsSyncDownload: function(sync, silently) {
+        if (typeof(silently) === "undefined") {
             silently = true;
         }
         // Only sync files of current site, mainly for performance.
@@ -1842,8 +1842,8 @@ var MM = {
             // Append the token for safe download of files.
             sync.url = sync.url + '&token=' + MM.config.current_token;
             MM.log('Sync: Starting download of ' + sync.url + ' to ' + sync.newfile);
-            MM.fs.createDir(sync.path, function () {
-                MM.moodleDownloadFile(sync.url, sync.newfile, function (fullpath) {
+            MM.fs.createDir(sync.path, function() {
+                MM.moodleDownloadFile(sync.url, sync.newfile, function(fullpath) {
                     MM.log('Download of content finished ' + sync.newfile + ' URL: ' + sync.url, 'Sync');
                     var content = MM.db.get('contents', sync.contentid).toJSON();
                     content.contents[sync.index].localpath = sync.newfile;
@@ -1853,7 +1853,7 @@ var MM = {
                     if (!silently) {
                         MM.popMessage(MM.lang.s("filedownloaded"));
                     }
-                }, function (fullpath) {
+                }, function(fullpath) {
                     if (!silently) {
                         MM.popMessage(MM.lang.s("erroruploading"));
                     }
@@ -1866,7 +1866,7 @@ var MM = {
     /**
      * Loads the settings panel
      */
-    displaySettings: function () {
+    displaySettings: function() {
 
         // Settings plugins.
         var plugins = [];
@@ -1874,14 +1874,14 @@ var MM = {
             var plugin = MM.plugins[el];
 
             if (plugin.settings.type == 'setting') {
-                if (typeof (plugin.isPluginVisible) == 'function' && !plugin.isPluginVisible()) {
+                if (typeof(plugin.isPluginVisible) == 'function' && !plugin.isPluginVisible()) {
                     continue;
                 }
                 plugins.push(plugin.settings);
             }
         }
 
-        var html = MM.tpl.render($('#settings_template').html(), { plugins: plugins });
+        var html = MM.tpl.render($('#settings_template').html(), {plugins: plugins});
         MM.panels.show('center', html);
     },
 
@@ -1893,7 +1893,7 @@ var MM = {
      * @param {string} optional Optional value if the config doesn't exists
      * @param {boolean} site Is the config site specific?
      */
-    getConfig: function (name, optional, site) {
+    getConfig: function(name, optional, site) {
 
         if (site && MM.config.current_site) {
             name = MM.config.current_site.id + '-' + name;
@@ -1920,7 +1920,7 @@ var MM = {
      * Generic function for setting config settings.
      * Config sites can be global (default) or by site (you need to specify the flag site then)
      */
-    setConfig: function (name, value, site) {
+    setConfig: function(name, value, site) {
         var setting = {
             id: name,
             name: name,
@@ -1942,7 +1942,7 @@ var MM = {
      *
      * @param {string} url The url to be fixed.
      */
-    fixPluginfile: function (url, token) {
+    fixPluginfile: function(url, token) {
 
         // This function is used in regexp callbacks, better not to risk!!
         if (!url) {
@@ -1984,7 +1984,7 @@ var MM = {
      * @param {string} text      The text to be logged.
      * @param {string} component The component the text is relevant to.
      */
-    log: function (text, component) {
+    log: function(text, component) {
         if (!MM.debugging) {
             return;
         }
@@ -2013,26 +2013,26 @@ var MM = {
      * @param {string} text      The text to be logged
      * @param {string} component The component the text is relevant to.
      */
-    errorLog: function (text, component) {
+    errorLog: function(text, component) {
         if (!MM.getConfig('dev_debug')) {
             return;
         }
         var d = new Date();
         text = d.toLocaleString() + ' ' + component + ': ' + text;
 
-        if (typeof (window.console.trace) == 'function') {
+        if (typeof(window.console.trace) == 'function') {
             console.trace(text);
         } else {
             console.log(text);
         }
     },
 
-    getFormattedLog: function (filter) {
+    getFormattedLog: function(filter) {
         if (!MM.getConfig('dev_debug')) {
             return "";
         }
 
-        if (typeof (filter) != 'string') {
+        if (typeof(filter) != 'string') {
             filter = "";
         }
 
@@ -2040,7 +2040,7 @@ var MM = {
         var last = '';
 
         for (var el in MM.logData) {
-            if (filter && MM.logData[el].indexOf(filter) == -1) {
+            if(filter && MM.logData[el].indexOf(filter) == -1) {
                 continue;
             }
 
@@ -2058,19 +2058,19 @@ var MM = {
     /**
      * Function for displaying the log in the mobile app
      */
-    showLog: function (filter) {
+    showLog: function(filter) {
 
         var logInfo = MM.getFormattedLog(filter);
 
-        var mailBody = encodeURIComponent(logInfo.replace(/<br \/>/ig, "\n").replace(/(<([^>]+)>)/ig, ""))
-        logInfo += '<div class="centered"><a href="mailto:' + MM.config.current_site.username + '?subject=MMLog&body=' + mailBody + '"><button>' + MM.lang.s("email") + '</button></a></div>';
+        var mailBody = encodeURIComponent(logInfo.replace(/<br \/>/ig,"\n").replace(/(<([^>]+)>)/ig,""))
+        logInfo += '<div class="centered"><a href="mailto:' + MM.config.current_site.username +'?subject=MMLog&body=' + mailBody + '"><button>' + MM.lang.s("email") + '</button></a></div>';
 
         logInfo = '<input id="logfilter" type="text" placeholder="Filter"> <a href="javascript: MM.showLog()">Clear</a><br/><br/>' + logInfo;
 
         MM.panels.html('right', logInfo);
 
-        $("#logfilter").keyup(function (e) {
-            if (e.keyCode == 13) {
+        $("#logfilter").keyup(function(e) {
+            if(e.keyCode == 13) {
                 MM.showLog($("#logfilter").val());
             }
         });
@@ -2082,18 +2082,18 @@ var MM = {
      * @this {MM}
      * @param {string} text The text to be displayed inside the popup.
      */
-    popErrorMessage: function (text) {
+    popErrorMessage: function(text) {
 
-        if (!text) {
+        if(!text) {
             return;
         }
         // Reset routing to avoid leave the user stuck, see MOBILE-307
         MM.Router.navigate("");
 
         var options = {
-            title: MM.lang.s('error'),
-            autoclose: 5000
-        };
+                title: MM.lang.s('error'),
+                autoclose: 5000
+            };
         this.popMessage(text, options);
     },
 
@@ -2103,7 +2103,7 @@ var MM = {
      * @param {string} text The text to be displayed inside the popup.
      * @param {Object} options Extra options regarding the popup layout.
      */
-    popMessage: function (text, options) {
+    popMessage: function(text, options) {
         if (typeof options == 'undefined') {
             options = {
                 autoclose: 4000
@@ -2119,11 +2119,11 @@ var MM = {
      * @param {string} text The text to be displayed.
      * @param {object} callBack The function to be called when user confirms.
      */
-    popConfirm: function (text, callBack) {
+    popConfirm: function(text, callBack) {
         var options = {
             buttons: {}
         };
-        options.buttons[MM.lang.s('yes')] = function () {
+        options.buttons[MM.lang.s('yes')] = function() {
             MM.widgets.dialogClose();
             callBack();
         };
@@ -2139,7 +2139,7 @@ var MM = {
      *
      * @param {string} selector A selector for handling the links
      */
-    handleExternalLinks: function (selector) {
+    handleExternalLinks: function(selector) {
         MM.setExternalLinksHREF(selector);
         $(selector).bind(MM.clickType, MM.externalLinkClickHandler);
     },
@@ -2151,9 +2151,9 @@ var MM = {
      *
      * @param {string} selector Selector for the links
      */
-    setExternalLinksHREF: function (selector) {
+    setExternalLinksHREF: function(selector) {
         if (MM.clickType != 'click') {
-            $(selector).bind('click touchstart', function (e) {
+            $(selector).bind('click touchstart', function(e) {
                 // This is an ugly hack for preventing in any case opening the link using the default action.
                 // This prevent also problems related to bubbling an stopping the propagation on touch move events
                 // We store the actual link in a data-link attribute and replace the href with a #
@@ -2175,7 +2175,7 @@ var MM = {
      * @return {Bool} TRUE if window.plugins && window.plugins.childBrowser
      *                FALSE otherwise
      */
-    _canUseChildBrowser: function () {
+    _canUseChildBrowser: function() {
         return window.plugins && window.plugins.childBrowser;
     },
 
@@ -2184,13 +2184,13 @@ var MM = {
      *
      * @param {object} e The event
      */
-    externalLinkClickHandler: function (e) {
+    externalLinkClickHandler: function(e) {
         e.preventDefault();
         // This prevents open the link when we are scrolling.
         if (MM.touchMoving) {
             MM.touchMoving = false;
         } else {
-            var link = ($(this).attr('href') == '#') ? $(this).attr('data-link') : $(this).attr('href');
+            var link = ($(this).attr('href') == '#')? $(this).attr('data-link') : $(this).attr('href');
             if (MM.deviceOS == 'windows8') {
                 window.location.href = link;
                 return;
@@ -2201,25 +2201,24 @@ var MM = {
                     window.plugins.childBrowser.showWebPage(
                         link,
                         {
-                            showLocationBar: true,
+                            showLocationBar: true ,
                             showAddress: false
                         }
                     );
-                } catch (e) {
+                } catch(e) {
                     MM.log('Launching childBrowser failed!, opening as standard link');
                     window.open(link, '_blank');
                 }
             }
-            else if (typeof (navigator.app) != "undefined" && typeof (navigator.app.loadUrl) != "undefined") {
+            else if(typeof(navigator.app) != "undefined" && typeof(navigator.app.loadUrl) != "undefined") {
                 MM.log('Opening external link using navigator.app');
-                navigator.app.loadUrl(link, { openExternal: true });
+                navigator.app.loadUrl(link, { openExternal:true } );
             } else {
                 MM.log('Opening external link using window.open');
                 window.open(link, '_blank');
             }
         }
-
-        if (MM.deviceOS != "wp8" && (typeof (MM.plugins.contents.infoBox) != "undefined")) {
+        if (MM.deviceOS != "wp8" && (typeof(MM.plugins.contents.infoBox) != "undefined")) {
             MM.plugins.contents.infoBox.remove();
         }
     },
@@ -2229,7 +2228,7 @@ var MM = {
      *
      * @param {string} selector A selector for handling the links to files
      */
-    handleFiles: function (selector) {
+    handleFiles: function(selector) {
         MM.setFileLinksHREF(selector);
         $(selector).bind(MM.clickType, MM.fileLinkClickHandler);
     },
@@ -2242,9 +2241,9 @@ var MM = {
      *
      * @param {string} selector Selector for the links
      */
-    setFileLinksHREF: function (selector) {
+    setFileLinksHREF: function(selector) {
         if (MM.clickType != 'click') {
-            $(selector).bind('click touchstart', function (e) {
+            $(selector).bind('click touchstart', function(e) {
                 // This is an ugly hack for preventing in any case opening the link using the default action.
                 // This prevent also problems related to bubbling an stopping the propagation on touch move events
                 // We store the actual link in a data-link attribute and replace the href with a #
@@ -2265,7 +2264,7 @@ var MM = {
      *
      * @param {object} e The event
      */
-    fileLinkClickHandler: function (e) {
+    fileLinkClickHandler: function(e) {
         e.preventDefault();
         e.stopPropagation();
 
@@ -2274,99 +2273,107 @@ var MM = {
         if (MM.touchMoving) {
             MM.touchMoving = false;
         } else {
-            var link = ($(this).attr('href') == '#') ? $(this).attr('data-link') : $(this).attr('href');
+            var link = ($(this).attr('href') == '#')? $(this).attr('data-link') : $(this).attr('href');
+            // Open the file using the platform specific method.
+            MM._openFile(link);
+        }
+        if (typeof(MM.plugins.contents.infoBox) != "undefined") {
+            MM.plugins.contents.infoBox.remove();
+        }
+    },
 
-            if (MM.deviceOS == 'windows8') {
+    /**
+     * Open a file using platform specific method
+     * node-webkit: Using the default application configured.
+     * Android: Using the WebIntent plugin
+     * iOs: Using the window.open method
+     *
+     * @param  {string} link The local path of the file to be open
+     * @return {[type]}      [description]
+     */
+    _openFile: function(link) {
 
-                MM.log('Windows 8 - Opening file');
+        if (MM.deviceOS == 'windows8') {
 
-                // Get the absolute path
-                link = link.split('LocalState/');
-                var file = link[1];
+            MM.log('Windows 8 - Opening file');
 
-                // Get the image file from the package's image directory
-                Windows.Storage.ApplicationData.current.localFolder.getFileAsync(file).done(
-                  function (file) {
-                      // Set the show picker option
-                      var options = new Windows.System.LauncherOptions();
-                      options.displayApplicationPicker = false;
+            // Get the absolute path
+            link = link.split('LocalState/');
+            var file = link[1];
 
-                      // Launch the retrieved file using the selected app
-                      Windows.System.Launcher.launchFileAsync(file, options).then(
-                        function (success) {
-                            if (success) {
-                                // File launched
-                            } else {
-                                // File launch failed
-                            }
-                        });
-                  });
+            // Get the image file from the package's image directory
+            Windows.Storage.ApplicationData.current.localFolder.getFileAsync(file).done(
+              function (file) {
+                  // Set the show picker option
+                  var options = new Windows.System.LauncherOptions();
+                  options.displayApplicationPicker = false;
 
-                return;
+                  // Launch the retrieved file using the selected app
+                  Windows.System.Launcher.launchFileAsync(file, options).then(
+                    function (success) {
+                        if (success) {
+                            // File launched
+                        } else {
+                            // File launch failed
+                        }
+                    });
+              });
+
+            return;
+        }
+
+        if (MM.deviceOS == 'wp8') {
+
+            MM.log('Windows Phone 8 - Opening file');
+            window.open(link, '_system');
+
+            return;
+        }
+
+
+        if (MM.inNodeWK) {
+            // Link is the file path in the file system.
+            // We use the node-webkit shell for open the file (pdf, doc) using the default application configured in the os.
+            var gui = require('nw.gui');
+            gui.Shell.openItem(link);
+        } else if(window.plugins) {
+            var extension = MM.util.getFileExtension(link);
+            var mimetype = '';
+            if (typeof(MM.plugins.contents.templates.mimetypes[extension])!= "undefined") {
+                mimetype = MM.plugins.contents.templates.mimetypes[extension];
             }
+            if (MM.deviceOS == 'android' && window.plugins.webintent) {
+                var iParams = {
+                    action: "android.intent.action.VIEW",
+                    url: link,
+                    type: mimetype['type']};
 
-            if (MM.deviceOS == 'wp8') {
-
-                MM.log('Windows Phone 8 - Opening file');
-                window.open(link, '_system');
-
-                return;
-            }
-
-            // Now, we choose how to open the file.
-            // node-webkit: Using the default application configured.
-            // Android: Using the WebIntent plugin
-            // iOs: Using the window.open method
-            if (MM.inNodeWK) {
-                // Link is the file path in the file system.
-                // We use the node-webkit shell for open the file (pdf, doc) using the default application configured in the os.
-                var gui = require('nw.gui');
-                gui.Shell.openItem(link);
-            } else if (window.plugins) {
-                var extension = link.substr(link.lastIndexOf(".") + 1);
-                var mimetype = '';
-                if (typeof (MM.plugins.contents.templates.mimetypes[extension]) != "undefined") {
-                    mimetype = MM.plugins.contents.templates.mimetypes[extension];
-                }
-
-                if (MM.deviceOS == 'android' && window.plugins.webintent) {
-                    var iParams = {
-                        action: "android.intent.action.VIEW",
-                        url: link,
-                        type: mimetype['type']
-                    };
-
-                    window.plugins.webintent.startActivity(
-                        iParams,
-                        function () {
-                            MM.log('Intent launched');
-                        },
-                        function () {
-                            MM.log('Intent launching failed');
-                            MM.log('action: ' + iParams.action);
-                            MM.log('url: ' + iParams.url);
-                            MM.log('type: ' + iParams.type);
-                            // This may work in cordova 2.4 and onwards
-                            window.open(link, '_system');
+                window.plugins.webintent.startActivity(
+                    iParams,
+                    function() {
+                        MM.log('Intent launched');
+                    },
+                    function() {
+                        MM.log('Intent launching failed');
+                        MM.log('action: ' + iParams.action);
+                        MM.log('url: ' + iParams.url);
+                        MM.log('type: ' + iParams.type);
+                        // This may work in cordova 2.4 and onwards
+                        window.open(link, '_system');
+                    }
+                );
+            } else if (MM._canUseChildBrowser()) {
+                MM.log('Launching childBrowser');
+                try {
+                    window.plugins.childBrowser.showWebPage(
+                        link,
+                        {
+                            showLocationBar: true ,
+                            showAddress: false
                         }
                     );
-                } else if (MM._canUseChildBrowser()) {
-                    MM.log('Launching childBrowser');
-                    try {
-                        window.plugins.childBrowser.showWebPage(
-                            link,
-                            {
-                                showLocationBar: true,
-                                showAddress: false
-                            }
-                        );
-                    } catch (e) {
-                        MM.log('Launching childBrowser failed!, opening as standard link');
-                        window.open(link, '_blank');
-                    }
-                } else {
-                    // Changing _blank for _system may work in cordova 2.4 and onwards
-                    MM.log('Open external file using window.open');
+                } catch(e) {
+                    MM.log('Launching childBrowser failed!, opening as standard link');
                     window.open(link, '_blank');
                 }
             } else {
@@ -2374,9 +2381,10 @@ var MM = {
                 MM.log('Open external file using window.open');
                 window.open(link, '_blank');
             }
-        }
-        if (typeof (MM.plugins.contents.infoBox) != "undefined") {
-            MM.plugins.contents.infoBox.remove();
+        } else {
+            // Changing _blank for _system may work in cordova 2.4 and onwards
+            MM.log('Open external file using window.open');
+            window.open(link, '_blank');
         }
     },
 
@@ -2385,16 +2393,16 @@ var MM = {
      * See MOBILE-239
      *
      */
-    loadExtraJs: function () {
+    loadExtraJs: function() {
         if (MM.deviceConnected()) {
             if (MM.config.extra_js && MM.config.extra_js.length > 0) {
-                $.each(MM.config.extra_js, function (index, fileurl) {
+                $.each(MM.config.extra_js, function(index, fileurl) {
                     MM.log("MM: Loading additional javascript file " + fileurl);
                     $.ajax({
                         url: fileurl,
                         dataType: "script",
                         timeout: "10000",
-                        success: function () {
+                        success: function() {
                             MM.log("MM: Loaded additional javascript file " + fileurl);
                         }
                     });
@@ -2408,7 +2416,7 @@ var MM = {
      *
      * @returns {string} The device OS name in lower case
      */
-    getOS: function () {
+    getOS: function() {
         var os = MM.deviceOS;
         // We rely on phonegap information.
         // TODO - Check in Kindle
@@ -2435,7 +2443,7 @@ var MM = {
         var options = {
             title: title
         };
-        var body = '<div class="centered"><img src="img/loadingblack.gif"><br />' + text + '</div>';
+        var body = '<div class="centered"><img src="img/loadingblack.gif"><br />' +text+ '</div>';
 
         MM.widgets.dialog(body, options);
     },
@@ -2443,27 +2451,29 @@ var MM = {
     /**
      * Close a modal loading window
      */
-    closeModalLoading: function () {
+    closeModalLoading: function() {
         MM.widgets.dialogClose();
     },
 
     /**
      * Refresh the curren site, purging all WS caches and reloading the app basic layout
      */
-    refresh: function () {
+    refresh: function() {
         if (MM.deviceConnected()) {
             MM.Router.navigate("");
             MM.cache.invalidate();
-            MM.moodleWSCall('moodle_webservice_get_siteinfo', {}, function (site) {
+            MM.moodleWSCall('moodle_webservice_get_siteinfo', {}, function(site) {
                 if (!site) {
                     return;
                 }
+                MM.popMessage(MM.lang.s('allcachesinvalidated'));
+
                 site.id = hex_md5(site.siteurl + site.username);
                 site.token = MM.config.current_token;
                 MM.db.insert('sites', site);
+                MM.setConfig('current_site', site);
 
                 MM.cache.invalidate();
-                MM.popMessage(MM.lang.s('allcachesinvalidated'));
                 MM.loadSite(site.id, true);
             },
             {
@@ -2481,7 +2491,7 @@ var MM = {
      * Log outs current user
      *
      */
-    logoutUser: function () {
+    logoutUser: function() {
         MM.setConfig("current_site", null);
         MM.setConfig("current_token", null);
         MM.config.current_site = null;
@@ -2495,15 +2505,15 @@ var MM = {
      * @param  {String} name        Moodle mod name
      * @return {Boolean|String}     False if the plugin is not available, the plugin name otherwise.
      */
-    checkModPlugin: function (name) {
+    checkModPlugin: function(name) {
         for (var pluginName in MM.plugins) {
             var plugin = MM.plugins[pluginName];
 
             if (plugin.settings.type == 'mod' &&
                     typeof plugin.settings.component != "undefined" &&
-                    (plugin.settings.component == name || plugin.settings.component == "mod_" + name)) {
+                    (plugin.settings.component == name || plugin.settings.component == "mod_" + name )) {
 
-                if (typeof (plugin.isPluginVisible) == 'function' && !plugin.isPluginVisible()) {
+                if (typeof(plugin.isPluginVisible) == 'function' && !plugin.isPluginVisible()) {
                     return false;
                 }
                 return pluginName;

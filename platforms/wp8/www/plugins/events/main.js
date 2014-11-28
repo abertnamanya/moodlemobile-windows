@@ -1,4 +1,4 @@
-﻿var templates = [
+var templates = [
     "root/externallib/text!root/plugins/events/events.html",
     "root/externallib/text!root/plugins/events/event.html"
 ];

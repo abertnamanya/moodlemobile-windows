@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Backbone localStorage Adapter
  * Version 1.1.7
  *

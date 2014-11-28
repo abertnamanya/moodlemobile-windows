@@ -1,4 +1,4 @@
-﻿// Licensed to the Apache Software Foundation (ASF) under one
+// Licensed to the Apache Software Foundation (ASF) under one
 // or more contributor license agreements.  See the NOTICE file
 // distributed with this work for additional information
 // regarding copyright ownership.  The ASF licenses this file
@@ -26,7 +26,7 @@
   * @namespace Holds all the MoodleMobile settings related functionality.
  */
 MM.settings = {
-    display: function () {
+    display: function() {
 
         // Settings plugins.
         var plugins = [];
@@ -38,56 +38,56 @@ MM.settings = {
         }
 
         var pageTitle = MM.lang.s("settings");
-        var html = MM.tpl.render($('#settings_template').html(), { plugins: plugins });
-        MM.panels.show('center', html, { title: pageTitle });
+        var html = MM.tpl.render($('#settings_template').html(), {plugins: plugins});
+        MM.panels.show('center', html, {title: pageTitle});
         if (MM.deviceType == 'tablet') {
             $("#panel-center li:eq(0)").addClass("selected-row");
             MM.settings.showSection('general');
         }
     },
 
-    showSection: function (section) {
+    showSection: function(section) {
         // We call dinamically the function.
         MM.settings['show' + section.charAt(0).toUpperCase() + section.slice(1)]();
         // Reset the base route.
         MM.Router.navigate("#settings");
     },
 
-    _deleteSiteFilesReferences: function (siteId) {
-        var els = MM.db.where('files', { 'site': siteId });
-        _.each(els, function (el) {
+    _deleteSiteFilesReferences: function(siteId) {
+        var els = MM.db.where('files', {'site': siteId});
+        _.each(els, function(el) {
             MM.db.remove('files', el.get("id"));
         });
     },
 
-    deleteSite: function (siteId) {
+    deleteSite: function(siteId) {
         var site = MM.db.get('sites', siteId);
-        MM.popConfirm(MM.lang.s('deletesite'), function () {
+        MM.popConfirm(MM.lang.s('deletesite'), function() {
             var count = MM.db.length('sites');
             if (count == 1) {
                 MM.db.remove('sites', siteId);
                 // Remove file directory.
                 MM.fs.removeDirectory(siteId,
-                    function () {
+                    function() {
                         MM.settings._deleteSiteFilesReferences(siteId);
                     },
-                    function () { });
+                    function() {});
                 MM._displayAddSite();
             } else {
                 MM.db.remove('sites', siteId);
                 MM.fs.removeDirectory(siteId,
-                    function () {
+                    function() {
                         MM.settings._deleteSiteFilesReferences(siteId);
                     },
-                    function () { });
+                    function() {});
                 MM._renderManageAccounts();
                 MM._displayManageAccounts();
             }
         });
     },
 
-    resetApp: function () {
-        MM.popConfirm(MM.lang.s('areyousurereset'), function () {
+    resetApp: function() {
+        MM.popConfirm(MM.lang.s('areyousurereset'), function() {
             // Delete all the entries in local storage
             for (var el in localStorage) {
                 localStorage.removeItem(el);
@@ -97,17 +97,16 @@ MM.settings = {
         });
     },
 
-    showSync: function () {
+    showSync: function() {
         var settings = [
-            { id: 'sync_ws_on', type: 'checkbox', label: MM.lang.s('enableautosyncws'), checked: true, handler: MM.settings.checkboxHandler },
-            { id: 'sync_lang_on', type: 'checkbox', label: MM.lang.s('enableautosynccss'), checked: true, handler: MM.settings.checkboxHandler },
-            { id: 'sync_css_on', type: 'checkbox', label: MM.lang.s('enableautosynclang'), checked: true, handler: MM.settings.checkboxHandler }
+            {id: 'sync_ws_on', type: 'checkbox', label: MM.lang.s('enableautosyncws'), checked: true, handler: MM.settings.checkboxHandler},
+            {id: 'sync_css_on', type: 'checkbox', label: MM.lang.s('enableautosynclang'), checked: true, handler: MM.settings.checkboxHandler}
         ];
 
         // Load default values
-        $.each(settings, function (index, setting) {
+        $.each(settings, function(index, setting) {
             if (setting.type == 'checkbox') {
-                if (typeof (MM.getConfig(setting.id)) != 'undefined') {
+                if (typeof(MM.getConfig(setting.id)) != 'undefined') {
                     settings[index].checked = MM.getConfig(setting.id);
                 }
             }
@@ -116,10 +115,10 @@ MM.settings = {
         // Render the settings as html.
         var syncSettings = MM.widgets.renderList(settings);
 
-        var syncFilter = MM.db.where('sync', { siteid: MM.config.current_site.id });
+        var syncFilter = MM.db.where('sync', {siteid: MM.config.current_site.id});
         var syncTasks = [];
 
-        $.each(syncFilter, function (index, el) {
+        $.each(syncFilter, function(index, el) {
             syncTasks.push(el.toJSON());
         });
 
@@ -142,22 +141,19 @@ MM.settings = {
             <% }); %>\
             </ul><br /><br />\
             <div class="centered">\
-                <a href="#settings/sync/lang"><button><%= MM.lang.s("forcelangsync") %></button></a>\
-            </div>\
-            <div class="centered">\
                 <a href="#settings/sync/css"><button><%= MM.lang.s("forcecsssync") %></button></a>\
                 <div style="clear: both"></div>\
             </div>';
 
         tpl = '<div class="settings">' + syncSettings + tpl + '</div>';
-        var html = MM.tpl.render(tpl, { tasks: syncTasks });
+        var html = MM.tpl.render(tpl, {tasks: syncTasks});
 
-        MM.panels.show('right', html, { title: MM.lang.s("settings") + " - " + MM.lang.s("synchronization") });
+        MM.panels.show('right', html, {title: MM.lang.s("settings") + " - " + MM.lang.s("synchronization")});
         // Once the html is rendered, we pretify the widgets.
         MM.widgets.enhance(settings);
         MM.widgets.addHandlers(settings);
         // Handler for tasks.
-        $(".tasks-queue .row-info").on(MM.clickType, function (e) {
+        $(".tasks-queue .row-info").on(MM.clickType, function(e) {
             var id = $(this).data("id");
             var sync = MM.db.get("sync", id);
             if (sync) {
@@ -166,7 +162,7 @@ MM.settings = {
                     title: "",
                     buttons: {}
                 };
-                options.buttons[MM.lang.s('syncthistasknow')] = function () {
+                options.buttons[MM.lang.s('syncthistasknow')] = function() {
                     // False means enable verbosity for the end user.
                     MM._wsSyncType(sync, false);
                 };
@@ -178,9 +174,9 @@ MM.settings = {
                 MM.widgets.dialog(html, options);
             }
         });
-        $(".tasks-queue .row-actions").on(MM.clickType, function (e) {
+        $(".tasks-queue .row-actions").on(MM.clickType, function(e) {
             var id = $(this).data("id");
-            MM.popConfirm(MM.lang.s('confirmdeletetask'), function () {
+            MM.popConfirm(MM.lang.s('confirmdeletetask'), function() {
                 MM.db.remove("sync", id);
                 // Reload the settings/sync screen.
                 if (MM.deviceType == "phone") {
@@ -198,14 +194,14 @@ MM.settings = {
      *
      * @param  {string} siteId The site Id in the database.
      */
-    deleteSiteFiles: function (siteId) {
+    deleteSiteFiles: function(siteId) {
 
-        MM.popConfirm(MM.lang.s('deletesitefiles'), function () {
-            MM.fs.removeDirectory(siteId, function () {
+        MM.popConfirm(MM.lang.s('deletesitefiles'), function() {
+            MM.fs.removeDirectory(siteId, function() {
                 //TODO - The content plugins should be noticed about this!
                 MM.settings.showSpaceusage();
             },
-            function () {
+            function() {
                 MM.log("Error deleting site files");
             });
         });
@@ -217,7 +213,7 @@ MM.settings = {
      * Display the space usage setting option
      *
      */
-    showSpaceusage: function () {
+    showSpaceusage: function() {
 
         var tpl = '\
             <div class="settings">\
@@ -255,79 +251,77 @@ MM.settings = {
             </div>';
 
         var sites = [];
-        MM.db.each('sites', function (el) {
+        MM.db.each('sites', function(el) {
             sites.push(el.toJSON());
         });
 
-        var data = MM.tpl.render(tpl, { sites: sites });
+        var data = MM.tpl.render(tpl, {sites: sites});
 
-        MM.panels.show("right", data, { title: MM.lang.s("settings") + " - " + MM.lang.s("spaceusage") });
+        MM.panels.show("right", data, {title: MM.lang.s("settings") + " - " + MM.lang.s("spaceusage")});
 
         var sizeTotal = {};
-        _.each(sites, function (site) {
-            MM.fs.directorySize(site.id, function (data) {
+        _.each(sites, function(site){
+            MM.fs.directorySize(site.id, function(data) {
                 $("#spacesite" + site.id).html(MM.util.bytesToSize(data, 2));
                 $("#spacedeletesite" + site.id).css('display', 'inline-block');
                 sizeTotal[site.id] = data;
 
                 var sTotal = 0;
-                _.each(sizeTotal, function (siteBytes) {
+                _.each(sizeTotal, function(siteBytes){
                     sTotal += siteBytes;
                     $("#spacesitetotal").html(MM.util.bytesToSize(sTotal, 2));
                 });
-            }, function () {
+            }, function(){
                 $("#spacesite" + site.id).html(MM.util.bytesToSize(0, 2));
             });
         });
 
-        MM.fs.calculateFreeSpace(function (size) {
+        MM.fs.calculateFreeSpace(function(size) {
             $("#spacefree").html(MM.util.bytesToSize(size, 2));
-        }, function () {
+        }, function() {
             MM.log('Error calculating free space in the ssytem', 'FS')
         });
 
     },
 
-    showDevelopment: function () {
+    showDevelopment: function() {
 
         var settingsC = [
-            {
-                id: 'dev_debug', type: 'checkbox', label: MM.lang.s('enabledebugging'), checked: false,
-                handler: function (e, setting) {
+            {id: 'dev_debug', type: 'checkbox', label: MM.lang.s('enabledebugging'), checked: false,
+                handler: function(e, setting) {
                     MM.settings.checkboxHandler(e, setting);
                     // Upgrade the global flag debugging state, we need a second because settings uses also a 500ms timeout.
-                    setTimeout(function () {
+                    setTimeout(function() {
                         MM.debugging = MM.getConfig('dev_debug');
                     }, 1000);
                 }
             },
-            { id: 'dev_offline', type: 'checkbox', label: MM.lang.s('forceofflinemode'), checked: false, handler: MM.settings.checkboxHandler },
-            { id: 'dev_css3transitions', type: 'checkbox', label: MM.lang.s('enablecss3transitions'), checked: false, handler: MM.settings.checkboxHandler },
-            {
-                id: 'cache_expiration_time', type: 'spinner', label: MM.lang.s('cacheexpirationtime'), config: {
-                    clickPlus: function () {
-                        var el = $("#cache_expiration_time-text");
-                        var val = parseInt(el.val()) + 25000;
-                        el.val(val);
-                        MM.setConfig("cache_expiration_time", val);
-                    },
-                    clickMinus: function () {
-                        var el = $("#cache_expiration_time-text");
-                        var val = parseInt(el.val()) - 25000;
-                        if (val < 0) {
-                            val = 0;
-                        }
-                        el.val(val);
-                        MM.setConfig("cache_expiration_time", val);
+            {id: 'dev_offline', type: 'checkbox', label: MM.lang.s('forceofflinemode'), checked: false, handler: MM.settings.checkboxHandler},
+            {id: 'dev_css3transitions', type: 'checkbox', label: MM.lang.s('enablecss3transitions'), checked: false, handler: MM.settings.checkboxHandler},
+            {id: 'cache_expiration_time', type: 'spinner', label: MM.lang.s('cacheexpirationtime'), config: {
+                clickPlus: function() {
+                    var el = $("#cache_expiration_time-text");
+                    var val = parseInt(el.val()) + 25000;
+                    el.val(val);
+                    MM.setConfig("cache_expiration_time", val);
+                },
+                clickMinus: function() {
+                    var el = $("#cache_expiration_time-text");
+                    var val = parseInt(el.val()) - 25000;
+                    if (val < 0) {
+                        val = 0;
                     }
+                    el.val(val);
+                    MM.setConfig("cache_expiration_time", val);
                 }
+            }
             }
         ];
 
         // Load default values
-        $.each(settingsC, function (index, setting) {
+        $.each(settingsC, function(index, setting) {
             if (setting.type == 'checkbox') {
-                if (typeof (MM.getConfig(setting.id)) != 'undefined') {
+                if (typeof(MM.getConfig(setting.id)) != 'undefined') {
                     settingsC[index].checked = MM.getConfig(setting.id);
                 }
             }
@@ -336,11 +330,11 @@ MM.settings = {
         var html = MM.widgets.renderList(settingsC);
 
         var settingsB = [
-            { id: 'dev_purgecaches', type: 'button', label: MM.lang.s('purgecaches'), handler: MM.cache.purge },
-            { id: 'dev_deviceinfo', type: 'button', label: MM.lang.s('deviceinfo'), handler: MM.settings.showDevice },
-            { id: 'dev_fakenotifications', type: 'button', label: MM.lang.s('addfakenotifications'), handler: MM.settings.addFakeNotifications },
-            { id: 'dev_showlog', type: 'button', label: MM.lang.s('showlog'), handler: MM.showLog },
-            { id: 'dev_resetapp', type: 'button', label: MM.lang.s('resetapp'), handler: MM.settings.resetApp }
+            {id: 'dev_purgecaches', type: 'button', label: MM.lang.s('purgecaches'), handler: MM.cache.purge},
+            {id: 'dev_deviceinfo', type: 'button', label: MM.lang.s('deviceinfo'), handler: MM.settings.showDevice},
+            {id: 'dev_fakenotifications', type: 'button', label: MM.lang.s('addfakenotifications'), handler: MM.settings.addFakeNotifications},
+            {id: 'dev_showlog', type: 'button', label: MM.lang.s('showlog'), handler: MM.showLog},
+            {id: 'dev_resetapp', type: 'button', label: MM.lang.s('resetapp'), handler: MM.settings.resetApp}
         ];
 
         /*
@@ -355,7 +349,7 @@ MM.settings = {
         html += MM.widgets.render(settingsB);
 
         html = '<div class="settings">' + html + '</div>';
-        MM.panels.show('right', html, { title: MM.lang.s("settings") + " - " + MM.lang.s("development") });
+        MM.panels.show('right', html, {title: MM.lang.s("settings") + " - " + MM.lang.s("development")});
 
         // Once the html is rendered, we prettify the widgets.
         MM.widgets.enhance(settingsC);
@@ -364,8 +358,8 @@ MM.settings = {
         MM.widgets.addHandlers(settingsB);
     },
 
-    checkboxHandler: function (e, setting) {
-        setTimeout(function () {
+    checkboxHandler: function(e, setting) {
+        setTimeout(function() {
             var val = false;
             if ($('#' + setting.id).is(':checked')) {
                 val = true;
@@ -375,7 +369,7 @@ MM.settings = {
         }, 500);
     },
 
-    addFakeNotifications: function (e, setting) {
+    addFakeNotifications: function(e, setting) {
         var date = MM.util.timestamp();
         var data = {
             alert: "<b>Fake notification</b>",
@@ -386,7 +380,7 @@ MM.settings = {
             site: hex_md5(MM.config.current_site.siteurl + MM.config.current_site.username)
         };
         if (MM.plugins.notifications) {
-            setTimeout(function () {
+            setTimeout(function() {
                 MM.plugins.notifications.APNSsaveAndDisplay(data);
             }, 5000);
         }
@@ -394,9 +388,9 @@ MM.settings = {
         e.preventDefault();
     },
 
-    getDeviceInfo: function () {
+    getDeviceInfo: function() {
 
-        var info = "";
+        var info = '<div class="device-info">';
 
         // Add the version name and version code.
         info += "<p><b>Version name:</b> " + MM.config.versionname + "</p>";
@@ -406,7 +400,7 @@ MM.settings = {
         var data = ["userAgent", "platform", "appName", "appVersion", "language"];
         for (var i in data) {
             var el = data[i];
-            if (typeof (navigator[el]) != "undefined") {
+            if (typeof(navigator[el]) != "undefined") {
                 info += "<p><b>Navigator " + el + ":</b> " + navigator[el] + "</p>";
             }
         }
@@ -420,9 +414,9 @@ MM.settings = {
         ];
         for (var i in data) {
             el = data[i];
-            if (typeof (MM[el]) != "undefined") {
-                if (typeof (MM[el]) == "boolean") {
-                    var val = (MM[el]) ? "1" : "0";
+            if (typeof(MM[el]) != "undefined") {
+                if (typeof(MM[el]) == "boolean") {
+                    var val = (MM[el])? "1" : "0";
                     info += "<p><b>MM." + el + ":</b> " + val + "</p>";
                 } else {
                     info += "<p><b>MM." + el + ":</b> " + MM[el] + "</p>";
@@ -443,29 +437,32 @@ MM.settings = {
             info += "<p><b>Overflow Scrolling</b> Not supported</p>";
         }
 
-        info += "<p><b>document.innerWidth</b> " + $(document).innerWidth() + "</p>";
-        info += "<p><b>document.innerHeight</b> " + $(document).innerHeight() + "</p>";
-        info += "<p><b>window.width</b> " + $(window).width() + "</p>";
-        info += "<p><b>window.height</b> " + $(window).height() + "</p>";
-        info += "<p><b>document.width</b> " + $(document).width() + "</p>";
-        info += "<p><b>document.height</b> " + $(document).height() + "</p>";
+        info += "<p><b>document.innerWidth</b> "+ $(document).innerWidth() +"</p>";
+        info += "<p><b>document.innerHeight</b> "+ $(document).innerHeight() +"</p>";
+        info += "<p><b>window.width</b> "+ $(window).width() +"</p>";
+        info += "<p><b>window.height</b> "+ $(window).height() +"</p>";
+        info += "<p><b>document.width</b> "+ $(document).width() +"</p>";
+        info += "<p><b>document.height</b> "+ $(document).height() +"</p>";
 
-        var workerssupport = MM.util.WebWorkersSupported();
-        info += "<p><b>Web Workers supported</b> " + workerssupport + "</p>";
+        var workerssupport = !!window.Worker && !!window.URL;
+        info += "<p><b>Device Web Workers supported</b> "+ workerssupport +"</p>";
+
+        workerssupport = MM.util.WebWorkersSupported();
+        info += "<p><b>Site Web Workers supported</b> "+ workerssupport +"</p>";
 
         var svgsupport = "No";
         if ((!!document.createElementNS && !!document.createElementNS('http://www.w3.org/2000/svg', "svg").createSVGRect) ||
              !!document.implementation.hasFeature("http://www.w3.org/TR/SVG11/feature#BasicStructure", "1.1")) {
             svsupport = "Yes";
         }
-        info += "<p><b>SVG support</b> " + svgsupport + "</p>";
+        info += "<p><b>SVG support</b> "+ svgsupport +"</p>";
 
-        if (typeof (window.device) != "undefined") {
+        if(typeof(window.device) != "undefined") {
             data = ["name", "phonegap", "cordova", "platform", "uuid", "version", "model"];
             for (var i in data) {
                 var el = data[i];
-                if (typeof (device[el]) != "undefined") {
-                    info += "<p><b>Phonegap Device " + el + ":</b> " + device[el] + "</p>";
+                if (typeof(device[el]) != "undefined") {
+                    info += "<p><b>Phonegap Device "+el+":</b> "+device[el]+"</p>";
                 }
             }
             info += "<p><b>Phonegap Device fileSystem root:</b><br /> " + MM.fs.getRoot() + "</p>";
@@ -489,30 +486,32 @@ MM.settings = {
             data = ["version", "platform", "arch"];
             for (var i in data) {
                 var el = data[i];
-                if (typeof (process[el]) != "undefined") {
-                    info += "<p><b>Node " + el + ":</b> " + process[el] + "</p>";
+                if (typeof(process[el]) != "undefined") {
+                    info += "<p><b>Node "+el+":</b> "+process[el]+"</p>";
                 }
             }
-            info += "<p><b>Node-webkit version:</b> " + process.versions["node-webkit"] + "</p>";
+            info += "<p><b>Node-webkit version:</b> "+process.versions["node-webkit"]+"</p>";
 
             var home = process.env.HOME || process.env.HOMEPATH || process.env.USERPROFILE;
 
-            info += "<p><b>Node User Home:</b> <a id=\"nodehomedirectory\" href=\"#\" data-path=\" " + home + "\">" + home + "</a></p>";
+            info += "<p><b>Node User Home:</b> <a id=\"nodehomedirectory\" href=\"#\" data-path=\" " + home + "\">"+ home +"</a></p>";
         }
+
+        info += "</div>"
 
         return info;
     },
 
-    showDevice: function () {
+    showDevice: function() {
 
         var info = MM.settings.getDeviceInfo();
-        var mailBody = encodeURIComponent(info.replace(/<\/p>/ig, "\n").replace(/(<([^>]+)>)/ig, ""))
-        info += '<div class="centered"><a href="mailto:' + MM.config.current_site.username + '?subject=DeviceInfo&body=' + mailBody + '"><button>' + MM.lang.s("email") + '</button></a></div>';
+        var mailBody = encodeURIComponent(info.replace(/<\/p>/ig,"\n").replace(/(<([^>]+)>)/ig,""))
+        info += '<div class="centered"><a href="mailto:' + MM.config.current_site.username +'?subject=DeviceInfo&body=' + mailBody + '"><button>' + MM.lang.s("email") + '</button></a></div>';
         info += "<br /><br /><br />";
 
         MM.panels.html("right", '<div class="settings">' + info + '</div>');
 
-        $("#nodehomedirectory").on(MM.quickClick, function (e) {
+        $("#nodehomedirectory").on(MM.quickClick, function(e) {
             var gui = require('nw.gui');
             gui.Shell.showItemInFolder($(this).data("path"));
             e.preventDefault();
@@ -521,7 +520,7 @@ MM.settings = {
 
     },
 
-    showReportbug: function () {
+    showReportbug: function() {
 
         var info = MM.lang.s("reportbuginfo");
 
@@ -531,15 +530,15 @@ MM.settings = {
         mailInfo += "==========================\n\n";
         mailInfo += MM.getFormattedLog();
 
-        mailInfo = encodeURIComponent(mailInfo.replace(/<\/p>/ig, "\n").replace(/(<([^>]+)>)/ig, ""))
-        info += '<div class="centered"><a href="mailto:' + MM.config.reportbugmail + '?subject=[[Mobile App Bug]]&body=' + mailInfo + '"><button>' + MM.lang.s("email") + '</button></a></div>';
+        mailInfo = encodeURIComponent(mailInfo.replace(/<\/p>/ig,"\n").replace(/(<([^>]+)>)/ig,""))
+        info += '<div class="centered"><a href="mailto:' + MM.config.reportbugmail +'?subject=[[Mobile App Bug]]&body=' + mailInfo + '"><button>' + MM.lang.s("email") + '</button></a></div>';
         info += "<br /><br /><br />";
 
-        MM.panels.show("right", '<div class="settings"><p>' + info + '</p></div>', { title: MM.lang.s("settings") + " - " + MM.lang.s("reportabug") });
+        MM.panels.show("right", '<div class="settings"><p>' + info + '</p></div>', {title: MM.lang.s("settings") + " - " + MM.lang.s("reportabug")});
     },
 
-    showAbout: function () {
-        $.getJSON("about.json", function (data) {
+    showAbout: function() {
+        $.getJSON("about.json", function(data) {
             data.version = MM.config.versionname;
             var info = "\
                 <div class='settings'>\
@@ -561,14 +560,14 @@ MM.settings = {
                 </table></p>\
                 </div>\
             ";
-            MM.panels.show("right", MM.tpl.render(info, { data: data }), { title: MM.lang.s("settings") + " - " + MM.lang.s("about") });
+            MM.panels.show("right", MM.tpl.render(info, {data: data}), {title: MM.lang.s("settings") + " - " + MM.lang.s("about")});
         });
     },
 
-    languageSelected: function (e, setting) {
+    languageSelected: function(e, setting) {
         var newLang = $("#" + setting.id).val();
         MM.setConfig("lang", newLang);
-        $.getJSON('lang/' + newLang + '.json', function (langFile) {
+        $.getJSON('lang/' + newLang + '.json', function(langFile) {
             MM.lang.loadLang('core', newLang, langFile);
             // Refresh site to load new language.
             MM.refresh();
@@ -578,7 +577,7 @@ MM.settings = {
         });
     },
 
-    showGeneral: function () {
+    showGeneral: function() {
         var settings = [
             {
                 id: 'lang',
@@ -594,7 +593,7 @@ MM.settings = {
         var html = MM.widgets.render(settings);
 
         html = '<div class="settings">' + html + '</div>';
-        MM.panels.show('right', html, { title: MM.lang.s("settings") + " - " + MM.lang.s("general") });
+        MM.panels.show('right', html, {title: MM.lang.s("settings") + " - " + MM.lang.s("general")});
 
         // Once the html is rendered, we prettify the widgets.
         MM.widgets.enhance(settings);

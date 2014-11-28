@@ -1,11 +1,11 @@
-﻿var templates = [
+var templates = [
     "root/externallib/text!root/plugins/contents/sections.html",
     "root/externallib/text!root/plugins/contents/contents.html",
     "root/externallib/text!root/plugins/contents/folder.html",
     "root/externallib/text!root/plugins/contents/mimetypes.json"
 ];
 
-define(templates, function (sectionsTpl, contentsTpl, folderTpl, mimeTypes) {
+define(templates,function (sectionsTpl, contentsTpl, folderTpl, mimeTypes) {
     var plugin = {
         settings: {
             name: "contents",
@@ -18,8 +18,8 @@ define(templates, function (sectionsTpl, contentsTpl, folderTpl, mimeTypes) {
         },
 
         storage: {
-            content: { type: "model" },
-            contents: { type: "collection", model: "content" }
+            content: {type: "model"},
+            contents: {type: "collection", model: "content"}
         },
 
         routes: [
@@ -30,7 +30,7 @@ define(templates, function (sectionsTpl, contentsTpl, folderTpl, mimeTypes) {
             ["course/contents/:courseid/section/:sectionId/download/:contentid/:index", "course_contents_download_folder", "downloadContent"]
         ],
 
-        viewCourseContents: function (courseId) {
+        viewCourseContents: function(courseId) {
 
             MM.panels.showLoading('center');
 
@@ -38,17 +38,17 @@ define(templates, function (sectionsTpl, contentsTpl, folderTpl, mimeTypes) {
                 MM.panels.showLoading('right');
             }
             // Adding loading icon.
-            $('a[href="#course/contents/' + courseId + '"]').addClass('loading-row');
+            $('a[href="#course/contents/' +courseId+ '"]').addClass('loading-row');
 
             var data = {
-                "options[0][name]": "",
-                "options[0][value]": ""
+            "options[0][name]" : "",
+            "options[0][value]" : ""
             };
             data.courseid = courseId;
 
-            MM.moodleWSCall('core_course_get_contents', data, function (contents) {
+            MM.moodleWSCall('core_course_get_contents', data, function(contents) {
                 // Removing loading icon.
-                $('a[href="#course/contents/' + courseId + '"]').removeClass('loading-row');
+                $('a[href="#course/contents/' +courseId+ '"]').removeClass('loading-row');
                 var course = MM.db.get("courses", MM.config.current_site.id + "-" + courseId);
 
                 var tpl = {
@@ -59,60 +59,60 @@ define(templates, function (sectionsTpl, contentsTpl, folderTpl, mimeTypes) {
 
                 pageTitle = course.get("shortname") + " - " + MM.lang.s("contents");
 
-                MM.panels.show("center", html, { title: pageTitle });
+                MM.panels.show("center", html, {title: pageTitle});
                 if (MM.deviceType == "tablet" && contents.length > 0) {
                     $("#panel-center li:eq(1)").addClass("selected-row");
                     // First section.
                     MM.plugins.contents.viewCourseContentsSection(courseId, 0);
                 }
-            }, null, function (m) {
+            }, null, function(m) {
                 // Error callback.
                 // Removing loading icon.
-                $('a[href="#course/contents/' + courseId + '"]').removeClass('loading-row');
-                if (typeof (m) !== "undefined" && m) {
+                $('a[href="#course/contents/' +courseId+ '"]').removeClass('loading-row');
+                if (typeof(m) !== "undefined" && m) {
                     MM.popErrorMessage(m);
                 }
             });
         },
 
 
-        viewCourseContentsSection: function (courseId, sectionId) {
+        viewCourseContentsSection: function(courseId, sectionId) {
 
             if (MM.deviceType == "tablet") {
                 MM.panels.showLoading('right');
             }
 
             var data = {
-                "options[0][name]": "",
-                "options[0][value]": ""
+            "options[0][name]" : "",
+            "options[0][value]" : ""
             };
             data.courseid = courseId;
 
-            MM.moodleWSCall('core_course_get_contents', data, function (contents) {
+            MM.moodleWSCall('core_course_get_contents', data, function(contents) {
                 var course = MM.db.get("courses", MM.config.current_site.id + "-" + courseId);
                 var courseName = course.get("fullname");
 
                 var firstContent = 0;
 
                 var contentsStored = [];
-                MM.db.each("contents", function (el) {
+                MM.db.each("contents", function(el){
                     contentsStored.push(el.get("id"));
                 });
 
                 var finalContents = [];
-                $.each(JSON.parse(JSON.stringify(contents)), function (index1, sections) {
+                $.each(JSON.parse(JSON.stringify(contents)), function(index1, sections){
                     // Skip sections deleting contents..
                     if (sectionId > -1 && sectionId != index1) {
                         // This is a continue.
                         return true;
                     }
-                    $.each(sections.modules, function (index2, content) {
+                    $.each(sections.modules, function(index2, content){
 
                         content.contentid = content.id;
                         content.courseid = courseId;
                         content.id = MM.config.current_site.id + "-" + content.contentid;
 
-                        if (!firstContent) {
+                        if(!firstContent) {
                             firstContent = content.contentid;
                         }
 
@@ -139,23 +139,29 @@ define(templates, function (sectionsTpl, contentsTpl, folderTpl, mimeTypes) {
                             c = c.toJSON();
                             sections.modules[index2].mainExtension = c.mainExtension;
                             sections.modules[index2].webOnly = c.webOnly;
-                            if (c.contents && c.contents[0] && typeof (c.contents[0].localpath) != "undefined") {
-                                sections.modules[index2].contents[0].localpath = c.contents[0].localpath;
+
+                            if (c.contents) {
+                                $.each(c.contents, function (index5, filep) {
+                                    if (typeof(filep.localpath) != "undefined") {
+                                        sections.modules[index2].contents[index5].localpath = filep.localpath;
+                                    }
+                                });
                             }
 
                             if (!sections.modules[index2].webOnly) {
-
-                                if (content.modname != "folder") {
-                                    var cFile = c.contents[0];
-                                    downloaded = typeof (cFile.localpath) != "undefined";
-                                } else {
-                                    downloaded = true;
-                                    if (c.contents) {
-                                        $.each(c.contents, function (index5, filep) {
-                                            if (typeof (filep.localpath) == "undefined") {
-                                                downloaded = false;
-                                            }
-                                        });
+                                if (c.contents) {
+                                    if (c.contents.length == 1) {
+                                        var cFile = c.contents[0];
+                                        downloaded = typeof(cFile.localpath) != "undefined";
+                                    } else {
+                                        downloaded = true;
+                                        if (c.contents) {
+                                            $.each(c.contents, function (index5, filep) {
+                                                if (typeof(filep.localpath) == "undefined") {
+                                                    downloaded = false;
+                                                }
+                                            });
+                                        }
                                     }
                                 }
                                 sections.modules[index2].downloaded = downloaded;
@@ -163,13 +169,13 @@ define(templates, function (sectionsTpl, contentsTpl, folderTpl, mimeTypes) {
 
                             // Check if our stored information has changed remotely.
                             var updateContentInDB = false;
-                            var contentElements = ['filename', 'fileurl', 'filesize',
+                            var contentElements = ['filename', 'fileurl' , 'filesize',
                                 'timecreated', 'timemodified', 'author', 'license'];
 
                             for (var indexEl in c.contents) {
-                                _.each(contentElements, function (el) {
-                                    if (typeof (c.contents[indexEl][el]) != "undefined" &&
-                                        typeof (content.contents[indexEl][el]) != "undefined" &&
+                                _.each(contentElements, function(el) {
+                                    if (typeof(c.contents[indexEl][el]) != "undefined" &&
+                                        typeof(content.contents[indexEl][el]) != "undefined" &&
                                         c.contents[indexEl][el] != content.contents[indexEl][el]
                                         ) {
                                         updateContentInDB = true;
@@ -178,9 +184,23 @@ define(templates, function (sectionsTpl, contentsTpl, folderTpl, mimeTypes) {
                                 });
                             }
 
+                            // Check file additions.
+                            for (indexEl in content.contents) {
+                                if (typeof c.contents[indexEl] == "undefined") {
+                                    updateContentInDB = true;
+                                    c.contents[indexEl] = content.contents[indexEl];
+                                }
+                            }
+
                             // Check if the content name has changed.
                             if (c.name != content.name) {
                                 c.name = content.name;
+                                updateContentInDB = true;
+                            }
+
+                            // Labels should be allways updated (the description may change).
+                            if (c.modname == "label") {
+                                c.description = content.description;
                                 updateContentInDB = true;
                             }
 
@@ -192,7 +212,7 @@ define(templates, function (sectionsTpl, contentsTpl, folderTpl, mimeTypes) {
                         }
 
                         // The mod url also exports contents but are external contents not downloadable by the app.
-                        var modContents = ["folder", "page", "resource"];
+                        var modContents = ["folder","page","resource"];
 
                         if (modContents.indexOf(content.modname) == -1) {
                             content.webOnly = true;
@@ -205,7 +225,7 @@ define(templates, function (sectionsTpl, contentsTpl, folderTpl, mimeTypes) {
 
                         // Sync content files.
 
-                        if (typeof (content.contents) != "undefined") {
+                        if (typeof(content.contents) != "undefined") {
                             $.each(content.contents, function (index3, file) {
 
                                 if (typeof file.fileurl == "undefined" || !file.fileurl) {
@@ -231,7 +251,7 @@ define(templates, function (sectionsTpl, contentsTpl, folderTpl, mimeTypes) {
                                     },
                                     siteid: MM.config.current_site.id,
                                     type: "content"
-                                };
+                                   };
 
                                 // Disabled auto sync temporaly
                                 //MM.log("Sync: Adding content: " + el.syncData.name + ": " + el.url);
@@ -241,7 +261,7 @@ define(templates, function (sectionsTpl, contentsTpl, folderTpl, mimeTypes) {
                                     var extension = file.filename.substr(file.filename.lastIndexOf(".") + 1);
 
                                     // Exception for folder type, we use the resource icon.
-                                    if (content.modname != "folder" && typeof (MM.plugins.contents.templates.mimetypes[extension]) != "undefined") {
+                                    if (content.modname != "folder" && typeof(MM.plugins.contents.templates.mimetypes[extension]) != "undefined") {
                                         sections.modules[index2].mainExtension = MM.plugins.contents.templates.mimetypes[extension]["icon"];
                                         content.mainExtension = sections.modules[index2].mainExtension;
                                         MM.db.insert("contents", content);
@@ -265,10 +285,10 @@ define(templates, function (sectionsTpl, contentsTpl, folderTpl, mimeTypes) {
                 var pageTitle = course.get("shortname") + " - " + MM.lang.s("contents");
 
                 var html = MM.tpl.render(MM.plugins.contents.templates.contents.html, tpl);
-                MM.panels.show('right', html, { title: pageTitle });
+                MM.panels.show('right', html, {title: pageTitle});
 
                 // Show info content modal window.
-                $(".content-info", "#panel-right").on(MM.quickClick, function (e) {
+                $(".content-info", "#panel-right").on(MM.quickClick, function(e) {
                     MM.plugins.contents.infoContent(
                         e,
                         $(this).data("course"),
@@ -283,7 +303,7 @@ define(templates, function (sectionsTpl, contentsTpl, folderTpl, mimeTypes) {
 
                     if (plugin.settings.type == 'mod') {
                         var visible = true;
-                        if (typeof (plugin.isPluginVisible) == 'function' && !plugin.isPluginVisible()) {
+                        if (typeof(plugin.isPluginVisible) == 'function' && !plugin.isPluginVisible()) {
                             visible = false;
                         }
                         if (visible && typeof plugin.contentsPageRendered == "function") {
@@ -294,17 +314,17 @@ define(templates, function (sectionsTpl, contentsTpl, folderTpl, mimeTypes) {
             });
         },
 
-        downloadContent: function (courseId, sectionId, contentId, index) {
+        downloadContent: function(courseId, sectionId, contentId, index){
             var file;
             var FILE_SIZE_WARNING = {
-                'phone': 5000000,
+                'phone':  5000000,
                 'tablet': 15000000
             };
 
             var content = MM.db.get("contents", MM.config.current_site.id + "-" + contentId);
             content = content.toJSON();
 
-            if (typeof (index) != "undefined") {
+            if (typeof(index) != "undefined") {
                 file = content.contents[index];
             } else {
                 file = content.contents[0];
@@ -319,17 +339,18 @@ define(templates, function (sectionsTpl, contentsTpl, folderTpl, mimeTypes) {
                     notice += " " + MM.lang.s("filesize") + " " + MM.util.bytesToSize(filesize, 2) + "<br />";
                     notice += MM.lang.s("confirmcontinuedownload");
 
-                    MM.popConfirm(notice, function () {
-                        MM.plugins.contents.downloadContentFile(courseId, sectionId, contentId, index);
+                    MM.popConfirm(notice, function() {
+                        MM.plugins.contents.downloadContentFile(courseId, sectionId, contentId, index, true);
                     });
                     return;
                 }
             }
-            MM.plugins.contents.downloadContentFile(courseId, sectionId, contentId, index);
+            MM.plugins.contents.downloadContentFile(courseId, sectionId, contentId, index, true);
         },
 
-        downloadContentFile: function (courseId, sectionId, contentId, index, background) {
+        downloadContentFile: function(courseId, sectionId, contentId, index, open, background, successCallback, errorCallback) {
 
+            open = open || false;
             background = background || false;
 
             var content = MM.db.get("contents", MM.config.current_site.id + "-" + contentId);
@@ -338,7 +359,7 @@ define(templates, function (sectionsTpl, contentsTpl, folderTpl, mimeTypes) {
             var downCssId = "#download-" + contentId;
             var linkCssId = "#link-" + contentId;
 
-            if (typeof (index) != "undefined") {
+            if (typeof(index) != "undefined") {
                 downCssId = "#download-" + contentId + "-" + index;
                 linkCssId = "#link-" + contentId + "-" + index;
             } else {
@@ -350,11 +371,11 @@ define(templates, function (sectionsTpl, contentsTpl, folderTpl, mimeTypes) {
 
             // Now, we need to download the file.
             // First we load the file system (is not loaded yet).
-            MM.fs.init(function () {
+            MM.fs.init(function() {
                 var path = MM.plugins.contents.getLocalPaths(courseId, contentId, file);
                 MM.log("Content: Starting download of file: " + downloadURL);
                 // All the functions are async, like create dir.
-                MM.fs.createDir(path.directory, function () {
+                MM.fs.createDir(path.directory, function() {
                     MM.log("Content: Downloading content to " + path.file + " from URL: " + downloadURL);
 
                     if ($(downCssId)) {
@@ -362,10 +383,12 @@ define(templates, function (sectionsTpl, contentsTpl, folderTpl, mimeTypes) {
                     }
 
                     MM.moodleDownloadFile(downloadURL, path.file,
-                        function (fullpath) {
-                            MM.log("Content: Download of content finished " + fullpath + " URL: " + downloadURL);
+                        function(fullpath) {
+                            MM.log("Content: Download of content finished " + fullpath + " URL: " + downloadURL + " Index: " +index + "Local path: " + path.file);
                             content.contents[index].localpath = path.file;
-                            content.contents[index].downloadtime = MM.util.timestamp();
+                            var downloadTime = MM.util.timestamp();
+                            content.contents[index].downloadtime = downloadTime;
+                            // Raise conditions may happen here. The callback functions handle that.
                             MM.db.insert("contents", content);
                             if ($(downCssId)) {
                                 $(downCssId).remove();
@@ -373,29 +396,38 @@ define(templates, function (sectionsTpl, contentsTpl, folderTpl, mimeTypes) {
                                 $(linkCssId).attr("rel", "external");
                                 // Android, open in new browser
                                 MM.handleFiles(linkCssId);
+                                if (open) {
+                                    MM._openFile(fullpath);
+                                }
+                            }
+                            if (typeof successCallback == "function") {
+                                successCallback(index, fullpath, path.file, downloadTime);
                             }
                         },
-                        function (fullpath) {
+                        function(fullpath) {
                             MM.log("Content: Error downloading " + fullpath + " URL: " + downloadURL);
                             if ($(downCssId)) {
                                 $(downCssId).attr("src", "img/download.png");
                             }
-                        },
+                            if (typeof errorCallback == "function") {
+                                errorCallback();
+                            }
+                         },
                          background
                     );
                 });
             });
         },
 
-        viewFolder: function (courseId, sectionId, contentId, sectionName) {
+        viewFolder: function(courseId, sectionId, contentId, sectionName) {
 
             var course = MM.db.get("courses", MM.config.current_site.id + "-" + courseId);
             var content = MM.db.get("contents", MM.config.current_site.id + "-" + contentId);
             content = content.toJSON();
 
             var data = {
-                "options[0][name]": "",
-                "options[0][value]": ""
+            "options[0][name]" : "",
+            "options[0][value]" : ""
             };
             data.courseid = courseId;
 
@@ -410,17 +442,17 @@ define(templates, function (sectionsTpl, contentsTpl, folderTpl, mimeTypes) {
 
             var pageTitle = course.get("shortname") + " - " + MM.lang.s("contents");
             var html = MM.tpl.render(MM.plugins.contents.templates.folder.html, tpl);
-            MM.panels.show('right', html, { title: pageTitle });
+            MM.panels.show('right', html, {title: pageTitle});
             $(document).scrollTop(0);
 
-            $("#download-all", "#panel-right").on(MM.quickClick, function (e) {
+            $("#download-all", "#panel-right").on(MM.quickClick, function(e) {
                 MM.plugins.contents.downloadAll($(this).data("courseid"),
                                                 $(this).data("sectionid"),
                                                 $(this).data("contentid"));
             });
 
             // Show info content modal window.
-            $(".content-info", "#panel-right").on(MM.quickClick, function (e) {
+            $(".content-info", "#panel-right").on(MM.quickClick, function(e) {
 
                 MM.plugins.contents.infoContent(
                     e,
@@ -432,7 +464,7 @@ define(templates, function (sectionsTpl, contentsTpl, folderTpl, mimeTypes) {
 
         },
 
-        infoContent: function (e, courseId, sectionId, contentId, index) {
+        infoContent: function(e, courseId, sectionId, contentId, index) {
 
             e.preventDefault();
             var i = {
@@ -441,14 +473,14 @@ define(templates, function (sectionsTpl, contentsTpl, folderTpl, mimeTypes) {
             };
 
             if (MM.quickClick.indexOf("touch") > -1) {
-                i.left = e.originalEvent.touches[0].pageX - 5;
+                i.left = e.originalEvent.touches[0].pageX -5;
                 i.top = e.originalEvent.touches[0].pageY;
             }
 
             var content = MM.db.get("contents", MM.config.current_site.id + "-" + contentId);
             content = content.toJSON();
 
-            if (typeof (MM.plugins.contents.infoBox) != "undefined") {
+            if (typeof(MM.plugins.contents.infoBox) != "undefined") {
                 MM.plugins.contents.infoBox.remove();
             }
 
@@ -463,27 +495,27 @@ define(templates, function (sectionsTpl, contentsTpl, folderTpl, mimeTypes) {
                 index = 0;
             }
 
-            if (typeof (content.contents) == "undefined" || !content.contents[index]) {
+            if (typeof(content.contents) == "undefined" || !content.contents[index]) {
                 skipFiles = true;
             }
 
-            var information = '<p><strong>' + content.name + '</strong></p>';
-            if (typeof (content.description) != "undefined") {
-                information += '<p>' + content.description + '</p>';
+            var information = '<p><strong>'+content.name+'</strong></p>';
+            if (typeof(content.description) != "undefined") {
+                information += '<p>'+content.description+'</p>';
             }
 
-            if (!skipFiles) {
+            if (! skipFiles) {
                 var file = content.contents[index];
 
                 var fileParams = ["author", "license", "timecreated", "timemodified", "filesize", "localpath", "downloadtime"];
                 for (var el in fileParams) {
                     var param = fileParams[el];
-                    if (typeof (file[param]) != "undefined" && file[param]) {
-                        information += MM.lang.s(param) + ': ';
+                    if (typeof(file[param]) != "undefined" && file[param]) {
+                        information += MM.lang.s(param)+': ';
 
                         var value = file[param];
 
-                        switch (param) {
+                        switch(param) {
                             case "timecreated":
                             case "timemodified":
                             case "downloadtime":
@@ -493,11 +525,11 @@ define(templates, function (sectionsTpl, contentsTpl, folderTpl, mimeTypes) {
                             case "filesize":
                                 value = file[param] / 1024;
                                 // Round to 2 decimals.
-                                value = Math.round(value * 100) / 100 + " kb";
+                                value = Math.round(value*100)/100 + " kb";
                                 break;
                             case "localpath":
                                 var url = MM.fs.getRoot() + '/' + value;
-                                value = '<a href="' + url + '" rel="external">' + url + '</a>';
+                                value = '<a href="' + url + '" rel="external">' +url + '</a>';
                                 break;
                             default:
                                 value = file[param];
@@ -517,35 +549,35 @@ define(templates, function (sectionsTpl, contentsTpl, folderTpl, mimeTypes) {
             }
             information += "</p>";
 
-            information += '<p><a href="' + content.url + '" target="_blank">' + content.url + '</a></p>';
+            information += '<p><a href="'+content.url+'" target="_blank">'+content.url+'</a></p>';
 
-            MM.plugins.contents.infoBox = $('<div id="infobox-' + contentId + '"><div class="arrow-box-contents">' + information + '</div></div>').addClass("arrow_box");
+            MM.plugins.contents.infoBox = $('<div id="infobox-'+contentId+'"><div class="arrow-box-contents">'+information+'</div></div>').addClass("arrow_box");
             $('body').append(MM.plugins.contents.infoBox);
 
             var width = $("#panel-right").width() / 1.5;
-            $('#infobox-' + contentId).css("top", i.top - 30).css("left", i.left - width - 35).width(width);
+            $('#infobox-'+contentId).css("top", i.top - 30).css("left", i.left - width - 35).width(width);
 
             // Android, open in new browser
-            MM.handleExternalLinks('#infobox-' + contentId + ' a[target="_blank"]');
-            MM.handleFiles('#infobox-' + contentId + ' a[rel="external"]');
+            MM.handleExternalLinks('#infobox-'+contentId+' a[target="_blank"]');
+            MM.handleFiles('#infobox-'+contentId+' a[rel="external"]');
 
             // Hide the infobox on click in any link or inside itselfs
-            $('#infobox-' + contentId + ', a').bind('click', function (e) {
-                if (typeof (MM.plugins.contents.infoBox) != "undefined") {
+            $('#infobox-'+contentId+', a').bind('click', function(e) {
+                if (typeof(MM.plugins.contents.infoBox) != "undefined") {
                     MM.plugins.contents.infoBox.remove();
                 }
             });
 
             // Hide the infobox on scroll.
-            $("#panel-right").bind("touchmove", function () {
-                if (typeof (MM.plugins.contents.infoBox) != "undefined") {
+            $("#panel-right").bind("touchmove", function(){
+                if (typeof(MM.plugins.contents.infoBox) != "undefined") {
                     MM.plugins.contents.infoBox.remove();
                 }
             });
 
         },
 
-        getLocalPaths: function (courseId, modId, file) {
+        getLocalPaths: function(courseId, modId, file) {
 
             var filename = file.fileurl;
             var paramsPart = filename.lastIndexOf("?");
@@ -554,64 +586,29 @@ define(templates, function (sectionsTpl, contentsTpl, folderTpl, mimeTypes) {
             }
             filename = filename.substr(filename.lastIndexOf("/") + 1);
 
-            // MOBILE-401, replace white spaces by "_"
-            filename = decodeURIComponent(filename);
-            filename = filename.replace(/\s/g, "_");
+            filename = MM.fs.normalizeFileName(filename);
 
-            // iOs doesn't like names not encoded.
-            if (MM.deviceOS == 'ios') {
-                filename = encodeURIComponent(filename);
+            // Fix the paths
+            var path = '//'+MM.config.current_site.id + "/" + courseId + "/" + modId;
+            //path = path.replace('////', '//');
+
+            if (file.filepath) {
+                path += file.filepath;
+                newfile = path + filename;
+            } else {
+                newfile = path + "/" + filename;
             }
 
-            // Check if the file is in a Moodle virtual directory.
-
-            switch(MM.deviceOS){
-                case "windows8":
-                        
-                    var path = MM.config.current_site.id + "\\" + courseId + "\\" + modId;
-
-                    if (file.filepath) {
-                        path += file.filepath;
-                        newfile = path + filename;
-                    } else {
-                        newfile = path + "\\" + filename;
-                    }
-
-                    break;
-                case "wp8":
-                    // Fix the paths
-                    var path = '//'+MM.config.current_site.id + "/" + courseId + "/" + modId;
-                    path = path.replace('////', '//');
-
-                    if (file.filepath) {
-                        path += file.filepath;
-                        newfile = path + filename;
-                    } else {
-                        newfile = path + "/" + filename;
-                    }
-
-                    break;
-                default:
-
-                    var path = MM.config.current_site.id + "/" + courseId + "/" + modId;
-
-                    if (file.filepath) {
-                        path += file.filepath;
-                        newfile = path + filename;
-                    } else {
-                        newfile = path + "/" + filename;
-                    }
-
-                    break;
-            }
-           
+            console.log(path);
+            console.log(newfile);
+            
             return {
                 directory: path,
                 file: newfile
             };
         },
 
-        getModuleIcon: function (moduleName) {
+        getModuleIcon: function(moduleName) {
             var mods = ["assign", "assignment", "book", "chat", "choice",
             "data", "database", "date", "external-tool", "feedback", "file",
             "folder", "forum", "glossary", "ims", "imscp", "label", "lesson",
@@ -625,15 +622,56 @@ define(templates, function (sectionsTpl, contentsTpl, folderTpl, mimeTypes) {
             return "img/mod/" + moduleName + ".png";
         },
 
-        downloadAll: function (courseId, sectionId, contentId) {
+        downloadAll: function(courseId, sectionId, contentId, successCallback, errorCallback) {
             var content = MM.db.get("contents", MM.config.current_site.id + "-" + contentId);
             content = content.toJSON();
 
+            if (!content.contents) {
+                if (typeof errorCallback == "function") {
+                    errorCallback();
+                }
+                return;
+            }
+
+            var filesToDownload = content.contents.length;
+            var paths = [];
+
+            var downloadedCallback = function(index, fullPath, filePath, downloadTime) {
+                filesToDownload--;
+                paths.push({
+                    index: index,
+                    fullPath: fullPath,
+                    filePath: filePath,
+                    downloadTime: downloadTime
+                });
+                if (!filesToDownload) {
+                    var content = MM.db.get("contents", MM.config.current_site.id + "-" + contentId);
+                    content = content.toJSON();
+
+                    _.each(paths, function(path) {
+                        content.contents[path.index].localpath = path.filePath;
+                        content.contents[path.index].downloadtime = path.downloadTime;
+                    });
+                    MM.db.insert("contents", content);
+
+                    if (typeof successCallback == "function") {
+                        successCallback(paths);
+                    }
+                }
+            };
+
+            var notDownloadedCallback = function() {
+                if (typeof errorCallback == "function") {
+                    errorCallback();
+                }
+            };
+
             if (content.contents) {
-                $.each(content.contents, function (index, file) {
-                    setTimeout(function () {
+                $.each(content.contents, function(index, file) {
+                    setTimeout(function() {
                         // Do not download using background webworker.
-                        MM.plugins.contents.downloadContentFile(courseId, sectionId, contentId, index);
+                        MM.plugins.contents.downloadContentFile(courseId, sectionId, contentId, index, false,
+                                                                    false, downloadedCallback, notDownloadedCallback);
                     }, 500 * index);
                 });
             }

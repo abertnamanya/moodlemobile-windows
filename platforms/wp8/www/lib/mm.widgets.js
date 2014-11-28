@@ -1,4 +1,4 @@
-﻿// Licensed to the Apache Software Foundation (ASF) under one
+// Licensed to the Apache Software Foundation (ASF) under one
 // or more contributor license agreements.  See the NOTICE file
 // distributed with this work for additional information
 // regarding copyright ownership.  The ASF licenses this file
@@ -221,7 +221,7 @@ MM.widgets = {
             $("#app-dialog .modalFooter").html(buttons);
 
             // Handlers for buttons.
-            // Els starts at 1 so that the buttons above have the 
+            // Els starts at 1 so that the buttons above have the
             // correct handlers attached to them.
             els = 1;
             $.each(options.buttons, function (key, value) {
@@ -248,11 +248,10 @@ MM.widgets = {
         }
 
         // Show the div.
+        $("#app-dialog").css('display', 'block');
         $("#app-dialog").css('opacity', '1');
         // Allow mouse events in this div.
         $("#app-dialog").css('pointer-events', 'auto');
-
-        $("#app-dialog").css('display', 'block');
 
         if (options.autoclose) {
             setTimeout(function() {
@@ -264,9 +263,9 @@ MM.widgets = {
     dialogClose: function() {
         // Hide the div.
         $("#app-dialog").css('opacity', '0');
+        $("#app-dialog").css('display', 'none');
         // No mouse events in this div.
         $("#app-dialog").css('pointer-events', 'none');
-        $("#app-dialog").css('display', 'none');
     },
 
     // TODO: Never called - consider removing?

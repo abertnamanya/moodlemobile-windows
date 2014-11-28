@@ -1,4 +1,4 @@
-﻿var templates = [
+var templates = [
     "root/externallib/text!root/plugins/myfiles/files.html"
 ];
 
@@ -25,6 +25,8 @@ define(templates, function (filesTpl) {
 
         path: [],
 
+        wsPrefix: "",
+
         /**
          * Determines is the plugin is visible.
          * It may check Moodle remote site version, device OS, device type, etc...
@@ -33,7 +35,12 @@ define(templates, function (filesTpl) {
          * @return {bool} True if the plugin is visible for the site and device
          */
         isPluginVisible: function() {
-            return MM.util.wsAvailable('local_mobile_core_files_get_files');
+            if (MM.util.wsAvailable('local_mobile_core_files_get_files')) {
+                MM.plugins.myfiles.wsPrefix = 'local_mobile_';
+                return true;
+            }
+
+            return MM.util.wsAvailable('core_files_get_files');
         },
 
         /**
@@ -108,7 +115,9 @@ define(templates, function (filesTpl) {
             var link = hex_md5(encodeURIComponent(dir));
             $('#' + link, '#panel-center').addClass('loading-row-black');
 
-            MM.moodleWSCall("local_mobile_core_files_get_files",
+            var wsName = MM.plugins.myfiles.wsPrefix + "core_files_get_files";
+
+            MM.moodleWSCall(wsName,
                 params,
                 function(result) {
                     if (typeof result.files == "undefined") {
@@ -196,26 +205,10 @@ define(templates, function (filesTpl) {
             var linkCssId = "#" + linkId;
             var downCssId = "#img-" + linkId;
 
-            filename = decodeURIComponent(filename);
-            filename = filename.replace(/\s/g, "_");
+            filename = MM.fs.normalizeFileName(filename);
 
-            // iOs doesn't like names not encoded.
-            if (MM.deviceOS == 'ios') {
-                filename = encodeURIComponent(filename);
-            }
-
-            
-
-            if (MM.deviceOS == 'windows8') {
-                var directory = siteId + "\\files\\" + linkId;
-                directory = directory.replace("/", "\\");
-                var filePath = directory + "\\" + filename;
-                filePath = filePath.replace("/", "\\");
-            } else {
-                var directory = siteId + "/files/" + linkId;
-                var filePath = directory + "/" + filename;
-            }
-
+            var directory = siteId + "/files/" + linkId;
+            var filePath = directory + "/" + filename;
 
 
             MM.fs.init(function() {
@@ -227,13 +220,7 @@ define(templates, function (filesTpl) {
 
                         $(downCssId).attr("src", "img/loadingblack.gif");
                         MM.moodleDownloadFile(downloadURL, filePath,
-                            function (fullpath) {
-
-                                // Issue - 17310
-                                if (MM.deviceOS == 'windows8') {
-                                    fullpath = fullpath.replace("LocalState\\", "LocalState/");
-                                }
-
+                            function(fullpath) {
                                 MM.log("Download of content finished " + fullpath + " URL: " + downloadURL);
 
                                 var uniqueId = siteId + "-" + hex_md5(url);
@@ -250,6 +237,7 @@ define(templates, function (filesTpl) {
                                 $(linkCssId).attr("rel", "external");
                                 // Android, open in new browser
                                 MM.handleFiles(linkCssId);
+                                MM._openFile(fullpath);
                             },
                             function(fullpath) {
                                 $(downCssId).remove();

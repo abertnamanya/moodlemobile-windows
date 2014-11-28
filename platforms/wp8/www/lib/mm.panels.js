@@ -1,4 +1,4 @@
-﻿// Licensed to the Apache Software Foundation (ASF) under one
+// Licensed to the Apache Software Foundation (ASF) under one
 // or more contributor license agreements.  See the NOTICE file
 // distributed with this work for additional information
 // regarding copyright ownership.  The ASF licenses this file
@@ -131,7 +131,9 @@ MM.panels = {
 
 		if (MM.deviceType == 'tablet') {
 			// Clean the page title.
-			pageTitle.html("");
+			if (!settings || !settings.keepTitle) {
+				pageTitle.html("");
+			}
 
 			MM.panels.hideRight = false;
 			if (settings && settings.hideRight) {
@@ -140,12 +142,13 @@ MM.panels = {
 			if (settings && settings.title) {
 				pageTitle.html(settings.title);
 			}
-
 			MM.panels.menuShow(false, settings);
 		} else {
 			// Clean the page title.
 			MM.panels.previousPanelPageTitle = pageTitle.html();
-			pageTitle.html("");
+			if (!settings || !settings.keepTitle) {
+				pageTitle.html("");
+			}
 
 			// Short text for page title (MOBILE-462).
 			// We can't do this using CSS text-overflow because of the header dynamic width.
@@ -188,10 +191,10 @@ MM.panels = {
 				// This is possible since there are 4 level pages (contents folder)
 				var contentWidth = parseInt(panelRight.css("width"));
 				if (panelRight.css('display') != 'block') {
-					//contentWidth = $(document).innerWidth() + 50;
+					contentWidth = $(document).innerWidth() + 50;
 					panelRight.css("width", contentWidth);
 				}
-				$("#panel-right .content-index").css("width", contentWidth);
+				$("#panel-right .content-index").css("width", contentWidth - 50);
 
 				panelCenter.animate({
 					left: '-100%'

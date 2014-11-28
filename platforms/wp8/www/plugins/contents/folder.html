@@ -1,4 +1,4 @@
-﻿<div class="back-row">
+<div class="back-row">
     <a href="#course/contents/<%= courseId %>/section/<%= sectionId %>"><img src="img/arrowleft.png" border="0"></a>
 </div>
 
@@ -20,42 +20,42 @@
                 </div>
             </li>
             <% if (content.contents) { %>
-            <% $.each(content.contents, function(index, file) { %>
-            <li class="nav-item media media-folder">
-                <div class="content-actions app-ico">
-                    <% if (typeof(file.localpath) == "undefined") { %>
-                    <a href="#course/contents/<%= courseId %>/section/<%= sectionId %>/download/<%= contentId %>/<%= index %>"><img src="img/download.png" border="0" id="download-<%= contentId %>-<%= index %>"></a>&nbsp;
-                    <% } else { %>
-                    <a href="#course/contents/<%= courseId %>/section/<%= sectionId %>/download/<%= contentId %>/<%= index %>"><img src="img/reloadgrey.png" border="0" id="download-<%= contentId %>-<%= index %>"></a>&nbsp;
-                    <% } %>
-                    <img src="img/info.png" border="0" id="info-<%= contentId %>-<%= index %>" class="content-info" data-course="<%= courseId %>" data-section="<%= sectionId %>" data-content="<%= contentId %>" data-index="<%= index %>">
-                </div>
-                <div class="content-name">
-                    <% if (file.localpath) { %>
-                    <a href="<% print(MM.fs.getRoot() + " />" + file.localpath); %>" rel="external" id="link-<%= contentId %>-<%= index %>">
-                    <% } else { %>
-                    <a href="#course/contents/<%= courseId %>/section/<%= sectionId %>/download/<%= contentId %>/<%= index %>" id="link-<%= contentId %>-<%= index %>">
+                <% $.each(content.contents, function(index, file) { %>
+                <li class="nav-item media media-folder">
+                    <div class="content-actions app-ico">
+                        <% if (typeof(file.localpath) == "undefined") { %>
+                            <a href="#course/contents/<%= courseId %>/section/<%= sectionId %>/download/<%= contentId %>/<%= index %>"><img src="img/download.png" border="0" id="download-<%= contentId %>-<%= index %>"></a>&nbsp;
+                        <% } else { %>
+                                <a href="#course/contents/<%= courseId %>/section/<%= sectionId %>/download/<%= contentId %>/<%= index %>"><img src="img/reloadgrey.png" border="0" id="download-<%= contentId %>-<%= index %>"></a>&nbsp;
                         <% } %>
-                        <div class="img app-ico">
+                        <img src="img/info.png" border="0" id="info-<%= contentId %>-<%= index %>" class="content-info" data-course="<%= courseId %>" data-section="<%= sectionId %>" data-content="<%= contentId %>" data-index="<%= index %>">
+                    </div>
+                    <div class="content-name">
+                    <% if (file.localpath) { %>
+                        <a href="<% print(MM.fs.getRoot() + "/" + file.localpath); %>" rel="external" id="link-<%= contentId %>-<%= index %>">
+                    <% } else { %>
+                        <a href="#course/contents/<%= courseId %>/section/<%= sectionId %>/download/<%= contentId %>/<%= index %>" id="link-<%= contentId %>-<%= index %>">
+                    <% } %>
+                            <div class="img app-ico">
                             <% var extension = file.filename.substr(file.filename.lastIndexOf(".") + 1); %>
                             <% if (typeof(MM.plugins.contents.templates.mimetypes[extension]) != "undefined") { %>
-                            <img src="img/files/<%= MM.plugins.contents.templates.mimetypes[extension]['icon'] %>-64.png" alt="img">
+                                <img src="img/files/<%= MM.plugins.contents.templates.mimetypes[extension]["icon"] %>-64.png" alt="img">
                             <% } else { %>
-                            <img src="img/files/unknown-64.png" alt="img">
+                                <img src="img/files/unknown-64.png" alt="img">
                             <% } %>
-                        </div>
+                            </div>
 
-                        <div class="bd">
-                            <% if (file.filepath == "/") { %>
-                            <p><%= file.filename %></p>
-                            <% } else { %>
-                            <p><%= file.filepath %><%= file.filename %></p>
-                            <% } %>
-                        </div>
-                    </a>
-                </div>
-            </li>
-            <% }); %>
+                            <div class="bd">
+                                <% if (file.filepath == "/") { %>
+                                    <p><%= file.filename %></p>
+                                <% } else { %>
+                                    <p><%= file.filepath %><%= file.filename %></p>
+                                <% } %>
+                            </div>
+                        </a>
+                    </div>
+                </li>
+                <% }); %>
             <% } %>
         </ul>
     </section>

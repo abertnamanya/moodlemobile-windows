@@ -18,19 +18,20 @@ define(templates, function (filesTpl, discussionTpl, discussionsTpl, attachments
         },
 
         storage: {
-            "forum_file": { type: "model" },
-            "forum_files": { type: "collection", model: "forum_file" },
-            "forum_sync": { type: "model" },
-            "forum_syncs": { type: "collection", model: "forum_sync" }
+            "forum_file": {type: "model"},
+            "forum_files": {type: "collection", model: "forum_file"},
+            "forum_sync": {type: "model"},
+            "forum_syncs": {type: "collection", model: "forum_sync"}
         },
 
         routes: [
             ["forum/view/:courseId/:cmid/:page", "view_forum", "viewForum"],
+            ["forum/discussion/:courseId/:discussionId", "show_discussion", "showDiscussion"],
         ],
 
         // Sync function, every 2 hours (time is in millisecs).
         sync: {
-            handler: function () {
+            handler: function() {
                 // We need to define here a function since MM.plugins.forum is not yet defined.
                 MM.plugins.forum._syncForums();
             },
@@ -39,23 +40,24 @@ define(templates, function (filesTpl, discussionTpl, discussionsTpl, attachments
 
         wsPrefix: "",
 
-        /**
-        * Determines is the plugin is visible.
-        * It may check Moodle remote site version, device OS, device type, etc...
-        * This function is called when a alink to a plugin functinality is going to be rendered.
-        *
-        * @return {bool} True if the plugin is visible for the site and device
-        */
-        isPluginVisible: function () {
-            // First check core services and Moodle version above 2.8.
-            var visible = MM.util.wsAvailable('mod_forum_get_forums_by_courses') &&
+        sectionsCache: {},
+
+         /**
+         * Determines is the plugin is visible.
+         * It may check Moodle remote site version, device OS, device type, etc...
+         * This function is called when a alink to a plugin functinality is going to be rendered.
+         *
+         * @return {bool} True if the plugin is visible for the site and device
+         */
+        isPluginVisible: function() {
+            // First check core services.
+            var visible =   MM.util.wsAvailable('mod_forum_get_forums_by_courses') &&
                             MM.util.wsAvailable('mod_forum_get_forum_discussions_paginated') &&
-                            MM.util.wsAvailable('mod_forum_get_forum_discussion_posts') &&
-                            parseInt(MM.config.current_site.version, 10) >= 2014111000;
+                            MM.util.wsAvailable('mod_forum_get_forum_discussion_posts');
 
             // Fallback to local_mobile plugin ones.
             if (!visible) {
-                visible = MM.util.wsAvailable('local_mobile_mod_forum_get_forums_by_courses') &&
+                visible =   MM.util.wsAvailable('local_mobile_mod_forum_get_forums_by_courses') &&
                             MM.util.wsAvailable('local_mobile_mod_forum_get_forum_discussions_paginated') &&
                             MM.util.wsAvailable('local_mobile_mod_forum_get_forum_discussion_posts');
 
@@ -66,13 +68,16 @@ define(templates, function (filesTpl, discussionTpl, discussionsTpl, attachments
             return visible;
         },
 
-        render: function (courseId, sectionId, section, module) {
+        render: function(courseId, sectionId, section, module) {
             var data = {
                 "courseId": courseId,
                 "sectionId": sectionId,
                 "section": section,
                 "module": module
             };
+            // Store the section name.
+            MM.plugins.forum.sectionsCache[module.contentid] = MM.util.formatText(section.name);
+
             return MM.tpl.render(MM.plugins.forum.templates.view.html, data);
         },
 
@@ -83,7 +88,7 @@ define(templates, function (filesTpl, discussionTpl, discussionsTpl, attachments
          * @param  {Number} cmid The course module number id
          *
          */
-        viewForum: function (courseId, cmid, page) {
+        viewForum: function(courseId, cmid, page) {
             // Loading ....
             $("#info-" + cmid, "#panel-right").attr("src", "img/loadingblack.gif");
 
@@ -94,9 +99,9 @@ define(templates, function (filesTpl, discussionTpl, discussionsTpl, attachments
 
             MM.moodleWSCall(MM.plugins.forum.wsPrefix + "mod_forum_get_forums_by_courses",
                 params,
-                function (forums) {
+                function(forums) {
                     var currentForum;
-                    _.each(forums, function (forum) {
+                    _.each(forums, function(forum) {
                         if (forum.cmid == cmid) {
                             currentForum = forum;
                         }
@@ -118,12 +123,12 @@ define(templates, function (filesTpl, discussionTpl, discussionsTpl, attachments
          * @param  {Object} forum Forum object
          *
          */
-        _showDiscussions: function (forum, page) {
+        _showDiscussions: function(forum, page) {
 
             var params = {
                 "forumid": forum.id,        // Forum module instance id.
-                "sortby": "timemodified",
-                "sortdirection": "DESC",
+                "sortby":  "timemodified",
+                "sortdirection":  "DESC",
                 "page": page,
                 "perpage": MM.plugins.forum.perPage
             };
@@ -131,14 +136,19 @@ define(templates, function (filesTpl, discussionTpl, discussionsTpl, attachments
             MM.moodleWSCall(MM.plugins.forum.wsPrefix + "mod_forum_get_forum_discussions_paginated",
                 params,
                 // Success callback.
-                function (discussions) {
+                function(discussions) {
                     // Stops loading...
                     $("#info-" + forum.cmid, "#panel-right").attr("src", "img/info.png");
                     var siteId = MM.config.current_site.id;
 
                     var syncStatus = "";
                     if (MM.db.get('forum_syncs', siteId + "-" + forum.cmid)) {
-                        syncStatus = 'checked="checked"'
+                        syncStatus = 'checked="checked"';
+                    }
+
+                    var sectionName = "";
+                    if (MM.plugins.forum.sectionsCache[forum.cmid]) {
+                        sectionName = MM.plugins.forum.sectionsCache[forum.cmid];
                     }
 
                     var pageTitle = MM.util.formatText(forum.name);
@@ -147,31 +157,36 @@ define(templates, function (filesTpl, discussionTpl, discussionsTpl, attachments
                         "perpage": MM.plugins.forum.perPage,
                         "forum": forum,
                         "discussions": discussions.discussions,
-                        "syncStatus": syncStatus
+                        "syncStatus": syncStatus,
+                        "sectionName": sectionName
                     };
 
                     MM.plugins.forum.discussionsCache = discussions.discussions;
 
                     var html = MM.tpl.render(MM.plugins.forum.templates.discussions.html, data);
-                    MM.panels.show("right", html, { title: pageTitle });
+                    MM.panels.show("right", html, {title: pageTitle});
 
                     // Handlers for view complete discussions and posts.
-                    $(".subject.toogler").on(MM.clickType, function (e) {
+                    $(".subject.toogler").on(MM.clickType, function(e) {
                         e.preventDefault();
-                        if ($(this).hasClass("discussion-loaded")) {
-                            $(this).parent().find(".discussion-body").toggle();
-                            return;
-                        }
-
                         var discussionId = $(this).data("discussionid");
-                        $(this).addClass("discussion-loaded");
-                        $(this).parent().find(".discussion-body").html('<div class="centered"><img src="img/loading.gif"></div>');
-                        MM.plugins.forum._showDiscussion(discussionId);
+                        // Loading...
+                        $(this).append('<img src="img/loading.gif">');
+
+                        location.href = "#forum/discussion/" + forum.course + "/" + discussionId;
+                    });
+
+                    // Handlers for post-info (replies).
+                    $(".post-info").on(MM.clickType, function(e) {
+                        var parent = $(this).parent().find(".subject.toogler");
+                        if (parent) {
+                            parent.trigger(MM.clickType);
+                        }
                     });
 
                     // Handler for sync.
                     if (MM.util.WebWorkersSupported()) {
-                        $("#keepsynch").bind("change", function (e) {
+                        $("#keepsynch").bind("change", function(e) {
                             var uniqueId = siteId + "-" + $(this).data("cmid");
 
                             if ($(this).prop("checked")) {
@@ -195,7 +210,7 @@ define(templates, function (filesTpl, discussionTpl, discussionsTpl, attachments
                         var blobURL = new Blob([MM.plugins.forum.templates.worker.js]);
 
                         var worker = new Worker(window.URL.createObjectURL(blobURL));
-                        worker.onmessage = function (e) {
+                        worker.onmessage = function(e) {
                             // Cache the results of the XHR call.
                             if (e.data && e.data.xhrData && e.data.data) {
                                 MM.cache.addWSCall(e.data.url, e.data.xhrData, e.data.data);
@@ -240,17 +255,15 @@ define(templates, function (filesTpl, discussionTpl, discussionsTpl, attachments
          * Display a discussion with posts
          * @param  {Number} discussionId The discussion id
          */
-        _showDiscussion: function (discussionId) {
+        showDiscussion: function(courseId, discussionId) {
             var params = {
                 "discussionid": discussionId
             };
 
-            var fullDiscussion = $("#panel-right").find("[data-postdiscussion='" + discussionId + "']");
-
             MM.moodleWSCall(MM.plugins.forum.wsPrefix + "mod_forum_get_forum_discussion_posts",
                 params,
                 // Success callback.
-                function (posts) {
+                function(posts) {
                     var discussion;
 
                     // Cache for getting the discussion.
@@ -262,21 +275,42 @@ define(templates, function (filesTpl, discussionTpl, discussionsTpl, attachments
                         }
                     }
 
+                    // Not found, search in the returned posts.
+                    if (!discussion) {
+                        for (el in posts.posts) {
+                            var post = posts.posts[el];
+                            if (post.parent == 0) {
+                                discussion = post;
+                                break;
+                            }
+                        }
+                    }
+
                     var data = {
                         "discussion": discussion,
-                        "posts": posts.posts
+                        "posts": posts.posts,
+                        "courseId": courseId
                     };
                     var html = MM.tpl.render(MM.plugins.forum.templates.discussion.html, data);
+                    MM.panels.show("right", html, {keepTitle: true, showRight: true});
 
-                    fullDiscussion.find(".discussion-body").html(html);
+                    // Hack in tablet view.
+                    if (MM.deviceType == "tablet") {
+                        var panelCenter = $('#panel-center');
+                        var panelRight  = $('#panel-right');
+
+                        panelCenter.css("width", MM.panels.sizes.threePanels.center);
+                        panelRight.css("left",  MM.panels.sizes.threePanels.center);
+                        panelRight.css("width", MM.panels.sizes.threePanels.right);
+                    }
 
                     // Toggler effect.
-                    fullDiscussion.find(".forum-post .subject").on(MM.clickType, function (e) {
-                        $(this).parent().find(".content").toggle();
+                    $(".forum-post .subject", "#panel-right").on(MM.clickType, function(e) {
+                        $(this).parent().find(".content").first().toggle();
                     });
 
                     // Bind downloads.
-                    fullDiscussion.find(".forum-download").on(MM.clickType, function (e) {
+                    $(".forum-download", "#panel-right").on(MM.clickType, function(e) {
                         e.preventDefault();
                         e.stopPropagation();
 
@@ -291,13 +325,12 @@ define(templates, function (filesTpl, discussionTpl, discussionsTpl, attachments
                 },
                 null,
                 function (error) {
-                    fullDiscussion.find(".discussion-body").html("");
                     MM.popErrorMessage(error);
                 }
             );
         },
 
-        _printAttachments: function (post) {
+        _printAttachments: function(post) {
             if (!post.attachment || !post.attachments) {
                 return '';
             }
@@ -317,43 +350,37 @@ define(templates, function (filesTpl, discussionTpl, discussionsTpl, attachments
                 }
 
                 var extension = MM.util.getFileExtension(attachment.filename);
-                if (typeof (MM.plugins.contents.templates.mimetypes[extension]) != "undefined") {
+                if (typeof(MM.plugins.contents.templates.mimetypes[extension]) != "undefined") {
                     post.attachments[el].icon = MM.plugins.contents.templates.mimetypes[extension]["icon"] + "-64.png";
                 }
             }
 
-            var data = { "attachments": post.attachments };
+            var data = {"attachments": post.attachments};
             return MM.tpl.render(MM.plugins.forum.templates.attachments.html, data);
         },
 
-        _downloadFile: function (url, filename, attachmentId) {
+        _downloadFile: function(url, filename, attachmentId) {
             // Add the token.
             var downloadURL = MM.fixPluginfile(url);
             var siteId = MM.config.current_site.id;
             var downCssId = $("#downimg-" + attachmentId);
             var linkCssId = $("#attachment-" + attachmentId);
 
-            filename = decodeURIComponent(filename);
-            filename = filename.replace(/\s/g, "_");
-
-            // iOs doesn't like names not encoded.
-            if (MM.deviceOS == 'ios') {
-                filename = encodeURIComponent(filename);
-            }
+            filename = MM.fs.normalizeFileName(filename);
 
             var directory = siteId + "/forum-files/" + attachmentId;
             var filePath = directory + "/" + filename;
 
-            MM.fs.init(function () {
+            MM.fs.init(function() {
                 if (MM.deviceConnected()) {
                     MM.log("Starting download of Moodle file: " + downloadURL);
                     // All the functions are asynchronous, like createDir.
-                    MM.fs.createDir(directory, function () {
+                    MM.fs.createDir(directory, function() {
                         MM.log("Downloading Moodle file to " + filePath + " from URL: " + downloadURL);
 
                         $(downCssId).attr("src", "img/loadingblack.gif");
                         MM.moodleDownloadFile(downloadURL, filePath,
-                            function (fullpath) {
+                            function(fullpath) {
                                 MM.log("Download of content finished " + fullpath + " URL: " + downloadURL);
 
                                 var uniqueId = siteId + "-" + hex_md5(url);
@@ -370,8 +397,10 @@ define(templates, function (filesTpl, discussionTpl, discussionsTpl, attachments
                                 $(linkCssId).attr("rel", "external");
                                 // Android, open in new browser
                                 MM.handleFiles(linkCssId);
+                                MM._openFile(fullpath);
+
                             },
-                            function (fullpath) {
+                            function(fullpath) {
                                 $(downCssId).remove();
                                 MM.log("Error downloading " + fullpath + " URL: " + downloadURL);
                             }
@@ -383,7 +412,7 @@ define(templates, function (filesTpl, discussionTpl, discussionsTpl, attachments
             });
         },
 
-        _processDiscussionsQueue: function () {
+        _processDiscussionsQueue: function() {
             var preSets = {
                 silently: true,
                 getFromCache: false,
@@ -402,11 +431,11 @@ define(templates, function (filesTpl, discussionTpl, discussionsTpl, attachments
             MM.moodleWSCall(MM.plugins.forum.wsPrefix + "mod_forum_get_forum_discussion_posts",
                 params,
                 // Success callback.
-                function () {
+                function() {
                     MM.plugins.forum._processDiscussionsQueue();
                 },
                 preSets,
-                function () {
+                function() {
                     MM.plugins.forum._processDiscussionsQueue();
                 }
             );
@@ -417,13 +446,13 @@ define(templates, function (filesTpl, discussionTpl, discussionsTpl, attachments
          * Periodically synchronize discussions and posts for the current active site.
          *
          */
-        _syncForums: function () {
+        _syncForums: function() {
             // Sync only if the device is connected and supports workers.
-            if (MM.deviceConnected() && MM.util.WebWorkersSupported()) {
+            if(MM.deviceConnected() && MM.util.WebWorkersSupported()) {
                 var siteId = MM.config.current_site.id;
                 var forums = [];
 
-                MM.db.each('forum_syncs', function (f) {
+                MM.db.each('forum_syncs', function(f) {
                     if (siteId == f.get('site')) {
                         forums.push(f.get("forumid"));
                     }
@@ -437,7 +466,7 @@ define(templates, function (filesTpl, discussionTpl, discussionsTpl, attachments
                 var blobURL = new Blob([MM.plugins.forum.templates.worker.js]);
 
                 var worker = new Worker(window.URL.createObjectURL(blobURL));
-                worker.onmessage = function (e) {
+                worker.onmessage = function(e) {
                     // Cache the results of the XHR call.
                     if (e.data && e.data.xhrData && e.data.data) {
                         MM.cache.addWSCall(e.data.url, e.data.xhrData, e.data.data);

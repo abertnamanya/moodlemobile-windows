@@ -1,4 +1,4 @@
-﻿define(function () {
+define(function () {
     var plugin = {
         settings: {
             name: "sendmessage",
@@ -24,6 +24,9 @@
 
             options.buttons[sendMessage] = function() {
 
+                var loadB = $(".modal-button-1");
+                loadB.addClass("loading-row-black");
+
                 var messageText = $("#sendmessagetext").val();
                 messageText = messageText.replace(/(?:\r\n|\r|\n)/g, '<br />');
 
@@ -31,12 +34,12 @@
                     "messages[0][touserid]" : userId,
                     "messages[0][text]" : messageText,
                     "messages[0][textformat]" : 1
-                }
+                };
 
-                MM.widgets.dialogClose();
                 MM.moodleWSCall('moodle_message_send_instantmessages', data,
                     function(r){
-                        MM.popMessage(MM.lang.s("messagesent"));
+                        loadB.removeClass("loading-row-black");
+                        MM.popMessage(MM.lang.s("messagesent"), {autoclose: 1500});
                     },
                     {
                         sync: true,
@@ -46,6 +49,10 @@
                         },
                         getFromCache: false,
                         saveToCache: false
+                    },
+                    function(e) {
+                        loadB.removeClass("loading-row-black");
+                        MM.widgets.dialogClose();
                     }
                     );
             };
@@ -65,6 +72,11 @@
             ';
 
             MM.widgets.dialog(html, options);
+            // Display keyboard.
+            setTimeout(function() {
+                $('#sendmessagetext').focus();
+                MM.util.showKeyboard();
+            }, 300);
         },
 
         sendMessage: function(courseId, userId) {

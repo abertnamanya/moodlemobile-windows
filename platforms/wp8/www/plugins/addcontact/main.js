@@ -1,4 +1,4 @@
-﻿define(function () {
+define(function () {
     var plugin = {
         settings: {
             name: "addcontact",
@@ -12,13 +12,7 @@
         routes: [
             ["contact/:courseId/:userId", "contact", "addContact"]
         ],
-        isPluginVisible : function(){
-            if (MM.deviceOS == 'windows8') {
-                return false;
-            } else {
-                return true;
-            }
-        },
+
         addContact: function(courseId, userId) {
 
             MM.log("Adding a contact");
