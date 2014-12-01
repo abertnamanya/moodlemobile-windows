@@ -39,14 +39,7 @@ MM.settings = {
 
         var pageTitle = MM.lang.s("settings");
         var html = MM.tpl.render($('#settings_template').html(), {plugins: plugins});
-        MM.panels.show('center', html, { title: pageTitle });
-
-        $("#panel-left a.active").each(function () {
-            $(this).removeClass('active');
-        });
-
-        $("#general-menu li:eq(2) a").addClass('active');
-
+        MM.panels.show('center', html, {title: pageTitle});
         if (MM.deviceType == 'tablet') {
             $("#panel-center li:eq(0)").addClass("selected-row");
             MM.settings.showSection('general');
@@ -107,7 +100,6 @@ MM.settings = {
     showSync: function() {
         var settings = [
             {id: 'sync_ws_on', type: 'checkbox', label: MM.lang.s('enableautosyncws'), checked: true, handler: MM.settings.checkboxHandler},
-            {id: 'sync_lang_on', type: 'checkbox', label: MM.lang.s('enableautosynccss'), checked: true, handler: MM.settings.checkboxHandler},
             {id: 'sync_css_on', type: 'checkbox', label: MM.lang.s('enableautosynclang'), checked: true, handler: MM.settings.checkboxHandler}
         ];
 
@@ -148,9 +140,6 @@ MM.settings = {
             </li>\
             <% }); %>\
             </ul><br /><br />\
-            <div class="centered">\
-                <a href="#settings/sync/lang"><button><%= MM.lang.s("forcelangsync") %></button></a>\
-            </div>\
             <div class="centered">\
                 <a href="#settings/sync/css"><button><%= MM.lang.s("forcecsssync") %></button></a>\
                 <div style="clear: both"></div>\

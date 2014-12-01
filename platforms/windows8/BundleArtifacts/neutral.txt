@@ -1,3 +1,14 @@
-MainPackage=C:\Users\Dani\Development\MM\platforms\windows8\bin\Release\CordovaApp_1.7.0.1_Bundle\CordovaApp_1.7.0.1_AnyCPU.appx
-ResourcePack=C:\Users\Dani\Development\MM\platforms\windows8\bin\Release\CordovaApp_1.7.0.1_Bundle\CordovaApp_1.7.0.1_scale-140.appx
-ResourcePack=C:\Users\Dani\Development\MM\platforms\windows8\bin\Release\CordovaApp_1.7.0.1_Bundle\CordovaApp_1.7.0.1_scale-180.appx
+MainPackage=C:\Users\Dani\Development\MM\platforms\windows8\bin\Release\CordovaApp_1.9.0.17_Bundle\CordovaApp_1.9.0.17_AnyCPU.appx
+ResourcePack=C:\Users\Dani\Development\MM\platforms\windows8\bin\Release\CordovaApp_1.9.0.17_Bundle\CordovaApp_1.9.0.17_language-cs.appx
+ResourcePack=C:\Users\Dani\Development\MM\platforms\windows8\bin\Release\CordovaApp_1.9.0.17_Bundle\CordovaApp_1.9.0.17_language-de.appx
+ResourcePack=C:\Users\Dani\Development\MM\platforms\windows8\bin\Release\CordovaApp_1.9.0.17_Bundle\CordovaApp_1.9.0.17_language-es.appx
+ResourcePack=C:\Users\Dani\Development\MM\platforms\windows8\bin\Release\CordovaApp_1.9.0.17_Bundle\CordovaApp_1.9.0.17_language-fr.appx
+ResourcePack=C:\Users\Dani\Development\MM\platforms\windows8\bin\Release\CordovaApp_1.9.0.17_Bundle\CordovaApp_1.9.0.17_language-hu.appx
+ResourcePack=C:\Users\Dani\Development\MM\platforms\windows8\bin\Release\CordovaApp_1.9.0.17_Bundle\CordovaApp_1.9.0.17_language-it.appx
+ResourcePack=C:\Users\Dani\Development\MM\platforms\windows8\bin\Release\CordovaApp_1.9.0.17_Bundle\CordovaApp_1.9.0.17_language-ja.appx
+ResourcePack=C:\Users\Dani\Development\MM\platforms\windows8\bin\Release\CordovaApp_1.9.0.17_Bundle\CordovaApp_1.9.0.17_language-nl.appx
+ResourcePack=C:\Users\Dani\Development\MM\platforms\windows8\bin\Release\CordovaApp_1.9.0.17_Bundle\CordovaApp_1.9.0.17_language-pt.appx
+ResourcePack=C:\Users\Dani\Development\MM\platforms\windows8\bin\Release\CordovaApp_1.9.0.17_Bundle\CordovaApp_1.9.0.17_language-ru.appx
+ResourcePack=C:\Users\Dani\Development\MM\platforms\windows8\bin\Release\CordovaApp_1.9.0.17_Bundle\CordovaApp_1.9.0.17_language-zh-hans.appx
+ResourcePack=C:\Users\Dani\Development\MM\platforms\windows8\bin\Release\CordovaApp_1.9.0.17_Bundle\CordovaApp_1.9.0.17_scale-140.appx
+ResourcePack=C:\Users\Dani\Development\MM\platforms\windows8\bin\Release\CordovaApp_1.9.0.17_Bundle\CordovaApp_1.9.0.17_scale-180.appx

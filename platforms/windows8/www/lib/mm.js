@@ -87,8 +87,8 @@ var MM = {
     /**
      * Detect the current device type (tablet or phone).
      */
-    setDeviceType: function() {
-        if (typeof (MSApp) !== "undefined") {
+    setDeviceType: function () {
+        if (typeof (MSApp) !== "undefined"){
             this.deviceType = 'tablet';
             $('body').addClass('tablet');
         } else if (matchMedia(MM.mq).matches) {
@@ -345,9 +345,10 @@ var MM = {
 
         var mq = matchMedia(MM.mq);
         mq.addListener(MM.mediaQueryChangeHandler);
+        mq.addListener(MM.mediaQueryChangeHandler);
         if (MM.deviceOS == 'windows8') {
             MM.setUpTabletModeLayout();
-        } else {
+        }else{
             if (mq.matches) {
                 MM.setUpTabletModeLayout();
             } else {
@@ -397,6 +398,9 @@ var MM = {
     _displayAddSite: function() {
         $('#manage-accounts').css('display', 'none');
         $('#add-site').css('display', 'block');
+        $('#url').focus();
+        // Dealy needed because of the splash screen.
+        setTimeout(MM.util.showKeyboard, 1000);
     },
 
     _displayManageAccounts: function() {
@@ -433,8 +437,7 @@ var MM = {
         $('#panel-center, #panel-right').css('height', newH - headerHeight);
 
         if (MM.deviceType == 'phone') {
-            //$('#panel-right').css("width", $(document).innerWidth() + 50);
-            $('#panel-right').css("width", $(document).innerWidth());
+            $('#panel-right').css("width", $(document).innerWidth() + 50);
             $("#panel-right .content-index").css("width", $(document).innerWidth());
         } else {
             MM.panels.resizePanels();
@@ -611,7 +614,6 @@ var MM = {
                 MM.lang.setup(plugin.settings.name);
             }
         }
-        MM.lang.sync();
     },
 
     /**
@@ -694,8 +696,11 @@ var MM = {
                 MM.touchMoving = false;
             } else {
                 e.preventDefault();
-                $(this).next().slideToggle(300);
+                // Hide expanded (accordion effect).
+                $(".nav.submenu .toogler.collapse").not($(this)).toggleClass("collapse expand").next().slideToggle(150);
+
                 $(this).toggleClass("collapse expand");
+                $(this).next().slideToggle(300);
             }
         });
 
@@ -798,6 +803,7 @@ var MM = {
         $("#login-details").animate({paddingTop: "40px"});
         $("#resetsitebutton").css("display", "none");
         $('#username').focus();
+        MM.util.showKeyboard();
     },
 
     /**
@@ -814,6 +820,7 @@ var MM = {
             MM._resetAddSiteForm();
         });
         $('#username').focus();
+        MM.util.showKeyboard();
     },
 
     _appLaunchedByURL: function(url) {
@@ -1274,7 +1281,6 @@ var MM = {
             ['settings/sites/add', 'settings_sites_add_site', MM.settings.addSite],
             ['settings/sites/delete/:siteid', 'settings_sites_delete_site', MM.settings.deleteSite],
             ['settings/general/purgecaches', 'settings_general_purgecaches', MM.cache.purge],
-            ['settings/sync/lang', 'settings_sync_lang', function() { MM.lang.sync(true); }],
             ['settings/sync/css', 'settings_sync_css', function() { MM.sync.css(true); }],
             ['settings/spaceusage/empty/:siteid', 'settings_spaceusage_empty_site', MM.settings.deleteSiteFiles],
             ['settings/development/log/:filter', 'settings_sync_css', MM.showLog],
@@ -1504,10 +1510,10 @@ var MM = {
                         return;
                     } else {
                         if (errorCallBack) {
-                            errorCallBack('Error. ' + data.message);
+                            errorCallBack(data.message);
                         } else {
                             if (!preSets.silently) {
-                                MM.popErrorMessage('Error. ' + data.message);
+                                MM.popErrorMessage(data.message);
                             }
                         }
                         return;
@@ -1635,16 +1641,11 @@ var MM = {
      * @param {Object} successCallBack Function to be called on success.
      * @param {Object} errorCallBack Function to be called on error.
      */
-    moodleDownloadFile: function(url, path, successCallBack, errorCallBack) {
+    moodleDownloadFile: function(url, path, successCallBack, errorCallBack, background) {
 
-        // Set the Root in the persistent file system.
-        if (MM.deviceOS == 'windows8') {
-            path = MM.fs.getRoot() + path;
-            path = path.replace("/", "\\");
-        } else {
-            path = MM.fs.getRoot() + "/" + path;
-        }
-
+        path = MM.fs.getRoot() + path;
+        path = path.replace('\\', '\/');
+        path = path.replace('\\', '/');
 
         // Background download. Check if we are using the external service that supports CORS download.
         // We check for the local_mobile_mod_forum_get_forums_by_courses since the version including that funciton supports CORS.
@@ -1694,17 +1695,28 @@ var MM = {
             worker.postMessage(data);
 
         } else {
-            var ft = MM._wsGetFileTransfer();
-            ft.download(url, path,
-                function() {
-                    successCallBack(path);
+
+            path = path.split('LocalState/');
+            var file = path[1];
+
+            MM.fs.fileSystemRoot.getFile(file, { create: true, exclusive: false },
+                function(fileEntry) {
+                    var ft = MM._wsGetFileTransfer();
+                    ft.download(url, fileEntry.toURL(),
+                        function(fileDownloaded) {
+                            successCallBack(fileDownloaded.toURL());
+                        },
+                        function() {
+                            errorCallBack(path);
+                        }
+                    );
                 },
                 function() {
                     errorCallBack(path);
                 }
             );
-        }
 
+        }
     },
 
     /**
@@ -1936,11 +1948,6 @@ var MM = {
      * @param {string} url The url to be fixed.
      */
     fixPluginfile: function(url, token) {
-
-        // This function is used in regexp callbacks, better not to risk!!
-        if (!url) {
-            return '';
-        }
 
         // This function is used in regexp callbacks, better not to risk!!
         if (!url) {
@@ -2188,7 +2195,7 @@ var MM = {
         if (MM.touchMoving) {
             MM.touchMoving = false;
         } else {
-            var link = ($(this).attr('href') == '#') ? $(this).attr('data-link') : $(this).attr('href');
+            var link = ($(this).attr('href') == '#')? $(this).attr('data-link') : $(this).attr('href');
             if (MM.deviceOS == 'windows8') {
                 window.location.href = link;
                 return;
@@ -2216,7 +2223,7 @@ var MM = {
                 window.open(link, '_blank');
             }
         }
-        if (typeof(MM.plugins.contents.infoBox) != "undefined") {
+        if (MM.deviceOS != "wp8" && (typeof(MM.plugins.contents.infoBox) != "undefined")) {
             MM.plugins.contents.infoBox.remove();
         }
     },
@@ -2271,98 +2278,108 @@ var MM = {
         if (MM.touchMoving) {
             MM.touchMoving = false;
         } else {
-            var link = ($(this).attr('href') == '#') ? $(this).attr('data-link') : $(this).attr('href');
+            var link = ($(this).attr('href') == '#')? $(this).attr('data-link') : $(this).attr('href');
+            // Open the file using the platform specific method.
+            MM._openFile(link);
+        }
+        if (typeof(MM.plugins.contents.infoBox) != "undefined") {
+            MM.plugins.contents.infoBox.remove();
+        }
+    },
 
-            if (MM.deviceOS == 'windows8') {
+    /**
+     * Open a file using platform specific method
+     * node-webkit: Using the default application configured.
+     * Android: Using the WebIntent plugin
+     * iOs: Using the window.open method
+     *
+     * @param  {string} link The local path of the file to be open
+     * @return {[type]}      [description]
+     */
+    _openFile: function(link) {
 
-                MM.log('Windows 8 - Opening file');
+        if (MM.deviceOS == 'windows8') {
 
-                // Get the absolute path
-                link = link.split('LocalState/');
-                var file = link[1];
+            MM.log('Windows 8 - Opening file');
 
-                // Get the image file from the package's image directory
-                Windows.Storage.ApplicationData.current.localFolder.getFileAsync(file).done(
-                  function (file) {
-                      // Set the show picker option
-                      var options = new Windows.System.LauncherOptions();
-                      options.displayApplicationPicker = false;
+            // Get the absolute path
+            var siteId = MM.config.current_site.id;
+            link = link.split(siteId);
+            var file = siteId + link[1];
 
-                      // Launch the retrieved file using the selected app
-                      Windows.System.Launcher.launchFileAsync(file, options).then(
-                        function (success) {
-                            if (success) {
-                                // File launched
-                            } else {
-                                // File launch failed
-                            }
-                        });
-                  });
+            // Get the image file from the package's image directory
+            Windows.Storage.ApplicationData.current.localFolder.getFileAsync(file).done(
+              function (file) {
+                  // Set the show picker option
+                  var options = new Windows.System.LauncherOptions();
+                  options.displayApplicationPicker = false;
 
-                return;
+                  // Launch the retrieved file using the selected app
+                  Windows.System.Launcher.launchFileAsync(file, options).then(
+                    function (success) {
+                        if (success) {
+                            // File launched
+                        } else {
+                            // File launch failed
+                        }
+                    });
+              });
+
+            return;
+        }
+
+        if (MM.deviceOS == 'wp8') {
+
+            MM.log('Windows Phone 8 - Opening file');
+            window.open(link, '_system');
+
+            return;
+        }
+
+
+        if (MM.inNodeWK) {
+            // Link is the file path in the file system.
+            // We use the node-webkit shell for open the file (pdf, doc) using the default application configured in the os.
+            var gui = require('nw.gui');
+            gui.Shell.openItem(link);
+        } else if(window.plugins) {
+            var extension = MM.util.getFileExtension(link);
+            var mimetype = '';
+            if (typeof(MM.plugins.contents.templates.mimetypes[extension])!= "undefined") {
+                mimetype = MM.plugins.contents.templates.mimetypes[extension];
             }
+            if (MM.deviceOS == 'android' && window.plugins.webintent) {
+                var iParams = {
+                    action: "android.intent.action.VIEW",
+                    url: link,
+                    type: mimetype['type']};
 
-            if (MM.deviceOS == 'wp8') {
-
-                MM.log('Windows Phone 8 - Opening file');
-                window.open(link, '_system');
-
-                return;
-            }
-
-            // Now, we choose how to open the file.
-            // node-webkit: Using the default application configured.
-            // Android: Using the WebIntent plugin
-            // iOs: Using the window.open method
-            if (MM.inNodeWK) {
-                // Link is the file path in the file system.
-                // We use the node-webkit shell for open the file (pdf, doc) using the default application configured in the os.
-                var gui = require('nw.gui');
-                gui.Shell.openItem(link);
-            } else if(window.plugins) {
-                var extension = link.substr(link.lastIndexOf(".") + 1);
-                var mimetype = '';
-                if (typeof(MM.plugins.contents.templates.mimetypes[extension])!= "undefined") {
-                    mimetype = MM.plugins.contents.templates.mimetypes[extension];
-                }
-                if (MM.deviceOS == 'android' && window.plugins.webintent) {
-                        var iParams = {
-                            action: "android.intent.action.VIEW",
-                            url: link,
-                            type: mimetype['type']};
-
-                        window.plugins.webintent.startActivity(
-                            iParams,
-                            function() {
-                                MM.log('Intent launched');
-                            },
-                            function() {
-                                MM.log('Intent launching failed');
-                                MM.log('action: ' + iParams.action);
-                                MM.log('url: ' + iParams.url);
-                                MM.log('type: ' + iParams.type);
-                                // This may work in cordova 2.4 and onwards
-                                window.open(link, '_system');
-                            }
-                        );
-
-                } else if (MM._canUseChildBrowser()) {
-                    MM.log('Launching childBrowser');
-                    try {
-                        window.plugins.childBrowser.showWebPage(
-                            link,
-                            {
-                                showLocationBar: true ,
-                                showAddress: false
-                            }
-                        );
-                    } catch(e) {
-                        MM.log('Launching childBrowser failed!, opening as standard link');
-                        window.open(link, '_blank');
+                window.plugins.webintent.startActivity(
+                    iParams,
+                    function() {
+                        MM.log('Intent launched');
+                    },
+                    function() {
+                        MM.log('Intent launching failed');
+                        MM.log('action: ' + iParams.action);
+                        MM.log('url: ' + iParams.url);
+                        MM.log('type: ' + iParams.type);
+                        // This may work in cordova 2.4 and onwards
+                        window.open(link, '_system');
                     }
-                } else {
-                    // Changing _blank for _system may work in cordova 2.4 and onwards
-                    MM.log('Open external file using window.open');
+                );
+            } else if (MM._canUseChildBrowser()) {
+                MM.log('Launching childBrowser');
+                try {
+                    window.plugins.childBrowser.showWebPage(
+                        link,
+                        {
+                            showLocationBar: true ,
+                            showAddress: false
+                        }
+                    );
+                } catch(e) {
+                    MM.log('Launching childBrowser failed!, opening as standard link');
                     window.open(link, '_blank');
                 }
             } else {
@@ -2370,9 +2387,10 @@ var MM = {
                 MM.log('Open external file using window.open');
                 window.open(link, '_blank');
             }
-        }
-        if (typeof(MM.plugins.contents.infoBox) != "undefined") {
-            MM.plugins.contents.infoBox.remove();
+        } else {
+            // Changing _blank for _system may work in cordova 2.4 and onwards
+            MM.log('Open external file using window.open');
+            window.open(link, '_blank');
         }
     },
 
@@ -2454,12 +2472,14 @@ var MM = {
                 if (!site) {
                     return;
                 }
+                MM.popMessage(MM.lang.s('allcachesinvalidated'));
+
                 site.id = hex_md5(site.siteurl + site.username);
                 site.token = MM.config.current_token;
                 MM.db.insert('sites', site);
+                MM.setConfig('current_site', site);
 
                 MM.cache.invalidate();
-                MM.popMessage(MM.lang.s('allcachesinvalidated'));
                 MM.loadSite(site.id, true);
             },
             {

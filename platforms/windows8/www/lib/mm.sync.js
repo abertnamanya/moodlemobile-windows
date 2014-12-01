@@ -31,10 +31,6 @@ MM.sync = {
 
     init: function() {
 
-        MM.sync.hooks.lang = {
-            handler: MM.lang.sync,
-            time: MM.config.sync_lang
-        };
         MM.sync.hooks.css = {
             handler: MM.sync.css,
             time: MM.config.sync_css
@@ -51,7 +47,7 @@ MM.sync = {
     },
 
     _syncProcess: function() {
-        var newInterval = 0;
+        var newInterval = MM.sync.interval;
         var nextExecution = 0;
         var d = new Date();
         var call = false;

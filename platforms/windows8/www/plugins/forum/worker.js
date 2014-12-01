@@ -16,9 +16,11 @@
             "wstoken": e.data.token
         };
         var url = e.data.siteurl + "/webservice/rest/server.php?moodlewsrestformat=json";
+        // CORS enabled server.
+        var corsURL = e.data.siteurl + "/local/mobile/server.php?moodlewsrestformat=json";
 
         var xhr = new XMLHttpRequest();
-        xhr.open("POST", url, true);
+        xhr.open("POST", corsURL, true);
         xhr.onreadystatechange = function() {
             if (xhr.readyState == 4) {
                 var resp = JSON.parse(xhr.responseText);
@@ -50,13 +52,15 @@
             "sortdirection":  "DESC",
             "page": e.data.page + "",
             "perpage": e.data.perPage + "",
-            "wsfunction": e.data.wsPrefix + "mod_forum_get_forum_discussions",
+            "wsfunction": e.data.wsPrefix + "mod_forum_get_forum_discussions_paginated",
             "wstoken": e.data.token
         };
         var url = e.data.siteurl + "/webservice/rest/server.php?moodlewsrestformat=json";
+        // CORS enabled server.
+        var corsURL = e.data.siteurl + "/local/mobile/server.php?moodlewsrestformat=json";
 
         var xhr = new XMLHttpRequest();
-        xhr.open("POST", url, true);
+        xhr.open("POST", corsURL, true);
         xhr.onreadystatechange = function() {
             if (xhr.readyState == 4) {
                 var resp = JSON.parse(xhr.responseText);

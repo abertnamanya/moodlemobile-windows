@@ -1,7 +1,0 @@
-﻿[ResourceMetadata]
-"ResourceId"			"split.scale-180"
-"ResourceDimensions"		"scale-180"
-
-[Files]
-"C:\Users\Dani\Development\MM\platforms\windows8\bld\ARM\Release\split.scale-180.pri"			"resources.pri"
-"C:\Users\Dani\Development\MM\platforms\windows8\bld\ARM\Release\PackageLayout\images\splashscreen.scale-180.png"			"images\splashscreen.scale-180.png"

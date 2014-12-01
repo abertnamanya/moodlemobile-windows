@@ -26,6 +26,7 @@ define(templates, function (filesTpl, discussionTpl, discussionsTpl, attachments
 
         routes: [
             ["forum/view/:courseId/:cmid/:page", "view_forum", "viewForum"],
+            ["forum/discussion/:courseId/:discussionId", "show_discussion", "showDiscussion"],
         ],
 
         // Sync function, every 2 hours (time is in millisecs).
@@ -39,6 +40,8 @@ define(templates, function (filesTpl, discussionTpl, discussionsTpl, attachments
 
         wsPrefix: "",
 
+        sectionsCache: {},
+
          /**
          * Determines is the plugin is visible.
          * It may check Moodle remote site version, device OS, device type, etc...
@@ -47,16 +50,15 @@ define(templates, function (filesTpl, discussionTpl, discussionsTpl, attachments
          * @return {bool} True if the plugin is visible for the site and device
          */
         isPluginVisible: function() {
-            // First check core services and Moodle version above 2.8.
+            // First check core services.
             var visible =   MM.util.wsAvailable('mod_forum_get_forums_by_courses') &&
-                            MM.util.wsAvailable('mod_forum_get_forum_discussions') &&
-                            MM.util.wsAvailable('mod_forum_get_forum_discussion_posts') &&
-                            parseInt(MM.config.current_site.version, 10) >= 2014111000;
+                            MM.util.wsAvailable('mod_forum_get_forum_discussions_paginated') &&
+                            MM.util.wsAvailable('mod_forum_get_forum_discussion_posts');
 
             // Fallback to local_mobile plugin ones.
             if (!visible) {
                 visible =   MM.util.wsAvailable('local_mobile_mod_forum_get_forums_by_courses') &&
-                            MM.util.wsAvailable('local_mobile_mod_forum_get_forum_discussions') &&
+                            MM.util.wsAvailable('local_mobile_mod_forum_get_forum_discussions_paginated') &&
                             MM.util.wsAvailable('local_mobile_mod_forum_get_forum_discussion_posts');
 
                 if (visible) {
@@ -73,6 +75,9 @@ define(templates, function (filesTpl, discussionTpl, discussionsTpl, attachments
                 "section": section,
                 "module": module
             };
+            // Store the section name.
+            MM.plugins.forum.sectionsCache[module.contentid] = MM.util.formatText(section.name);
+
             return MM.tpl.render(MM.plugins.forum.templates.view.html, data);
         },
 
@@ -128,19 +133,32 @@ define(templates, function (filesTpl, discussionTpl, discussionsTpl, attachments
                 "perpage": MM.plugins.forum.perPage
             };
 
-            MM.moodleWSCall(MM.plugins.forum.wsPrefix + "mod_forum_get_forum_discussions",
+            MM.moodleWSCall(MM.plugins.forum.wsPrefix + "mod_forum_get_forum_discussions_paginated",
                 params,
                 // Success callback.
                 function(discussions) {
                     // Stops loading...
                     $("#info-" + forum.cmid, "#panel-right").attr("src", "img/info.png");
+                    var siteId = MM.config.current_site.id;
+
+                    var syncStatus = "";
+                    if (MM.db.get('forum_syncs', siteId + "-" + forum.cmid)) {
+                        syncStatus = 'checked="checked"';
+                    }
+
+                    var sectionName = "";
+                    if (MM.plugins.forum.sectionsCache[forum.cmid]) {
+                        sectionName = MM.plugins.forum.sectionsCache[forum.cmid];
+                    }
 
                     var pageTitle = MM.util.formatText(forum.name);
                     var data = {
                         "page": page,
                         "perpage": MM.plugins.forum.perPage,
                         "forum": forum,
-                        "discussions": discussions.discussions
+                        "discussions": discussions.discussions,
+                        "syncStatus": syncStatus,
+                        "sectionName": sectionName
                     };
 
                     MM.plugins.forum.discussionsCache = discussions.discussions;
@@ -151,33 +169,39 @@ define(templates, function (filesTpl, discussionTpl, discussionsTpl, attachments
                     // Handlers for view complete discussions and posts.
                     $(".subject.toogler").on(MM.clickType, function(e) {
                         e.preventDefault();
-                        if ($(this).hasClass("discussion-loaded")) {
-                            $(this).parent().find(".discussion-body").toggle();
-                            return;
-                        }
-
                         var discussionId = $(this).data("discussionid");
-                        $(this).addClass("discussion-loaded");
-                        $(this).parent().find(".discussion-body").html('<div class="centered"><img src="img/loading.gif"></div>');
-                        MM.plugins.forum._showDiscussion(discussionId);
-                    });
-                    // Handler for sync.
-                    $("#keepsynch").on(MM.clickType, function(e) {
-                        var siteId = MM.config.current_site.id;
-                        var uniqueId = siteId + "-" + $(this).data("cmid");
+                        // Loading...
+                        $(this).append('<img src="img/loading.gif">');
 
-                        if ($(this).prop("checked")) {
-                            var el = {
-                                id: uniqueId,
-                                forumid: $(this).data("forumid"),
-                                cmid: $(this).data("cmid"),
-                                site: siteId
-                            };
-                            MM.db.insert("forum_syncs", el);
-                        } else {
-                            MM.db.remove("forum_syncs", uniqueId);
+                        location.href = "#forum/discussion/" + forum.course + "/" + discussionId;
+                    });
+
+                    // Handlers for post-info (replies).
+                    $(".post-info").on(MM.clickType, function(e) {
+                        var parent = $(this).parent().find(".subject.toogler");
+                        if (parent) {
+                            parent.trigger(MM.clickType);
                         }
                     });
+
+                    // Handler for sync.
+                    if (MM.util.WebWorkersSupported()) {
+                        $("#keepsynch").bind("change", function(e) {
+                            var uniqueId = siteId + "-" + $(this).data("cmid");
+
+                            if ($(this).prop("checked")) {
+                                var el = {
+                                    id: uniqueId,
+                                    forumid: $(this).data("forumid"),
+                                    cmid: $(this).data("cmid"),
+                                    site: siteId
+                                };
+                                MM.db.insert("forum_syncs", el);
+                            } else {
+                                MM.db.remove("forum_syncs", uniqueId);
+                            }
+                        });
+                    }
 
                     // Detect if the device supports WebWorkers.
                     if (MM.util.WebWorkersSupported()) {
@@ -231,12 +255,10 @@ define(templates, function (filesTpl, discussionTpl, discussionsTpl, attachments
          * Display a discussion with posts
          * @param  {Number} discussionId The discussion id
          */
-        _showDiscussion: function(discussionId) {
+        showDiscussion: function(courseId, discussionId) {
             var params = {
                 "discussionid": discussionId
             };
-
-            var discussionSubject = $("#panel-right").find("[data-discussionid='" + discussionId + "']");
 
             MM.moodleWSCall(MM.plugins.forum.wsPrefix + "mod_forum_get_forum_discussion_posts",
                 params,
@@ -253,20 +275,42 @@ define(templates, function (filesTpl, discussionTpl, discussionsTpl, attachments
                         }
                     }
 
+                    // Not found, search in the returned posts.
+                    if (!discussion) {
+                        for (el in posts.posts) {
+                            var post = posts.posts[el];
+                            if (post.parent == 0) {
+                                discussion = post;
+                                break;
+                            }
+                        }
+                    }
+
                     var data = {
                         "discussion": discussion,
-                        "posts": posts.posts
+                        "posts": posts.posts,
+                        "courseId": courseId
                     };
                     var html = MM.tpl.render(MM.plugins.forum.templates.discussion.html, data);
-                    discussionSubject.parent().find(".discussion-body").html(html);
+                    MM.panels.show("right", html, {keepTitle: true, showRight: true});
+
+                    // Hack in tablet view.
+                    if (MM.deviceType == "tablet") {
+                        var panelCenter = $('#panel-center');
+                        var panelRight  = $('#panel-right');
+
+                        panelCenter.css("width", MM.panels.sizes.threePanels.center);
+                        panelRight.css("left",  MM.panels.sizes.threePanels.center);
+                        panelRight.css("width", MM.panels.sizes.threePanels.right);
+                    }
 
                     // Toggler effect.
-                    $(".forum-post .subject").on(MM.clickType, function(e) {
-                        $(this).parent().find(".content").toggle();
+                    $(".forum-post .subject", "#panel-right").on(MM.clickType, function(e) {
+                        $(this).parent().find(".content").first().toggle();
                     });
 
                     // Bind downloads.
-                    $(".forum-download").on(MM.clickType, function(e) {
+                    $(".forum-download", "#panel-right").on(MM.clickType, function(e) {
                         e.preventDefault();
                         e.stopPropagation();
 
@@ -281,7 +325,6 @@ define(templates, function (filesTpl, discussionTpl, discussionsTpl, attachments
                 },
                 null,
                 function (error) {
-                    discussionSubject.parent().find(".discussion-body").html("");
                     MM.popErrorMessage(error);
                 }
             );
@@ -323,13 +366,7 @@ define(templates, function (filesTpl, discussionTpl, discussionsTpl, attachments
             var downCssId = $("#downimg-" + attachmentId);
             var linkCssId = $("#attachment-" + attachmentId);
 
-            filename = decodeURIComponent(filename);
-            filename = filename.replace(/\s/g, "_");
-
-            // iOs doesn't like names not encoded.
-            if (MM.deviceOS == 'ios') {
-                filename = encodeURIComponent(filename);
-            }
+            filename = MM.fs.normalizeFileName(filename);
 
             var directory = siteId + "/forum-files/" + attachmentId;
             var filePath = directory + "/" + filename;
@@ -360,6 +397,8 @@ define(templates, function (filesTpl, discussionTpl, discussionsTpl, attachments
                                 $(linkCssId).attr("rel", "external");
                                 // Android, open in new browser
                                 MM.handleFiles(linkCssId);
+                                MM._openFile(fullpath);
+
                             },
                             function(fullpath) {
                                 $(downCssId).remove();
@@ -418,6 +457,11 @@ define(templates, function (filesTpl, discussionTpl, discussionsTpl, attachments
                         forums.push(f.get("forumid"));
                     }
                 });
+
+                if (!forums.length) {
+                    return;
+                }
+
                 // Create dinamically a Worker script. Workers from file:// are not supported.
                 var blobURL = new Blob([MM.plugins.forum.templates.worker.js]);
 

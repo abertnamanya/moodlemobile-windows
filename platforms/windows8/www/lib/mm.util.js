@@ -37,7 +37,7 @@ MM.util = {
      * @returns {boolean} True if supports touch events
      */
     isTouchDevice: function() {
-       /* if ('ontouchstart' in window || document.ontouchstart || window.ontouchstart) {
+         /* if ('ontouchstart' in window || document.ontouchstart || window.ontouchstart) {
             return true;
         }
 
@@ -137,6 +137,14 @@ MM.util = {
         });
     },
 
+    filterTextImgURL: function(full, text) {
+        if (!text) {
+            return "";
+        }
+        var md5 = hex_md5(text);
+        return '<img src="' + MM.config.current_site.siteurl + "/filter/tex/pix.php/" + md5 + '">';
+    },
+
     /**
      * This function should be applied to any piece of text to be displayed in the application
      *
@@ -152,6 +160,12 @@ MM.util = {
         text = text.replace(re, "$1");
         // Delete the rest of languages
         text = text.replace(/<(?:lang|span)[^>]+lang="([a-zA-Z0-9_-]+)"[^>]*>(.*?)<\/(?:lang|span)>/g,"");
+
+        // TeX filter. (Special case for labels mainly).
+        var ft = text.match(/\$\$(.+?)\$\$/);
+        if (ft) {
+            text = text.replace(/\$\$(.+?)\$\$/g, MM.util.filterTextImgURL);
+        }
 
         // Replace the pluginfile donwload links with the correct ones.
 
@@ -592,23 +606,23 @@ MM.util = {
             var html = '<div class="paging-bar">';
 
             if (previousLink) {
-                html += '&#160;(' + previousLink + ')&#160;';
+                html += previousLink;
             }
 
             if (firstLink) {
-                html += '&#160;' + firstLink + '&#160;...';
+                html += firstLink + '...';
             }
 
             _.each(pageLinks, function(link) {
-                html += '&#160;&#160;' + link;
+                html += link;
             });
 
             if (lastLink) {
-                html += '&#160;...' + lastLink + '&#160;';
+                html += '...' + lastLink;
             }
 
             if (nextLink) {
-                html += '&#160;&#160;(' + nextLink + ')';
+                html += nextLink;
             }
 
             html += '</div>';
@@ -641,5 +655,19 @@ MM.util = {
         }
 
         return !!window.Worker && !!window.URL;
+    },
+
+    /**
+     * Display the keyboard if the device supports it
+     *
+     */
+    showKeyboard: function() {
+        if (typeof cordova != "undefined" &&
+            cordova.plugins &&
+            cordova.plugins.Keyboard &&
+            typeof cordova.plugins.Keyboard.show == "function") {
+
+            cordova.plugins.Keyboard.show();
+        }
     }
 };

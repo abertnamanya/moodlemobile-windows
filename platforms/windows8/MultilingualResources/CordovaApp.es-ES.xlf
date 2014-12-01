@@ -5,6 +5,12 @@
       <tool tool-id="MultilingualAppToolkit" tool-name="Multilingual App Toolkit" tool-version="3.1.1085.0" tool-company="Microsoft" />
     </header>
     <body>
+      <group id="resources">
+        <trans-unit id="resources\app" translate="yes" xml:space="preserve">
+          <source>Moodle Mobile</source>
+          <target state="new">Moodle Mobile</target>
+        </trans-unit>
+      </group>
     </body>
   </file>
 </xliff>

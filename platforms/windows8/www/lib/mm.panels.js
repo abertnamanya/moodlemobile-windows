@@ -131,7 +131,9 @@ MM.panels = {
 
 		if (MM.deviceType == 'tablet') {
 			// Clean the page title.
-			pageTitle.html("");
+			if (!settings || !settings.keepTitle) {
+				pageTitle.html("");
+			}
 
 			MM.panels.hideRight = false;
 			if (settings && settings.hideRight) {
@@ -140,12 +142,13 @@ MM.panels = {
 			if (settings && settings.title) {
 				pageTitle.html(settings.title);
 			}
-
 			MM.panels.menuShow(false, settings);
 		} else {
 			// Clean the page title.
 			MM.panels.previousPanelPageTitle = pageTitle.html();
-			pageTitle.html("");
+			if (!settings || !settings.keepTitle) {
+				pageTitle.html("");
+			}
 
 			// Short text for page title (MOBILE-462).
 			// We can't do this using CSS text-overflow because of the header dynamic width.
@@ -191,7 +194,6 @@ MM.panels = {
 					contentWidth = $(document).innerWidth() + 50;
 					panelRight.css("width", contentWidth);
 				}
-				
 				$("#panel-right .content-index").css("width", contentWidth - 50);
 
 				panelCenter.animate({

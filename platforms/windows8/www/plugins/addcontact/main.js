@@ -12,13 +12,11 @@
         routes: [
             ["contact/:courseId/:userId", "contact", "addContact"]
         ],
+
         isPluginVisible : function(){
-            if (MM.deviceOS == 'windows8') {
-                return false;
-            } else {
-                return true;
-            }
+            return false;
         },
+
         addContact: function(courseId, userId) {
 
             MM.log("Adding a contact");

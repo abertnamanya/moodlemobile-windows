@@ -29,17 +29,17 @@ MM.widgets = {
 
     eventsRegistered: {},
 
-    render: function (elements) {
+    render: function(elements) {
         var settings = [];
         var output = "";
 
-        if ($.isArray(elements)) {
+        if($.isArray(elements)) {
             settings = elements;
         } else {
             settings.push(elements);
         }
 
-        $.each(settings, function (index, setting) {
+        $.each(settings, function(index, setting) {
             var renderer = "render" + setting.type.charAt(0).toUpperCase() + setting.type.slice(1);
             if (typeof MM.widgets[renderer] != "undefined") {
                 output += "<div class=\"mm-setting\">" + MM.widgets[renderer](setting) + "</div>";
@@ -49,17 +49,17 @@ MM.widgets = {
         return output;
     },
 
-    renderList: function (elements) {
+    renderList: function(elements) {
         var settings = [];
         var output = '<ul class="nav nav-v">';
 
-        if ($.isArray(elements)) {
+        if($.isArray(elements)) {
             settings = elements;
         } else {
             settings.push(elements);
         }
 
-        $.each(settings, function (index, setting) {
+        $.each(settings, function(index, setting) {
             var renderer = "render" + setting.type.charAt(0).toUpperCase() + setting.type.slice(1);
             if (typeof MM.widgets[renderer] != "undefined") {
                 output += '<li class="nav-item">' + MM.widgets[renderer](setting) + '</li>';
@@ -71,7 +71,7 @@ MM.widgets = {
         return output;
     },
 
-    renderCheckbox: function (el) {
+    renderCheckbox: function(el) {
         if (el.checked) {
             el.checked = 'checked = "checked"';
         } else {
@@ -83,7 +83,7 @@ MM.widgets = {
         return MM.tpl.render(tpl, el);
     },
 
-    renderButton: function (el) {
+    renderButton: function(el) {
         if (typeof el.url == "undefined") {
             el.url = "";
         }
@@ -92,20 +92,20 @@ MM.widgets = {
         return MM.tpl.render(tpl, el);
     },
 
-    renderSpinner: function (el) {
+    renderSpinner: function(el) {
         var tpl = '\
         <div style="float: right; text-align: right; width: 80px; padding-top: 2px;" id="<%= id %>">\
             <button class="plus"  style="width: 30px; height: 30px; padding: 0px">+</button>\
             <button class="minus" style="width: 30px; height: 30px; padding: 0px; margin-left: 4px">-</button>\
         </div>\
         <div style="margin-right: 80px"><label for="<%= id %>-text"><%= label %></label>\
-            <input type="text" value = "'+ MM.getConfig(el.id) + '" id="<%= id %>-text" style="border: 0; color: #f6931f; font-weight: bold;" readonly="readonly"/>\
+            <input type="text" value = "'+ MM.getConfig(el.id) +'" id="<%= id %>-text" style="border: 0; color: #f6931f; font-weight: bold;" readonly="readonly"/>\
         </div><div style="clear: both"></div>';
 
         return MM.tpl.render(tpl, el);
     },
 
-    renderSelect: function (el) {
+    renderSelect: function(el) {
         var tpl = '\
             <div class="select-setting">\
                 <div class="select-label"> <%= label %></div>\
@@ -126,31 +126,31 @@ MM.widgets = {
         return MM.tpl.render(tpl, el);
     },
 
-    enhanceButton: function (id) {
+    enhanceButton: function(id) {
         //$("#" + id).button();
     },
 
-    enhanceCheckbox: function (id) {
+    enhanceCheckbox: function(id) {
         //$("#" + id).parent().addClass("checkbox-tic");
     },
 
-    enhanceSpinner: function (id, config) {
+    enhanceSpinner: function(id, config) {
         // Nothing.
-        $("#" + id + " .plus").click(config.clickPlus);
+        $("#" + id + " .plus" ).click(config.clickPlus);
         $("#" + id + " .minus").click(config.clickMinus);
     },
 
-    enhance: function (elements) {
+    enhance: function(elements) {
         var settings = [];
         var output = "";
 
-        if ($.isArray(elements)) {
+        if($.isArray(elements)) {
             settings = elements;
         } else {
             settings.push(elements);
         }
 
-        $.each(settings, function (index, setting) {
+        $.each(settings, function(index, setting) {
             var enhancer = "enhance" + setting.type.charAt(0).toUpperCase() + setting.type.slice(1);
             if (typeof MM.widgets[enhancer] != "undefined") {
                 if (setting.config) {
@@ -163,20 +163,20 @@ MM.widgets = {
         //MM.widgets.improveCheckbox();
     },
 
-    addHandlers: function (elements) {
+    addHandlers: function(elements) {
         var settings = [];
         var output = "";
 
-        if ($.isArray(elements)) {
+        if($.isArray(elements)) {
             settings = elements;
         } else {
             settings.push(elements);
         }
 
-        $.each(settings, function (index, setting) {
+        $.each(settings, function(index, setting) {
             if (typeof setting.handler != "undefined") {
                 var fn = setting.handler;
-                var eHandler = function (e) {
+                var eHandler = function(e){
                     fn(e, setting);
                 };
                 if (setting.type == "select") {
@@ -189,7 +189,7 @@ MM.widgets = {
         });
     },
 
-    dialog: function (text, options) {
+    dialog: function(text, options) {
         if (!options) {
             options = {
                 title: "",
@@ -221,11 +221,11 @@ MM.widgets = {
             $("#app-dialog .modalFooter").html(buttons);
 
             // Handlers for buttons.
-            // Els starts at 1 so that the buttons above have the 
+            // Els starts at 1 so that the buttons above have the
             // correct handlers attached to them.
             els = 1;
             $.each(options.buttons, function (key, value) {
-                $(".modal-button-" + els).click(function (e) {
+                $(".modal-button-" + els).click(function(e) {
                     value();
                 });
                 els++;
@@ -248,37 +248,36 @@ MM.widgets = {
         }
 
         // Show the div.
+        $("#app-dialog").css('display', 'block');
         $("#app-dialog").css('opacity', '1');
         // Allow mouse events in this div.
         $("#app-dialog").css('pointer-events', 'auto');
 
-        $("#app-dialog").css('display', 'block');
-
         if (options.autoclose) {
-            setTimeout(function () {
+            setTimeout(function() {
                 MM.widgets.dialogClose();
             }, options.autoclose);
         }
     },
 
-    dialogClose: function () {
+    dialogClose: function() {
         // Hide the div.
         $("#app-dialog").css('opacity', '0');
+        $("#app-dialog").css('display', 'none');
         // No mouse events in this div.
         $("#app-dialog").css('pointer-events', 'none');
-        $("#app-dialog").css('display', 'none');
     },
 
     // TODO: Never called - consider removing?
-    improveCheckbox: function () {
+    improveCheckbox: function() {
         var onClass = "ui-icon-circle-check", offClass = "ui-icon-circle-close";
 
-        $("input:checked[type=checkbox] ").button({ icons: { primary: onClass } });
-        $("input[type=checkbox]:not(:checked)").button({ icons: { primary: offClass } });
+        $( "input:checked[type=checkbox] " ).button({ icons: {primary: onClass} });
+        $( "input[type=checkbox]:not(:checked)" ).button({ icons: {primary: offClass} });
 
-        $("input[type=checkbox]").bind(MM.clickType, function () {
+        $( "input[type=checkbox]" ).bind(MM.clickType, function(){
 
-            var swap = function (me, toAdd, toRemove) {
+            var swap = function(me, toAdd, toRemove) {
                 // find the LABEL for the checkbox
                 // ... which should be _immediately_ before or after the checkbox
                 var node = me.next();

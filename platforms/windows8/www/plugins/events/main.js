@@ -43,7 +43,6 @@ define(templates, function (eventsTpl, eventTpl) {
             MM.plugins.events.lastEvents = typeof(response.events !== "undefined")? response.events : [];
 
             var d;
-
             // Formatting.
             for (var el in MM.plugins.events.lastEvents) {
                 var event = MM.plugins.events.lastEvents[el];
@@ -71,11 +70,20 @@ define(templates, function (eventsTpl, eventTpl) {
 
             var html = MM.tpl.render(MM.plugins.events.templates.events.html, tpl);
 
-            MM.panels.show('center', html, {title: pageTitle});
+            if (MM.deviceType == "tablet" && MM.plugins.events.lastEvents.length > 0) {
+                MM.panels.show('center', html, {title: pageTitle});
+            } else  {
+                if (MM.deviceType == "tablet") {
+                    MM.panels.show('center', html, {title: pageTitle, hideRight: true});
+                } else {
+                    MM.panels.show('center', html, {title: pageTitle});
+                }
+            }
+
             $("#events-showmore").on(MM.clickType, function(e) {
                 MM.plugins.events.showEvents(days + daysIncrement);
             });
-            // Load the first user
+            // Load the first event.
             if (MM.deviceType == "tablet" && MM.plugins.events.lastEvents.length > 0) {
                 $("#panel-center li:eq(0)").addClass("selected-row");
                 MM.plugins.events.showEvent(0);
@@ -108,14 +116,6 @@ define(templates, function (eventsTpl, eventTpl) {
             }
             // Adding loading icon.
             $('a[href="' + MM.plugins.events.settings.menuURL + '"]', '#panel-left').addClass('loading-row');
-
-            if (MM.deviceOS == 'windows8') {
-                $("#panel-left a.active").each(function () {
-                    $(this).removeClass('active');
-                });
-
-                $('a[href="' + MM.plugins.events.settings.menuURL + '"]', '#panel-left').addClass('active');
-            }
 
             // The core_calendar_get_calendar_events needs all the current user courses and groups.
             var params = {

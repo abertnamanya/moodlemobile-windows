@@ -15,6 +15,7 @@
     "audiorecordinstructions": "Grabatu botoia sakatu audio grabaketa hasteko. Gelditu botoia sakatu geratu eta fitxategia igotzeko.",
     "authenticating": "Egiaztatzen",
     "author": "Egilea",
+    "average": "Batez bestekoa",
     "back": "Atzera",
     "browsephotoalbums": "Argazki bildumak",
     "cacheexpirationtime": "Cache-aren iraungitze denbora (milisegundotan)",
@@ -35,10 +36,7 @@
     "contentyetnotavailable": "Jarduera mota hau oraindik ez dago mobile app bidez eskuragarri",
     "continue": "Jarraitu",
     "country": "Herrialdea",
-<<<<<<< HEAD
     "course": "Ikastaroa",
-=======
->>>>>>> wp8 - Update to 1.6.1
     "coursename": "Ikastaroaren izena",
     "csssynced": "Urruneko CSSa sinkronizaturik",
     "date": "Data",
@@ -53,15 +51,16 @@
     "deviceinfo": "Gailuaren informazioa",
     "disablenotifications": "Desgaitu jakinarazpenak",
     "disablerdebugger": "Desgaitu urruneko arazketa",
+    "discussions": "eztabaidak",
     "docsurl": "http:\/\/docs.moodle.org\/en\/Mobile_app",
     "downloadremotefile": "Jaitsi urruneko fitxategia",
     "downloadtime": "Jaitsita",
     "email": "E-posta",
     "empty": "hutsik",
     "enableautosync": "Gaitu sinkronizazio automatikoa",
-    "enableautosynccss": "Gaitu CSS estilo orrien sinkronizazioa",
-    "enableautosynclang": "Gaitu hizkuntza-fitxategien sinkronizazioa",
-    "enableautosyncws": "Gaitu eragiketa eta datuen sinkronizazioa",
+    "enableautosynccss": "CSS estilo orrien sinkronizazioa",
+    "enableautosynclang": "Hizkuntza-fitxategien sinkronizazioa",
+    "enableautosyncws": "Eragiketa eta datuen sinkronizazioa",
     "enablecss3transitions": "Gaitu CSS3 trantsizioa",
     "enabledebugging": "Gaitu arazketa",
     "enablenotifications": "Gaitu jakinarazpenak",
@@ -76,10 +75,7 @@
     "errordownloading": "Errorea fitxategia jaistean",
     "errorduringdevicetokenrequest": "Errorea gailu-token-a eskatzean",
     "errorduringdevicetokenrequesttoapns": "Errorea APNSri gailu token-a eskatzean",
-<<<<<<< HEAD
     "errorlistingfiles": "Errorea fitxategiak karpeta honetatik berreskuratzean",
-=======
->>>>>>> wp8 - Update to 1.6.1
     "errornoconnectednocache": "Gailuak ez du konexiorik eta ez dago eskatutako aukera horretarako cacheatutako informaziorik",
     "errorregisteringdeviceinmoodle": "Errorea gailua Moodle-n erregistratzean",
     "errorretrievinggradeinformation": "Errorea kalifikazioaren informazioa berreskuratzean",
@@ -95,6 +91,8 @@
     "forcecsssync": "CSS sinkronizazioa behartu orain",
     "forcelangsync": "Hizkuntza sinkronizazioa behartu orain",
     "forceofflinemode": "Behartu lineaz kanpoko modua",
+    "forumnodiscussionsyet": "Oraindik ez dago eztabaida-gairik foro honetan",
+    "forumnumreplies": "erantzunak",
     "fullname": "Izen osoa",
     "general": "Orokorra",
     "grade": "Kalifikazioa",
@@ -102,6 +100,7 @@
     "groupeventsnotdisplayed": "Talde-gertakariak ez dira erakusten",
     "help": "Laguntza",
     "helpmelogin": "<p>Milaka Moodle gune dago munduan zehar. App hau soilik Mobile sarbidea gaituta duten guneetan sartzeko gai da.<\/p><p>Zure Moodle gunera konektatzeko gai ez bazara konektatu nahi zaren Moodle guneko administratzailearekin harremanetan jarri behar zara eta hurrengo esteka irakurtzeko esan: <a href=\"http:\/\/docs.moodle.org\/en\/Mobile_app\" target=\"_blank\">http:\/\/docs.moodle.org\/en\/Mobile_app<\/a><\/p>.<p>App honen demo gunea probatzeko idatzi <i>teacher<\/i> edo <i>student<\/i> <i>Site URL<\/i> eremuan eta <b>Gehitu botoia<\/b> sakatu.<\/p>",
+    "hours": "Orduak",
     "icantlogin": "Ezin naiz sartu",
     "imagestored": "Zure irudia zure fitxategi pribatuen atalean gorde da",
     "info": "Informazioa",
@@ -110,8 +109,11 @@
     "invalidmoodleversion": "Moodle bertsio baliogabea. Gutxieneko bertsioa hurrengoa da:",
     "invalidscheme": "Baliozko URL bat eman, mesedez",
     "invalidsite": "Guneko URLa ez da baliozkoa",
+    "itemname": "Elementuaren izena",
+    "keepsynchronising": "Jarraitu mezuak zerbitzariarekin sinkronizatzen",
     "langsynced": "Hizkuntza sinkronizaturik",
     "language": "Hizkuntza",
+    "lettergrade": "Letren bidezko kalifikazioa",
     "license": "Lizentzia",
     "loadcordovaemulator": "Kargatu Cordova emulatzailea",
     "loading": "Kargatzen",
@@ -120,23 +122,21 @@
     "logininsiterequired": "Gunean web-nabigatzaile baten bidez sartu behar zara.",
     "logout": "Irten",
     "lostconnection": "Konexioa galdu dugu eta berriz konektatu behar zara. Zure token-a orain ez da baliozkoa",
-<<<<<<< HEAD
     "manageaccounts": "Kudeatu kontuak",
-=======
->>>>>>> wp8 - Update to 1.6.1
     "message": "Mezua",
+    "messages": "Mezuak",
     "messagesent": "Mezua bidalita",
+    "minutes": "MInutuak",
     "mobileservicesnotenabled": "Mobile zerbitzuak gaitu gabe daude zure gunean. Mesedez zure Moodle gunearen administratzailearen harremanetan jarri zaitez mobile sarbidea gaitu behar dela uste baduzu.",
     "modulename": "Moduluaren izena",
+    "months": "Hilabeteak",
     "moodlehelp": "Laguntza",
     "mycourses": "Nire ikastaroak",
-<<<<<<< HEAD
     "myfiles": "Nire fitxategiak",
-=======
->>>>>>> wp8 - Update to 1.6.1
     "name": "Izena",
     "networkerror": "Sarea ez dago eskuragarri",
     "networkerrormsg": "Sarea ez dago gaituta edo ez dabil",
+    "next": "Hurrengoa",
     "no": "Ez",
     "norefreshdisconnected": "Freskatze aukerak sare-konexioa behar du",
     "notaskstobesynchronized": "Ez dago sinkronizatu beharreko atazarik",
@@ -159,12 +159,11 @@
     "phone2": "Mobile",
     "pluginname": "Moodle Mobile hizkuntza-kateak",
     "preview": "Aurreikusi",
-<<<<<<< HEAD
+    "previous": "Aurrekoa",
     "privatefiles": "Fitxategi pribatuak",
-=======
->>>>>>> wp8 - Update to 1.6.1
     "purgecaches": "Cache-ak garbitu",
     "range": "Tartea",
+    "rank": "Sailkapena",
     "rdebuggingenabledfor": "Urruneko arazketa gaituko da hurrengo epean (segunduetan):",
     "record": "Grabatu",
     "recordaudio": "Audio",
@@ -179,6 +178,7 @@
     "resetapp": "Aplikazioa berrabiarazi",
     "save": "Gorde",
     "saving": "Gordetzen...",
+    "seconds": "Segunduak",
     "select": "Aukeratu",
     "selectsite": "Aukeratu gunea",
     "send": "Bidali",
@@ -188,11 +188,9 @@
     "settings": "Ezarpenak",
     "showall": "Erakutsi guztiak",
     "showlog": "Erakutsi agerraldia",
+    "showmore": "Erakutsi gehiago...",
     "siteexists": "Gune hau existitzen da jada.",
-<<<<<<< HEAD
     "sitefiles": "Guneko fitxategiak",
-=======
->>>>>>> wp8 - Update to 1.6.1
     "siteinmaintenance": "Zure gunea mantenu-moduan dago",
     "sitename": "Gunearen izena",
     "sites": "Guneak",
@@ -204,10 +202,7 @@
     "strings": "Kateka",
     "synchronization": "Sinkronizazioa",
     "syncthistasknow": "Ataza hau orain sinkronizatu",
-<<<<<<< HEAD
     "system": "Sistema",
-=======
->>>>>>> wp8 - Update to 1.6.1
     "takephoto": "Atera argazkia",
     "takepicture": "Kamera",
     "taskqueue": "Ataza ilara",
@@ -234,18 +229,18 @@
     "video": "Bideoa",
     "videofilenameprefix": "iphone_igoera-video",
     "videostored": "Zure bideoa zure gune pribatuan gorde da",
+    "view": "Ikusi",
     "viewableonthisapp": "Ikusgai aplikazio honetan",
     "warning": "Abisua",
     "webservicesnotenabled": "Web zerbitzuak gaitu gabe daude zure gunean. Mesedez zure Moodle gunearen administratzailearen harremanetan jarri zaitez mobile sarbidea gaitu behar dela uste baduzu.",
     "webservicesuccessfullyexecuted": "Web Zerbitzua ondo exekutatu da",
     "website": "Webgunea",
+    "weight": "Pisua",
     "welcome": "Ongi etorri Moodle mobile aplikaziora",
     "writeherethebug": "Hemen arazoaren deskribapen xehatua idatzi",
+    "years": "Urteak",
     "yes": "Bai",
-<<<<<<< HEAD
     "youarein": "Zu hemen zaude:",
-=======
->>>>>>> wp8 - Update to 1.6.1
     "yourpassword": "pasahitza",
     "yoursiteurl": "https:\/\/zuremoodlea.com",
     "yourusername": "erabiltzaile-izena"

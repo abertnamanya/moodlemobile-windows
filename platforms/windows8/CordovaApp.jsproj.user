@@ -6,10 +6,10 @@
   </PropertyGroup>
   <PropertyGroup>
     <ReferenceCachePath>C:\Users\Dani\AppData\Local\Temp\31z5fmfj_CordovaApp_refcache</ReferenceCachePath>
-    <AutoRefresh>false</AutoRefresh>
+    <AutoRefresh>true</AutoRefresh>
     <ShowAllFiles>true</ShowAllFiles>
-    <AppxPackageIsForStore>False</AppxPackageIsForStore>
-    <AppxShowAllApps>False</AppxShowAllApps>
+    <AppxPackageIsForStore>True</AppxPackageIsForStore>
+    <AppxShowAllApps>True</AppxShowAllApps>
     <AppxBuildConfigurationSelection>neutral</AppxBuildConfigurationSelection>
     <RemoteMachine0>surface</RemoteMachine0>
     <UseAuthentication0>True</UseAuthentication0>

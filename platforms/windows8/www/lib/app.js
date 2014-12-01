@@ -21,22 +21,13 @@
  * @version 1.2
  */
 
-// Base path for all the files required.
-var userAgent = MM._getUserAgent();
-if (userAgent.indexOf('windows phone 8.0') !== -1) {
-    requirejs.config({
-        paths: {
-            root: 'x-wmapp0://www'
-        }
-    });
-} else {
-    requirejs.config({
-        paths: {
-            root: '..'
-        }
-    });
-}
 
+// Base path for all the files required.
+requirejs.config({
+    paths: {
+        root: '..'
+    }
+});
 
 // Requirements for launching the app, the function is not executed until both
 // files are fully loaded.
