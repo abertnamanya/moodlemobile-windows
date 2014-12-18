@@ -81,6 +81,8 @@ MM.fs = {
             var path = MM.fs.entryURL(MM.fs.fileSystemRoot);
             // Android 4.2 and onwards
             //path = path.replace("storage/emulated/0", "sdcard");
+
+            // in wp8 sometimes there are four /
             path = path.replace('////', '//');
             return path;
         }
@@ -103,7 +105,7 @@ MM.fs = {
                             var msg = 'Critical error accessing file system, directory ' + MM.fs.basePath + ' can\'t be created';
                             MM.log(msg, "FS");
                             if (err) {
-                                console.log("Error dump", "FS");
+                                //console.log("Error dump", "FS");
                             }
                             MM.popErrorMessage(msg);
                         }
@@ -137,13 +139,13 @@ MM.fs = {
         );
     },
 
-    createDir: function (path, successCallback, dirEntry) {
+    createDir: function(path, successCallback, dirEntry) {
         path = path.replace('file:///', '');
-        console.log('FS: Creating full directory ' + path);
 
-        if (MM.deviceOS == 'wp8') {
-            path = path.replace('//', '');
-        }
+        // wp8
+        path = path.replace('//', '');
+
+        MM.log('FS: Creating full directory ' + path, 'FS');
 
         var paths = path.split('/');
 
@@ -152,34 +154,32 @@ MM.fs = {
             baseRoot = dirEntry;
         }
 
-        if (paths[0]) { // prevent crashing in wp8
-
-            console.log('FS: Creating directory ' + paths[0] + ' in ' + MM.fs.entryURL(baseRoot));
-
-            baseRoot.getDirectory(
-             paths[0],
-             { create: true, exclusive: false },
-             function (newDirEntry) {
-                 if (paths.length == 1) {
-                     successCallback(newDirEntry);
-                     return;
-                 }
-                 // Recursively, create next directories
-                 paths.shift();
-                 MM.fs.createDir(paths.join('/'), successCallback, newDirEntry);
-             },
-             function (err) {
-                 MM.popErrorMessage('Critical error creating directory: ' + paths[0]);
-                 if (err) {
-                     MM.log("Error dump", "FS");
-                     console.log(err);
-                 }
-             }
-         );
-        }else{
+        // wp8
+        if (!paths[0]) {
             successCallback();
             return;
         }
+
+        MM.log('FS: Creating directory ' + paths[0] + ' in ' + MM.fs.entryURL(baseRoot), 'FS');
+        baseRoot.getDirectory(
+            paths[0],
+            {create: true, exclusive: false},
+            function(newDirEntry) {
+                if (paths.length == 1) {
+                    successCallback(newDirEntry);
+                    return;
+                }
+                // Recursively, create next directories
+                paths.shift();
+                MM.fs.createDir(paths.join('/'), successCallback, newDirEntry);
+            },
+            function(err) {
+                MM.popErrorMessage('Critical error creating directory: ' + paths[0]);
+                if (err) {
+                    MM.log("Error dump", "FS");
+                }
+            }
+        );
     },
 
     /**

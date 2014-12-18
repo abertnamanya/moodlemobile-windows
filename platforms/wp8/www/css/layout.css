@@ -42,11 +42,21 @@ body {
 #panel-center.animate {
   left: 0%;
 }
+#panel-center:after {
+  content: "";
+  display: inherit;
+  height: 44px;
+}
 #panel-right {
   left: 100%;
   width: 100%;
   top: 40px;
   display: none;
+}
+#panel-right:after {
+  content: "";
+  display: inherit;
+  height: 44px;
 }
 #mycourses {
   overflow: auto;

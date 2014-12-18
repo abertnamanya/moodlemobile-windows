@@ -178,7 +178,9 @@
     <Content Include="config.xml" />
     <Content Include="www\about.json" />
     <Content Include="www\config.json" />
-    <Content Include="www\config.xml" />
+    <Content Include="www\config.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="www\cordova.js" />
     <Content Include="www\cordova_plugins.js" />
     <Content Include="www\css\fonts\icomoon.eot" />
@@ -222,6 +224,10 @@
     <Content Include="www\externallib\text.js" />
     <Content Include="www\externallib\underscore.js" />
     <Content Include="www\icon.png" />
+    <None Include="www\emulator\local_mobile_core_message_get_contacts.json" />
+    <None Include="www\emulator\local_mobile_gradereport_user_get_grades_table.json" />
+    <None Include="www\lang\tr.json" />
+    <None Include="www\lang\zh_cn.json" />
     <Content Include="www\img\arrow-right2.png" />
     <Content Include="www\img\arrowleft.png" />
     <Content Include="www\img\arrowright.png" />
@@ -288,6 +294,7 @@
     <Content Include="www\img\ico-arrowdown.png" />
     <Content Include="www\img\ico-arrowright.png" />
     <Content Include="www\img\ico-back.png" />
+    <Content Include="www\img\ico-contacts.png" />
     <Content Include="www\img\ico-course.png" />
     <Content Include="www\img\ico-help.png" />
     <Content Include="www\img\ico-mail.png" />
@@ -328,11 +335,6 @@
     <Content Include="www\img\icon\wp8\icon-62.png" />
     <Content Include="www\img\info.png" />
     <Content Include="www\img\list-rightarrow.png" />
-    <None Include="www\lang\tr.json" />
-    <None Include="www\lang\zh_cn.json" />
-    <Resource Include="www\img\loading.gif" />
-    <Resource Include="www\img\loadingblack.gif" />
-    <Resource Include="www\img\loadingwhite.gif" />
     <Content Include="www\img\login-logo.png" />
     <Content Include="www\img\logo-cva.png" />
     <Content Include="www\img\logout.png" />
@@ -449,9 +451,15 @@
     <Content Include="www\plugins\grades\main.js" />
     <Content Include="www\plugins\label\main.js" />
     <Content Include="www\plugins\label\view.html" />
+    <Content Include="www\plugins\messages\bubbles.html" />
+    <Content Include="www\plugins\messages\contact.html" />
+    <Content Include="www\plugins\messages\contacts.html" />
+    <Content Include="www\plugins\messages\conversation.html" />
     <Content Include="www\plugins\messages\icon.png" />
     <Content Include="www\plugins\messages\main.js" />
     <Content Include="www\plugins\messages\messages.html" />
+    <Content Include="www\plugins\messages\recent.html" />
+    <Content Include="www\plugins\messages\search.html" />
     <Content Include="www\plugins\myfiles\files.html" />
     <Content Include="www\plugins\myfiles\icon.png" />
     <Content Include="www\plugins\myfiles\main.js" />
@@ -570,7 +578,6 @@
     <None Include="Properties\WMAppManifest.xml">
       <SubType>Designer</SubType>
     </None>
-    <None Include="www\emulator\local_mobile_gradereport_user_get_grades_table.json" />
     <None Include="www\lang\bg.json" />
     <None Include="www\lang\fa.json" />
   </ItemGroup>
@@ -618,7 +625,11 @@
   <ItemGroup>
     <Compile Include="Plugins\org.apache.cordova.contacts\ContactsHelper.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="www\img\loading.gif" />
+    <Resource Include="www\img\loadingblack.gif" />
+    <Resource Include="www\img\loadingwhite.gif" />
+  </ItemGroup>
   <ItemGroup>
     <Compile Include="Plugins\org.apache.cordova.contacts\ContactPicker.xaml.cs">
       <DependentUpon>ContactPicker.xaml</DependentUpon>

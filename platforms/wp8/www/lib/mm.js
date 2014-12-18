@@ -88,10 +88,7 @@ var MM = {
      * Detect the current device type (tablet or phone).
      */
     setDeviceType: function () {
-        if (typeof (MSApp) !== "undefined"){
-            this.deviceType = 'tablet';
-            $('body').addClass('tablet');
-        } else if (matchMedia(MM.mq).matches) {
+        if (matchMedia(MM.mq).matches) {
             this.deviceType = 'tablet';
             $('body').addClass('tablet');
         } else {
@@ -122,7 +119,7 @@ var MM = {
             this.deviceOS = 'android';
         } else if (typeof (MSApp) !== "undefined") {
             this.deviceOS = 'windows8';
-        } else if (userAgent.indexOf('windows phone 8.0') !== -1) {
+        } else if (userAgent.indexOf('windows phone 8') !== -1) {
             this.deviceOS = 'wp8';
         }
     },
@@ -244,7 +241,9 @@ var MM = {
             syncEl: {type: 'model'},
             sync: {type: 'collection', model: 'syncEl'},
             service: {type: 'model'},
-            services: {type: 'collection', model: 'service'}
+            services: {type: 'collection', model: 'service'},
+            user: {type: 'model'},
+            users: {type: 'collection', model: 'user'}
         };
         this.loadModels(storage);
     },
@@ -301,6 +300,22 @@ var MM = {
         return connected;
     },
 
+    deviceWifiConnected: function() {
+        // If we are in computer, return if the device is just connected or not.
+        if (MM.inComputer) {
+            return MM.deviceConnected();
+        }
+
+        var connected = true;
+
+        var network = MM._getNetwork();
+        if (typeof(network) != 'undefined') {
+            var networkState = network.connection.type;
+            connected = networkState == Connection.WIFI;
+        }
+        return connected;
+    },
+
     _renderManageAccounts: function(sites) {
         if (!sites) {
             sites = [];
@@ -345,15 +360,11 @@ var MM = {
 
         var mq = matchMedia(MM.mq);
         mq.addListener(MM.mediaQueryChangeHandler);
-        mq.addListener(MM.mediaQueryChangeHandler);
-        if (MM.deviceOS == 'windows8') {
+
+        if (mq.matches) {
             MM.setUpTabletModeLayout();
-        }else{
-            if (mq.matches) {
-                MM.setUpTabletModeLayout();
-            } else {
-                MM.setUpPhoneModeLayout();
-            }
+        } else {
+            MM.setUpPhoneModeLayout();
         }
 
         // Make the background color fill all the screen for the add site page.
@@ -437,8 +448,7 @@ var MM = {
         $('#panel-center, #panel-right').css('height', newH - headerHeight);
 
         if (MM.deviceType == 'phone') {
-            //$('#panel-right').css("width", $(document).innerWidth() + 50);
-            $('#panel-right').css("width", $(document).innerWidth());
+            $('#panel-right').css("width", $(document).innerWidth() + 50);
             $("#panel-right .content-index").css("width", $(document).innerWidth());
         } else {
             MM.panels.resizePanels();
@@ -475,6 +485,16 @@ var MM = {
             e.stopPropagation();
         });
 
+        // Heading icons (used by some plugins like messages).
+        var hilr = $("#header-icon-left, #header-icon-right");
+        $(hilr).css("position", "absolute");
+        $(hilr).css("z-index", "9999");
+        $(hilr).css("top", "6px");
+        $(hilr).css("display", "none");
+
+        $("#header-icon-left").css("left", MM.panels.sizes.threePanels.center - 25);
+        $("#header-icon-right").css("left", MM.panels.sizes.threePanels.center + MM.panels.sizes.threePanels.right - 25);
+
         // Swipe detection.
         $('#panel-center, #panel-right').swipe({
             swipeLeft: function(event, direction, distance, duration, fingerCount) {
@@ -497,9 +517,17 @@ var MM = {
      */
     setUpPhoneModeLayout: function() {
         $('#mainmenu').bind(MM.quickClick, function(e) {
-            MM.panels.goBack();
+            MM.panels.menuShow();
             e.preventDefault();
         });
+
+        // Heading icons (used by some plugins like messages).
+        var hilr = $("#header-icon-left, #header-icon-right");
+        $(hilr).css("position", "absolute");
+        $(hilr).css("z-index", "9999");
+        $(hilr).css("top", "6px");
+        $(hilr).css("right", "10px");
+        $(hilr).css("display", "none");
 
         var excludedElements = "button, input, select, textarea, .noSwipe";
         if (MM.deviceOS == 'android') {
@@ -1156,9 +1184,12 @@ var MM = {
      * @param {string} username User name.
      * @param {string} password Password.
      * @param {string} siteurl The site url.
+     * @param {bool}   retry We are retrying with a prefixed URL.
      * @return {boolean} Allways returns false
      */
-    saveSite: function(username, password, siteurl) {
+    saveSite: function(username, password, siteurl, retry) {
+        retry = retry || false;
+
         MM.showModalLoading(MM.lang.s("authenticating"));
         var loginURL = siteurl + '/login/token.php';
         MM.siteurl = siteurl;
@@ -1182,7 +1213,18 @@ var MM = {
                     var error = MM.lang.s('invalidaccount');
 
                     if (typeof(json.error) != 'undefined') {
-                        error = json.error;
+                        // We only allow one retry (to avoid loops).
+                        if (!retry && json.errorcode == "requirecorrectaccess") {
+                            MM.log("Retry with prefixed URL");
+                            siteurl = siteurl.replace("https://", "https://www.");
+                            siteurl = siteurl.replace("http://", "http://www.");
+                            $("#url").val(siteurl);
+
+                            MM.saveSite(username, password, siteurl, true);
+                            return;
+                        } else {
+                            error = json.error;
+                        }
                     }
                     MM.popErrorMessage(error);
                 }
@@ -1643,8 +1685,12 @@ var MM = {
      * @param {Object} errorCallBack Function to be called on error.
      */
     moodleDownloadFile: function(url, path, successCallBack, errorCallBack, background) {
+        background = background || false;
 
+        // Set the Root in the persistent file system.
         path = MM.fs.getRoot() + "/" + path;
+
+        // wp8 clean path.
         path = path.replace('////', '//');
 
         // Background download. Check if we are using the external service that supports CORS download.
@@ -2191,10 +2237,6 @@ var MM = {
             MM.touchMoving = false;
         } else {
             var link = ($(this).attr('href') == '#')? $(this).attr('data-link') : $(this).attr('href');
-            if (MM.deviceOS == 'windows8') {
-                window.location.href = link;
-                return;
-            }
             if (MM._canUseChildBrowser()) {
                 MM.log('Launching childBrowser');
                 try {
@@ -2230,7 +2272,7 @@ var MM = {
      */
     handleFiles: function(selector) {
         MM.setFileLinksHREF(selector);
-        $(selector).bind(MM.clickType, MM.fileLinkClickHandler);
+        $(selector).on(MM.clickType, MM.fileLinkClickHandler);
     },
 
     /**
@@ -2293,43 +2335,9 @@ var MM = {
      */
     _openFile: function(link) {
 
-        if (MM.deviceOS == 'windows8') {
-
-            MM.log('Windows 8 - Opening file');
-
-            // Get the absolute path
-            link = link.split('LocalState/');
-            var file = link[1];
-
-            // Get the image file from the package's image directory
-            Windows.Storage.ApplicationData.current.localFolder.getFileAsync(file).done(
-              function (file) {
-                  // Set the show picker option
-                  var options = new Windows.System.LauncherOptions();
-                  options.displayApplicationPicker = false;
-
-                  // Launch the retrieved file using the selected app
-                  Windows.System.Launcher.launchFileAsync(file, options).then(
-                    function (success) {
-                        if (success) {
-                            // File launched
-                        } else {
-                            // File launch failed
-                        }
-                    });
-              });
-
-            return;
-        }
-
-        if (MM.deviceOS == 'wp8') {
-
-            MM.log('Windows Phone 8 - Opening file');
-            window.open(link, '_system');
-
-            return;
-        }
-
+        MM.log('Windows Phone 8 - Opening file');
+        window.open(link, '_system');
+        return;
 
         if (MM.inNodeWK) {
             // Link is the file path in the file system.
