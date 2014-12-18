@@ -37,7 +37,11 @@ MM.util = {
      * @returns {boolean} True if supports touch events
      */
     isTouchDevice: function() {
-         /* if ('ontouchstart' in window || document.ontouchstart || window.ontouchstart) {
+        if (MM.deviceOS == 'windows8') {
+            return false;
+        }
+
+        if ('ontouchstart' in window || document.ontouchstart || window.ontouchstart) {
             return true;
         }
 
@@ -46,7 +50,7 @@ MM.util = {
             return true;
         } catch (e) {
             return false;
-        }*/
+        }
 
         return false;
     },
@@ -151,6 +155,9 @@ MM.util = {
      * @param {string} text The text to be formatted
      */
     formatText: function (text, clean, courseId) {
+        if (!text) {
+            return "";
+        }
         // Links should open in new browser.
         text = text.replace(/<a([^>]+)>/g,"<a target=\"_blank\" $1>");
 

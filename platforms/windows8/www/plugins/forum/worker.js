@@ -1,4 +1,4 @@
-﻿self.onmessage = function(e) {
+self.onmessage = function(e) {
     var forums = e.data.forums;
     var that = self;
     var posts = [];

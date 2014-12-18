@@ -1,4 +1,4 @@
-﻿var templates = [
+var templates = [
     "root/externallib/text!root/plugins/myfiles/files.html"
 ];
 
@@ -190,6 +190,12 @@ define(templates, function (filesTpl) {
 
                         MM.plugins.myfiles._downloadFile(url, filename, linkId);
                     });
+
+                    // Hack, in iPad this page is not rendered well, it needs a refresh doing a DOM change.
+                    setTimeout(function() {
+                        $(".nav.nav-v", "#panel-center").css("display", "block");
+                        $("#panel-center").css("width", "99%");
+                    }, 200);
                 },
                 null,
                 function (error) {
@@ -240,6 +246,10 @@ define(templates, function (filesTpl) {
                                 $(downCssId).remove();
                                 $(linkCssId).attr("href", fullpath);
                                 $(linkCssId).attr("rel", "external");
+                                // Remove class and events.
+                                $(linkCssId).removeClass("myfiles-download");
+                                $(linkCssId).off(MM.clickType);
+
                                 // Android, open in new browser
                                 MM.handleFiles(linkCssId);
                                 MM._openFile(fullpath);

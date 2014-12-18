@@ -1,17 +1,17 @@
-﻿
 <div class="content-index">
     <header>
         <div>
             <div class="bd">
-                <h1><%= course.fullname %></h1>
-                <p><%= course.summary %></p>
+                <p><%= MM.util.formatText(course.summary) %></p>
             </div>
         </div>
     </header>
     <% _.each(sections, function(section) { %>
     <% if (section.modules && section.modules.length >0) { %>
     <section>
-        <h2><%= MM.util.formatText(section.name) %></h2>
+        <% if (sections.length > 1) { %>
+        <h3><%= MM.util.formatText(section.name) %></h3>
+        <% } %>
         <ul class="nav nav-v">
             <% _.each(section.modules, function(module) { %>
 

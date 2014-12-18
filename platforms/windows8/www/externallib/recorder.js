@@ -1,4 +1,4 @@
-﻿// https://github.com/mattdiamond/Recorderjs (Code grabbed at 2014 - 01 - 14)
+// https://github.com/mattdiamond/Recorderjs (Code grabbed at 2014 - 01 - 14)
 // MIT license
 (function(window){
 

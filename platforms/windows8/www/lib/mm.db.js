@@ -1,4 +1,4 @@
-﻿// Licensed to the Apache Software Foundation (ASF) under one
+// Licensed to the Apache Software Foundation (ASF) under one
 // or more contributor license agreements.  See the NOTICE file
 // distributed with this work for additional information
 // regarding copyright ownership.  The ASF licenses this file
@@ -42,6 +42,14 @@ MM.db = {
         MM.collections[collection].each(fn);
     },
     insert: function(collection, model) {
+        // Insert allways the current site identifier.
+        if (typeof model.site == "undefined" &&
+                MM.config &&
+                MM.config.current_site &&
+                MM.config.current_site.id) {
+
+            model.site = MM.config.current_site.id;
+        }
         return MM.collections[collection].create(model);
     },
     remove: function(collection, modelId) {

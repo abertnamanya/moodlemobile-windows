@@ -1,4 +1,4 @@
-﻿// Licensed to the Apache Software Foundation (ASF) under one
+// Licensed to the Apache Software Foundation (ASF) under one
 // or more contributor license agreements.  See the NOTICE file
 // distributed with this work for additional information
 // regarding copyright ownership.  The ASF licenses this file
@@ -164,7 +164,7 @@ MM.lang = {
      * @param {string} id The unique id of the string to be translated.
      * @param {string} component Core for regular strings or pluginname for plugins.
      */
-    s: function(id, component) {
+    s: function(id, component, replace) {
 
         if (typeof(component) == 'undefined') {
             component = 'core';
@@ -201,6 +201,11 @@ MM.lang = {
         if (!translated) {
             translated = '[[' + id + ']]';
         }
+
+        if (typeof(replace) != 'undefined') {
+            translated = translated.replace("{$a}", replace);
+        }
+
         return translated;
     },
 };

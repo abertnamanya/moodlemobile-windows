@@ -134,6 +134,7 @@ Powershell -ExecutionPolicy RemoteSigned Unblock-File '$(ProjectDir)\cordova\lib
   <ItemGroup>
     <Content Include="www\emulator\local_mobile_core_files_get_files.json" />
     <Content Include="www\emulator\local_mobile_core_grades_get_grades.json" />
+    <Content Include="www\emulator\local_mobile_core_message_get_contacts.json" />
     <Content Include="www\emulator\local_mobile_core_message_get_messages.json" />
     <Content Include="www\emulator\local_mobile_core_user_add_user_device.json" />
     <Content Include="www\emulator\local_mobile_gradereport_user_get_grades_table.json" />
@@ -259,6 +260,7 @@ Powershell -ExecutionPolicy RemoteSigned Unblock-File '$(ProjectDir)\cordova\lib
     <Content Include="www\img\ico-arrowdown.png" />
     <Content Include="www\img\ico-arrowright.png" />
     <Content Include="www\img\ico-back.png" />
+    <Content Include="www\img\ico-contacts.png" />
     <Content Include="www\img\ico-course.png" />
     <Content Include="www\img\ico-help.png" />
     <Content Include="www\img\ico-mail.png" />
@@ -349,54 +351,27 @@ Powershell -ExecutionPolicy RemoteSigned Unblock-File '$(ProjectDir)\cordova\lib
   </ItemGroup>
   <ItemGroup>
     <Content Include="www\lang\ar.json" />
-  </ItemGroup>
-  <ItemGroup>
+    <Content Include="www\lang\bg.json" />
     <Content Include="www\lang\ca.json" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="www\lang\cs.json" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="www\lang\de.json" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="www\lang\en.json" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="www\lang\es.json" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="www\lang\es_mx.json" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="www\lang\eu.json" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="www\lang\fa.json" />
     <Content Include="www\lang\fr.json" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="www\lang\he.json" />
     <Content Include="www\lang\hu.json" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="www\lang\it.json" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="www\lang\ja.json" />
     <Content Include="www\lang\nl.json" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="www\lang\pt_br.json" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="www\lang\ru.json" />
     <Content Include="www\lang\sv.json" />
-  </ItemGroup>
-  <ItemGroup>
+    <Content Include="www\lang\tr.json" />
+    <Content Include="www\lang\zh_cn.json" />
     <Content Include="www\lang\zh_tw.json" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="www\less\layout.less" />
   </ItemGroup>
   <ItemGroup>
@@ -476,9 +451,15 @@ Powershell -ExecutionPolicy RemoteSigned Unblock-File '$(ProjectDir)\cordova\lib
     <Content Include="www\plugins\grades\main.js" />
     <Content Include="www\plugins\label\main.js" />
     <Content Include="www\plugins\label\view.html" />
+    <Content Include="www\plugins\messages\bubbles.html" />
+    <Content Include="www\plugins\messages\contact.html" />
+    <Content Include="www\plugins\messages\contacts.html" />
+    <Content Include="www\plugins\messages\conversation.html" />
     <Content Include="www\plugins\messages\icon.png" />
     <Content Include="www\plugins\messages\main.js" />
     <Content Include="www\plugins\messages\messages.html" />
+    <Content Include="www\plugins\messages\recent.html" />
+    <Content Include="www\plugins\messages\search.html" />
     <Content Include="www\plugins\myfiles\files.html" />
     <Content Include="www\plugins\myfiles\icon.png" />
     <Content Include="www\plugins\myfiles\main.js" />

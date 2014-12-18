@@ -1,4 +1,4 @@
-﻿// Licensed to the Apache Software Foundation (ASF) under one
+// Licensed to the Apache Software Foundation (ASF) under one
 // or more contributor license agreements.  See the NOTICE file
 // distributed with this work for additional information
 // regarding copyright ownership.  The ASF licenses this file
@@ -59,7 +59,9 @@ MM.cordova = {
         // Connection API.
         window.Connection = {
             "NONE": 0,
-            "WIFI": 1
+            "WIFI": 1,
+            "CELL_2G": 2,
+            "CELL_3G": 3
         };
 
         navigator.network = {

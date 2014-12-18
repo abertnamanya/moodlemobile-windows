@@ -1,4 +1,4 @@
-﻿var templates = [
+var templates = [
     "root/externallib/text!root/plugins/events/events.html",
     "root/externallib/text!root/plugins/events/event.html"
 ];
@@ -49,12 +49,12 @@ define(templates, function (eventsTpl, eventTpl) {
 
                 d = new Date(event.timestart * 1000);
                 event.startdate = d.toLocaleDateString();
-                event.starttime = d.toLocaleTimeString(navigator.language, {hour: '2-digit', minute:'2-digit'});
+                event.starttime = d.toLocaleTimeString(MM.lang.current, {hour: '2-digit', minute:'2-digit'});
 
                 if (event.timeduration) {
                     d = new Date((event.timestart + event.timeduration) * 1000);
                     event.enddate = d.toLocaleDateString();
-                    event.endtime = d.toLocaleTimeString(navigator.language, {hour: '2-digit', minute:'2-digit'});
+                    event.endtime = d.toLocaleTimeString(MM.lang.current, { hour: '2-digit', minute: '2-digit' });
                 } else {
                     event.enddate = 0;
                     event.endtime = 0;
@@ -161,7 +161,11 @@ define(templates, function (eventsTpl, eventTpl) {
                 }
                 var tpl = {"event": fullEvent};
                 var html = MM.tpl.render(MM.plugins.events.templates.event.html, tpl);
-                MM.panels.show('right', html, {title: pageTitle});
+
+                var title = '<div class="media"><div class="img"><img src="img/event-' + fullEvent.eventtype + '.png"></div>';
+                title += '<div class="bd">' + MM.util.formatText(fullEvent.name) + '</div></div>';
+
+                MM.panels.show('right', html, {title: title});
             }
         },
 

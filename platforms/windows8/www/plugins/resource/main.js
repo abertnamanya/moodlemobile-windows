@@ -1,4 +1,4 @@
-﻿var templates = [
+var templates = [
     "root/externallib/text!root/plugins/resource/viewsingle.html",
     "root/externallib/text!root/plugins/resource/viewmultiple.html",
     "root/externallib/text!root/plugins/resource/dialog.html"

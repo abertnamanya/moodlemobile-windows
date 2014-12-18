@@ -102,7 +102,7 @@ MM.fs = {
                             var msg = 'Critical error accessing file system, directory ' + MM.fs.basePath + ' can\'t be created';
                             MM.log(msg, "FS");
                             if (err) {
-                                console.log("Error dump", "FS");
+                                //console.log("Error dump", "FS");
                             }
                             MM.popErrorMessage(msg);
                         }
@@ -138,7 +138,8 @@ MM.fs = {
 
     createDir: function(path, successCallback, dirEntry) {
         path = path.replace('file:///', '');
-        MM.log('FS: Creating full directory ' + path);
+
+        MM.log('FS: Creating full directory ' + path, 'FS');
 
         path = path.replace('\\', '\/');
         var paths = path.split('/');
@@ -147,8 +148,8 @@ MM.fs = {
         if (dirEntry) {
             baseRoot = dirEntry;
         }
-        
-        if (paths[0]) { // prevent crashing 
+
+        if (paths[0]) { // prevent crashing
             MM.log('FS: Creating directory ' + paths[0] + ' in ' + MM.fs.entryURL(baseRoot), 'FS');
             baseRoot.getDirectory(
                 paths[0],

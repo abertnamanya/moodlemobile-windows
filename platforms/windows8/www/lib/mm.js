@@ -244,7 +244,9 @@ var MM = {
             syncEl: {type: 'model'},
             sync: {type: 'collection', model: 'syncEl'},
             service: {type: 'model'},
-            services: {type: 'collection', model: 'service'}
+            services: {type: 'collection', model: 'service'},
+            user: {type: 'model'},
+            users: {type: 'collection', model: 'user'}
         };
         this.loadModels(storage);
     },
@@ -297,6 +299,22 @@ var MM = {
                 MM.log('Returning not connected (forced by settings)');
                 connected = false;
             }
+        }
+        return connected;
+    },
+
+    deviceWifiConnected: function() {
+        // If we are in computer, return if the device is just connected or not.
+        if (MM.inComputer) {
+            return MM.deviceConnected();
+        }
+
+        var connected = true;
+
+        var network = MM._getNetwork();
+        if (typeof(network) != 'undefined') {
+            var networkState = network.connection.type;
+            connected = networkState == Connection.WIFI;
         }
         return connected;
     },
@@ -474,6 +492,16 @@ var MM = {
             e.stopPropagation();
         });
 
+        // Heading icons (used by some plugins like messages).
+        var hilr = $("#header-icon-left, #header-icon-right");
+        $(hilr).css("position", "absolute");
+        $(hilr).css("z-index", "9999");
+        $(hilr).css("top", "6px");
+        $(hilr).css("display", "none");
+
+        $("#header-icon-left").css("left", MM.panels.sizes.threePanels.center - 25);
+        $("#header-icon-right").css("left", MM.panels.sizes.threePanels.center + MM.panels.sizes.threePanels.right - 25);
+
         // Swipe detection.
         $('#panel-center, #panel-right').swipe({
             swipeLeft: function(event, direction, distance, duration, fingerCount) {
@@ -496,9 +524,17 @@ var MM = {
      */
     setUpPhoneModeLayout: function() {
         $('#mainmenu').bind(MM.quickClick, function(e) {
-            MM.panels.goBack();
+            MM.panels.menuShow();
             e.preventDefault();
         });
+
+        // Heading icons (used by some plugins like messages).
+        var hilr = $("#header-icon-left, #header-icon-right");
+        $(hilr).css("position", "absolute");
+        $(hilr).css("z-index", "9999");
+        $(hilr).css("top", "6px");
+        $(hilr).css("right", "10px");
+        $(hilr).css("display", "none");
 
         var excludedElements = "button, input, select, textarea, .noSwipe";
         if (MM.deviceOS == 'android') {
@@ -1155,9 +1191,12 @@ var MM = {
      * @param {string} username User name.
      * @param {string} password Password.
      * @param {string} siteurl The site url.
+     * @param {bool}   retry We are retrying with a prefixed URL.
      * @return {boolean} Allways returns false
      */
-    saveSite: function(username, password, siteurl) {
+    saveSite: function(username, password, siteurl, retry) {
+        retry = retry || false;
+
         MM.showModalLoading(MM.lang.s("authenticating"));
         var loginURL = siteurl + '/login/token.php';
         MM.siteurl = siteurl;
@@ -1181,7 +1220,18 @@ var MM = {
                     var error = MM.lang.s('invalidaccount');
 
                     if (typeof(json.error) != 'undefined') {
-                        error = json.error;
+                        // We only allow one retry (to avoid loops).
+                        if (!retry && json.errorcode == "requirecorrectaccess") {
+                            MM.log("Retry with prefixed URL");
+                            siteurl = siteurl.replace("https://", "https://www.");
+                            siteurl = siteurl.replace("http://", "http://www.");
+                            $("#url").val(siteurl);
+
+                            MM.saveSite(username, password, siteurl, true);
+                            return;
+                        } else {
+                            error = json.error;
+                        }
                     }
                     MM.popErrorMessage(error);
                 }
@@ -2235,7 +2285,7 @@ var MM = {
      */
     handleFiles: function(selector) {
         MM.setFileLinksHREF(selector);
-        $(selector).bind(MM.clickType, MM.fileLinkClickHandler);
+        $(selector).on(MM.clickType, MM.fileLinkClickHandler);
     },
 
     /**

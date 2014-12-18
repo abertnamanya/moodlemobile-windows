@@ -1,4 +1,4 @@
-﻿// Licensed to the Apache Software Foundation (ASF) under one
+// Licensed to the Apache Software Foundation (ASF) under one
 // or more contributor license agreements.  See the NOTICE file
 // distributed with this work for additional information
 // regarding copyright ownership.  The ASF licenses this file
@@ -50,6 +50,48 @@ MM.panels = {
 		if (position != "left") {
 			html += "<br />";
 		}
+
+		// Automatically add the file with the back arrow appending the title there.
+		if (MM.deviceType == "phone") {
+			var panelCenter = $('#panel-center');
+			var panelRight = $('#panel-right');
+
+			var showBackArrow = false;
+
+			// Where the app were when the link was pressed.
+			if (panelCenter.css("display") == "block" && position != "center") {
+				if (html.indexOf("back-row") < 0) {
+					showBackArrow = true;
+				}
+			}
+
+			if (panelRight.css("display") == "block" && position == "right") {
+				// Prevent double black arrows
+				if (html.indexOf("back-row") < 0) {
+					showBackArrow = true;
+				}
+			}
+
+			if (showBackArrow) {
+				html = '<div class="header-sub"><div class="back-row"><a onclick="MM.panels.goBack();"><img src="img/arrowleft.png"></a></div><h2 id="back-arrow-title"></h2></div>' + html;
+			}
+
+		} else {
+			var showPanelTitle = false;
+
+			if (position == "right") {
+				showPanelTitle = true;
+			}
+
+			if (showPanelTitle && html.indexOf("back-row") >= 0) {
+				showPanelTitle = false;
+			}
+
+			if (showPanelTitle) {
+				html = '<div class="header-sub"><h2 id="tablet-page-title"></h2></div>' + html;
+			}
+		}
+
 		$('#panel-' + position).html(html);
 		// For Android, we open external links in a system browser. _blank -> external browser
 		MM.handleExternalLinks('#panel-'+position+'  a[target="_blank"]');
@@ -79,6 +121,16 @@ MM.panels = {
 
 	},
 
+	showHeadingIcons: function(position) {
+		// Populate the header icons with the content in the hidden div in the panel.
+		if ((!position || position == "center") && $("#header-icon-left-content").length) {
+			$("#header-icon-left").css("display", "block").html($("#header-icon-left-content").html());
+		}
+		if ((!position || position == "right") && $("#header-icon-right-content").length) {
+			$("#header-icon-right").css("display", "block").html($("#header-icon-right-content").html());
+		}
+	},
+
 	/**
 	 * Show de loading icon in a panel
 	 * @param {string} position The panel where to show the loading icon.
@@ -102,8 +154,12 @@ MM.panels = {
 		if (MM.deviceType == 'tablet') {
 			if (position == 'right') {
 				$('#panel-right').css('left', '100%');
-				$('#panel-center').css("width", MM.panels.sizes.welcomePanel.center);
-				$("#panel-center").css("left",  MM.panels.sizes.welcomePanel.left);
+				if (MM.panels.menuStatus) {
+					$('#panel-center').css("width", MM.panels.sizes.welcomePanel.center);
+					$("#panel-center").css("left",  MM.panels.sizes.welcomePanel.left);
+				} else {
+					$('#panel-center').css("width", "100%");
+				}
 			}
 
 			if (clear) {
@@ -126,12 +182,16 @@ MM.panels = {
 		var panelCenter = $('#panel-center');
 		var panelRight	= $('#panel-right');
 
+		// Hide header icons.
+		$("#header-icon-left").css("display", "none");
+        $("#header-icon-right").css("display", "none");
+
 		MM.panels.html(position, content);
 		MM.panels.currentPanel = position;
 
 		if (MM.deviceType == 'tablet') {
 			// Clean the page title.
-			if (!settings || !settings.keepTitle) {
+			if (position != 'right' && (!settings || !settings.keepTitle)) {
 				pageTitle.html("");
 			}
 
@@ -139,31 +199,45 @@ MM.panels = {
 			if (settings && settings.hideRight) {
 				MM.panels.hideRight = true;
 			}
-			if (settings && settings.title) {
+			if (position != 'right' && settings && settings.title) {
 				pageTitle.html(settings.title);
 			}
+
+			if (!MM.panels.hideRight && position == 'right') {
+				var panelTitle = $("#tablet-page-title");
+				if (panelTitle) {
+					panelTitle.html(settings.title);
+				}
+			}
+
 			MM.panels.menuShow(false, settings);
+
+			MM.panels.showHeadingIcons();
+
 		} else {
 			// Clean the page title.
 			MM.panels.previousPanelPageTitle = pageTitle.html();
-			if (!settings || !settings.keepTitle) {
-				pageTitle.html("");
+
+			if (position != 'right') {
+				if (!settings || !settings.keepTitle) {
+					pageTitle.html("");
+				}
 			}
 
 			// Short text for page title (MOBILE-462).
 			// We can't do this using CSS text-overflow because of the header dynamic width.
-			if (settings && settings.title) {
+			if (position != 'right' && settings && settings.title) {
 				settings.title = MM.util.shortenText(settings.title, 35);
 			}
 
 			if (position == 'center') {
 				// Detect if we are in the center.
 				if (panelCenter.css('display') == 'block') {
-					$(".header-main .nav-item.home").removeClass("menu-back").addClass("menu-home");
 					if (settings && settings.title) {
 						pageTitle.html(settings.title);
 					}
 					$(document).scrollTop(0);
+					MM.panels.showHeadingIcons('center');
 					return;
 				}
 				panelRight.css('display', 'none');
@@ -175,11 +249,11 @@ MM.panels = {
 				panelCenter.animate({
 					left: 0
 				  }, 300, function () {
-						$(".header-main .nav-item.home").removeClass("menu-back").addClass("menu-home");
 						if (settings && settings.title) {
 							pageTitle.html(settings.title);
 						}
 						$(document).scrollTop(0);
+						MM.panels.showHeadingIcons('center');
 					});
 
 				$('.header-wrapper').animate({
@@ -204,11 +278,11 @@ MM.panels = {
 				panelRight.animate({
 					left: 0
 				  }, 300, function(){
-					$(".header-main .nav-item.home").removeClass("menu-home").addClass("menu-back");
-					if (settings && settings.title) {
-						pageTitle.html(settings.title);
+				  	if (settings && settings.title) {
+						$("#back-arrow-title").html(settings.title);
 					}
 					$(document).scrollTop(0);
+					MM.panels.showHeadingIcons('right');
 				});
 			}
 		}
@@ -226,6 +300,9 @@ MM.panels = {
 		if (MM.deviceType != "phone") {
 			return;
 		}
+
+		$("#header-icon-left").css("display", "none");
+        $("#header-icon-right").css("display", "none");
 
 		var hideHeader = false;
 
@@ -269,14 +346,10 @@ MM.panels = {
 			display: 'block'
 		  }, 300, function() {
 			$(this).css('display', 'block');
-			if (showPanel == "#panel-right") {
-				$(".header-main .nav-item.home").removeClass("menu-home").addClass("menu-back");
-			} else {
-				$(".header-main .nav-item.home").removeClass("menu-back").addClass("menu-home");
-			}
 			MM.panels.nextPanelPageTitle = $("#page-title").html();
 			$("#page-title").html(MM.panels.previousPanelPageTitle);
 			$(document).scrollTop(0);
+			MM.panels.showHeadingIcons(MM.panels.currentPanel);
 			if (typeof(callBack) === "function") {
 				callBack();
 			}
@@ -296,6 +369,10 @@ MM.panels = {
 	 */
 	goFront: function(callBack) {
 		var showBackArrow = false;
+		var nextPanel = "";
+
+		$("#header-icon-left").css("display", "none");
+        $("#header-icon-right").css("display", "none");
 
 		// Clear modal panels.
 		if (typeof(MM.plugins.contents.infoBox) != "undefined") {
@@ -305,6 +382,7 @@ MM.panels = {
 		if ($('#panel-left').css('display') == 'block') {
 			hidePanel = '#panel-left';
 			showPanel = '#panel-center';
+			nextPanel = "center";
 
 			if (MM.panels.previousPanel != 'center') {
 				return;
@@ -314,6 +392,7 @@ MM.panels = {
 		else if ($('#panel-center').css('display') == 'block') {
 			hidePanel = '#panel-center';
 			showPanel = '#panel-right';
+			nextPanel = "right";
 
 			if (MM.panels.previousPanel != 'right') {
 				return;
@@ -335,14 +414,11 @@ MM.panels = {
 		  }, 300, function() {
 			$(this).css('display', 'block');
 			if (MM.deviceType == "phone") {
-				if (showBackArrow) {
-					$(".header-main .nav-item.home").removeClass("menu-home").addClass("menu-back");
-				} else {
-					$(".header-main .nav-item.home").removeClass("menu-back").addClass("menu-home");
-				}
 				MM.panels.previousPanelPageTitle = $("#page-title").html();
 				$("#page-title").html(MM.panels.nextPanelPageTitle);
 				$(document).scrollTop(0);
+				MM.panels.showHeadingIcons(nextPanel);
+
 				if (typeof(callBack) === "function") {
 					callBack();
 				}
@@ -367,6 +443,17 @@ MM.panels = {
 		var panelLeft		= $('#panel-left');
 		var panelCenter 	= $('#panel-center');
 		var panelRight		= $('#panel-right');
+
+
+		if (MM.deviceType == 'phone') {
+			if ($('#panel-center').css('display') == 'block') {
+				MM.panels.goBack();
+			}
+			else if ($('#panel-right').css('display') == 'block') {
+				MM.panels.goBack(MM.panels.goBack);
+			}
+			return;
+		}
 
 		// Clear modal panels.
 		if (typeof(MM.plugins.contents.infoBox) != "undefined") {

@@ -19,7 +19,7 @@
     <UseAuthentication2>True</UseAuthentication2>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DebuggerFlavor>AppHostSimulatorDebugger</DebuggerFlavor>
+    <DebuggerFlavor>AppHostRemoteDebugger</DebuggerFlavor>
     <MachineName>surface</MachineName>
   </PropertyGroup>
 </Project>
