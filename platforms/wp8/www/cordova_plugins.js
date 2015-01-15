@@ -371,6 +371,13 @@ module.exports = [
         "clobbers": [
             "navigator.splashscreen"
         ]
+    },
+    {
+        "file": "plugins/de.appplant.cordova.plugin.local-notification/www/local-notification.js",
+        "id": "de.appplant.cordova.plugin.local-notification.LocalNotification",
+        "clobbers": [
+            "plugin.notification.local"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -388,7 +395,8 @@ module.exports.metadata =
     "org.apache.cordova.media": "0.2.13",
     "org.apache.cordova.media-capture": "0.3.3",
     "org.apache.cordova.network-information": "0.2.12",
-    "org.apache.cordova.splashscreen": "0.3.3"
+    "org.apache.cordova.splashscreen": "0.3.3",
+    "de.appplant.cordova.plugin.local-notification": "0.7.8"
 }
 // BOTTOM OF METADATA
 });

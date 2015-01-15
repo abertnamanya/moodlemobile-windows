@@ -1,4 +1,4 @@
-﻿cordova.define("org.apache.cordova.file.DirectoryEntry", function(require, exports, module) { /*
+cordova.define("org.apache.cordova.file.DirectoryEntry", function(require, exports, module) { /*
  *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -36,7 +36,16 @@ var argscheck = require('cordova/argscheck'),
  * {FileSystem} filesystem on which the directory resides (readonly)
  */
 var DirectoryEntry = function(name, fullPath, fileSystem, nativeURL) {
-     DirectoryEntry.__super__.constructor.call(this, false, true, name, fullPath, fileSystem, nativeURL);
+
+    // add trailing slash if it is missing
+    if ((fullPath) && !/\/$/.test(fullPath)) {
+        fullPath += "/";
+    }
+    // add trailing slash if it is missing
+    if (nativeURL && !/\/$/.test(nativeURL)) {
+        nativeURL += "/";
+    }
+    DirectoryEntry.__super__.constructor.call(this, false, true, name, fullPath, fileSystem, nativeURL);
 };
 
 utils.extend(DirectoryEntry, Entry);
