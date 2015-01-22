@@ -1,4 +1,4 @@
-self.onmessage = function(e) {
+﻿self.onmessage = function(e) {
     var that = self;
     var url = e.data.url;
 

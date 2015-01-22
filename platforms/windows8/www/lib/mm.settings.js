@@ -1,4 +1,4 @@
-// Licensed to the Apache Software Foundation (ASF) under one
+﻿// Licensed to the Apache Software Foundation (ASF) under one
 // or more contributor license agreements.  See the NOTICE file
 // distributed with this work for additional information
 // regarding copyright ownership.  The ASF licenses this file
@@ -498,6 +498,9 @@ MM.settings = {
                 for (var el in window.plugins) {
                     info += "<p><b>Phonegap plugin loaded:</b> " + el + "</p>";
                 }
+                for (var el in window.plugin) {
+                    info += "<p><b>Phonegap plugin loaded:</b> " + el + "</p>";
+                }
             } else {
                 info += "<p style=\"color: red\"><b>No plugins available for Phonegap/Cordova</b></p>";
             }
@@ -569,11 +572,11 @@ MM.settings = {
             data.version = MM.config.versionname;
             var info = "\
                 <div class='settings'>\
-                <header>\
-                    <h1><%= data.name %> <%= data.version %></h1>\
-                </header>\
-                \
                 <table class='about'>\
+                <thead>\
+                <tr><th><%= data.name %> <%= data.version %></th></tr>\
+                </thead>\
+                <tbody>\
                 <tr class='section-name'><th colspan='3'>License</th></tr>\
                 <tr><td colspan='3'><%= data.license.name %> <%= data.license.link %></td></tr>\
                 <tr class='section-name'><th colspan='3'>Credits</th></tr>\
@@ -584,7 +587,8 @@ MM.settings = {
                 <% _.each(data.thirdpartylibs, function(lib) { %>\
                     <tr><td><%= lib.name %></td><td> <%= lib.version %> </td><td> <%= lib.license %> license</td></tr>\
                 <% }); %>\
-                </table></p>\
+                </tbody>\
+                </table>\
                 </div>\
             ";
             MM.panels.show("right", MM.tpl.render(info, {data: data}), {title: MM.lang.s("about")});
@@ -613,8 +617,35 @@ MM.settings = {
                 options: MM.config.languages,
                 selected: MM.lang.current,
                 handler: MM.settings.languageSelected
-            }
+            },
+            {
+                id: 'event_notif_on',
+                type: 'checkbox',
+                label: MM.lang.s('enableeventnotifications'),
+                checked: true,
+                handler: function(e, setting) {
+                    MM.settings.checkboxHandler(e, setting);
+                    setTimeout(function() {
+                        var enabled = $('#' + setting.id).is(':checked');
+
+                        if (!enabled) {
+                            if (window.plugin && window.plugin.notification && window.plugin.notification.local) {
+                                window.plugin.notification.local.cancelAll();
+                            }
+                        }
+                    }, 500);
+                }
+            },
         ];
+
+        // Load default values
+        $.each(settings, function(index, setting) {
+            if (setting.type == 'checkbox') {
+                if (typeof(MM.getConfig(setting.id)) != 'undefined') {
+                    settings[index].checked = MM.getConfig(setting.id);
+                }
+            }
+        });
 
         // Render the settings as html.
         var html = MM.widgets.render(settings);

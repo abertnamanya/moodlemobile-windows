@@ -1,4 +1,4 @@
-// Licensed to the Apache Software Foundation (ASF) under one
+﻿// Licensed to the Apache Software Foundation (ASF) under one
 // or more contributor license agreements.  See the NOTICE file
 // distributed with this work for additional information
 // regarding copyright ownership.  The ASF licenses this file
@@ -55,6 +55,7 @@ MM.cordova = {
 
         // Notifications
         window.plugins = {};
+        window.plugin = {};
 
         // Connection API.
         window.Connection = {
@@ -115,6 +116,24 @@ MM.cordova = {
         window.LocalFileSystem = {
                 PERSISTENT: 1
         };
+
+        window.plugin.notification = {
+            local: {}
+        };
+
+        window.plugin.notification.local.add = function(n) {
+            console.log("Notification created: ");
+            console.log(n);
+        };
+
+        window.plugin.notification.local.cancel = function(id) {
+            console.log("Notification with id: " + id + " cancelled");
+        };
+
+        window.plugin.notification.local.cancelAll = function() {
+            console.log("All local notifications cancelled");
+        };
+
 
         // Check with API wrapper we should load.
         if (MM.inNodeWK) {

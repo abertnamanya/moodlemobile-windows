@@ -1,4 +1,4 @@
-var templates = [
+﻿var templates = [
     "root/externallib/text!root/plugins/page/view.html",
     "root/externallib/text!root/plugins/page/dialog.html"
 ];
@@ -82,26 +82,52 @@ define(templates, function (viewTpl, dialogTpl) {
         _showPage: function(path) {
             var height= $(document).innerHeight() - 200;
             var style = 'border: none; width: 100%; height: ' + height + 'px';
-            var iframe = '<iframe style="' + style + '" src="' + path + '">';
+            var iframe = '<iframe id="page-view-iframe" style="' + style + '" src="' + path + '">';
             iframe += '</iframe>';
 
-            var data = {
-                path: path
-            };
-            var title = MM.tpl.render(MM.plugins.page.templates.dialog.html, data);
+            if (MM.deviceOS == 'windows8') {
+               // We solve path problem
+                var pathFile = path.split('LocalState//');
+                var file = pathFile[1];
+                file = file.replace('\/', '\\');
+                file = file.replace('/', '\\');
+                var newpath = MM.fs.getRoot() + file;
+                MM._openFile(newpath);
+                return;
 
-            var options = {
-                title: title,
-                width: "100%",
-                marginTop: "10px"
-            };
-            MM.widgets.dialog(iframe, options);
+            } else {
 
-            MM.handleExternalLinks('.modalHeader a[target="_blank"]');
+                var data = {
+                    path: path
+                };
+                var title = MM.tpl.render(MM.plugins.page.templates.dialog.html, data);
 
-            $("#dialog-close").on(MM.clickType, function(e){
-                MM.widgets.dialogClose();
-            });
+                var options = {
+                    title: title,
+                    width: "100%",
+                    marginTop: "10px"
+                };
+                MM.widgets.dialog(iframe, options);
+
+                MM.handleExternalLinks('.modalHeader a[target="_blank"]');
+
+                $("#dialog-close").on(MM.clickType, function (e) {
+                    MM.widgets.dialogClose();
+                });
+
+                // Handle external links inside the iframe.
+                setTimeout(function () {
+                    $('#page-view-iframe').contents().find('a').click(function (e) {
+                        var href = $(this).attr('href');
+                        if (href.indexOf("http") > -1) {
+                            e.preventDefault();
+                            window.open(href, '_blank');
+                        }
+                    });
+                }, 1000);
+            }
+
+            
         },
 
         templates: {

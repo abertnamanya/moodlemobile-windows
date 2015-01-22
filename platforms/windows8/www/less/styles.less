@@ -158,6 +158,21 @@ h3 {
   background-color: @sectionHeadingBackground;
 }
 
+h4 {
+  font-size: 15px;
+  font-size: 0.9375rem;
+}
+
+h5 {
+  font-size: 14px;
+  font-size: 0.875;
+}
+
+h6 {
+  font-size: 13px;
+  font-size: 0.8125rem;
+}
+
 b,
 strong {
   font-weight: bold;
@@ -563,7 +578,6 @@ hr {
   color: @headerTextColor;
   height: 44px;
   line-height: 44px;
-  padding-right: 20px;
   overflow: hidden;
   background: @headerBackground;
   border-bottom: @headerBorder;
@@ -593,6 +607,9 @@ hr {
     letter-spacing: .5px;
     display: block;
     text-align: center;
+    padding-left: 10px;
+    padding-right: 10px;
+    overflow: hidden;
   }
 }
 
@@ -603,7 +620,7 @@ hr {
   box-shadow: @subHeaderBoxShadow;
   .back-row {
     float: left;
-    padding-bottom: 10px;
+    margin-bottom: 10px;
     margin-left: 5px;
     display: block;
     a {
@@ -617,8 +634,12 @@ hr {
       margin-top: 5px;
     }
   }
-  #tablet-page-title {
+  #tablet-page-title,
+  #back-arrow-title {
+    display: table;
+    margin: 0 auto;
     padding-left: 10px;
+    padding-right: 10px;
   }
 }
 
@@ -799,7 +820,7 @@ hr {
     width: 100%;
   }
   .content-name {
-    a {
+    > a {
       display: block;
       padding: 10px;
     }
@@ -809,12 +830,23 @@ hr {
     }
     &.mod-label {
       overflow: auto;
-      h4 {
-        font-size: 100%;
-        font-weight: normal;
-        margin: 0;
+      a > div {
         padding-right: 80px;
-      };
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+          color: @textColor;
+          font-weight: bold;
+          line-height: inherit;
+          letter-spacing: 0;
+          background-color: transparent;
+          text-shadow: none;
+          padding: 0;
+        }
+      }
       img {
         width: auto;
       }
@@ -1048,16 +1080,16 @@ hr {
 .notifications {
   padding: 10px;
   .no-content {
-      display: table;
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      text-align: center;
-      margin-left: -10px;
-      p {
-        display: table-cell;
-        vertical-align: middle;
-      }
+    display: table;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    margin-left: -10px;
+    p {
+      display: table-cell;
+      vertical-align: middle;
+    }
   }
 }
 
@@ -1100,14 +1132,6 @@ hr {
 }
 
 //-----Messages-----
-.header-action {
-  // position: fixed;
-  // z-index: 9999!important;
-  // top: 7px;
-  // right: 0px;
-  // width: 40px;
-  // height: 40px;
-}
 .path-messages {
   &.recent-messages {
     img {
@@ -1130,7 +1154,7 @@ hr {
     margin-right: 50px;
     .conversation-area {
       padding: 15px;
-      overflow: scroll;
+      overflow-y: scroll;
       .datestamp {
         text-align: center;
         margin-bottom: 10px;
@@ -1316,13 +1340,16 @@ hr {
     overflow: hidden;
   }
   .date,
-  .course {
+  .course,
+  .option {
     p {
-      padding-left: 26px;
       margin-bottom: 0;
     }
     .time {
       font-size: 12px;
+    }
+    input {
+      margin-right: 8px;
     }
   }
   .media {
@@ -1332,7 +1359,6 @@ hr {
     }
   }
   .description {
-    padding-left: 36px;
     img {
       margin: 20px 0 20px 20px;
     }
@@ -1442,7 +1468,9 @@ hr {
       position: absolute;
       bottom: 0;
       padding-left: 110px;
-      h1 {
+      p {
+        font-size: 18px;
+        font-size: 1.125rem;
         margin-bottom: 12px;
       }
     }
@@ -1556,16 +1584,19 @@ hr {
 
 //-----About-----
 .settings {
-  header {
-    padding: 10px;
-  }
   .about {
     border-collapse: collapse;
     line-height: 20px;
     width: 100%;
+    thead th {
+      padding-top: 10px;
+      padding-bottom: 10px;
+    }
     th {
+      font-weight: normal;
       text-align: left;
-      padding: 0 10px;
+      padding-left: 10px;
+      padding-right: 10px;
     }
     td {
       padding: 10px;
@@ -1579,9 +1610,6 @@ hr {
       text-shadow: @sectionHeadingTextShadow;
       background-color: @sectionHeadingBackground;
       border-bottom: 1px solid @contentBackground;
-      th {
-        font-weight: normal;
-      }
     }
   }
 }

@@ -1,4 +1,4 @@
-var templates = [
+﻿var templates = [
     "root/externallib/text!root/plugins/grades/activities.html",
     "root/externallib/text!root/plugins/grades/activities_total.html",
     "root/externallib/text!root/plugins/grades/grades_table.html"

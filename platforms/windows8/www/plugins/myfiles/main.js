@@ -1,4 +1,4 @@
-var templates = [
+﻿var templates = [
     "root/externallib/text!root/plugins/myfiles/files.html"
 ];
 

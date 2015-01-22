@@ -46,6 +46,15 @@ var MM = {
     currentService: "",
     webWorker: null,
     blobWorker: null,
+    /** @type {Object} Use non-deprecated functions when possible */
+    deprecatedFunctions: {
+        "moodle_webservice_get_siteinfo": "core_webservice_get_site_info",
+        "moodle_enrol_get_users_courses": "core_enrol_get_users_courses",
+        "moodle_notes_create_notes": "core_notes_create_notes",
+        "moodle_message_send_instantmessages": "core_message_send_instant_messages",
+        "moodle_user_get_users_by_courseid": "core_enrol_get_enrolled_users",
+        "moodle_user_get_course_participants_by_id": "core_user_get_course_user_profiles",
+    },
 
     /**
      * Initial setup of the app: device type detection, routes, models, settings.
@@ -751,6 +760,12 @@ var MM = {
             var r = MM.db.insert('courses', storedCourse);
         }
 
+        // Check calendar events for new notifications.
+        if (MM.plugins.events && MM.plugins.events.isPluginVisible()) {
+            MM.plugins.events.checkLocalNotifications();
+        }
+
+
         MM._showMainAppPanels();
 
         if (MM.deviceType == 'tablet') {
@@ -1139,6 +1154,30 @@ var MM = {
         return /^http(s)?\:\/\/.*/i.test(url)
     },
 
+    _saveTokenSuccess: function(site, token) {
+        // Now we check for the minimum required version.
+        // We check for WebServices present, not for Moodle version.
+        // This may allow some hacks like using local plugins for adding missin functions in previous versions.
+        var validMoodleVersion = false;
+        $.each(site.functions, function(index, el) {
+            // core_get_component_strings Since Moodle 2.4
+            if (el.name.indexOf("component_strings") > -1) {
+                validMoodleVersion = true;
+                return false;
+            }
+        });
+        if (!validMoodleVersion) {
+            MM.popErrorMessage(MM.lang.s('invalidmoodleversion') + "2.4");
+            return false;
+        }
+        site.id = hex_md5(site.siteurl + site.username);
+        site.token = token;
+        var newSite = MM.db.insert('sites', site);
+        MM.setConfig('current_site', site);
+        MM.loadSite(newSite.id);
+        MM.closeModalLoading();
+    },
+
     /**
      * Save the token retrieved and load the full siteinfo object.
      * @param  {str} token    The user token
@@ -1158,29 +1197,23 @@ var MM = {
         };
 
         // We have a valid token, try to get the site info.
-        MM.moodleWSCall('moodle_webservice_get_siteinfo', {}, function(site) {
-            // Now we check for the minimum required version.
-            // We check for WebServices present, not for Moodle version.
-            // This may allow some hacks like using local plugins for adding missin functions in previous versions.
-            var validMoodleVersion = false;
-            $.each(site.functions, function(index, el) {
-                // core_get_component_strings Since Moodle 2.4
-                if (el.name.indexOf("component_strings") > -1) {
-                    validMoodleVersion = true;
-                    return false;
-                }
-            });
-            if (!validMoodleVersion) {
-                MM.popErrorMessage(MM.lang.s('invalidmoodleversion') + "2.4");
-                return false;
+        MM.moodleWSCall('moodle_webservice_get_siteinfo', {},
+            function(site) {
+                MM._saveTokenSuccess(site, token);
+            },
+            preSets,
+            function(e) {
+                // An error may happen if the site use the core_webservice_get_site_info instead the old one.
+                MM.moodleWSCall(
+                    'core_webservice_get_site_info',
+                    {},
+                    function(site) {
+                        MM._saveTokenSuccess(site, token);
+                    },
+                    preSets
+                );
             }
-            site.id = hex_md5(site.siteurl + site.username);
-            site.token = token;
-            var newSite = MM.db.insert('sites', site);
-            MM.setConfig('current_site', site);
-            MM.loadSite(newSite.id);
-            MM.closeModalLoading();
-        }, preSets);
+        );
 
     },
 
@@ -1474,6 +1507,13 @@ var MM = {
             return;
         }
 
+        // Check if is a deprecated function.
+        if (typeof MM.deprecatedFunctions[method] != "undefined") {
+            if (MM.util.wsAvailable(MM.deprecatedFunctions[method])) {
+                // Use the non-deprecated function.
+                method = MM.deprecatedFunctions[method];
+            }
+        }
 
         data.wsfunction = method;
         data.wstoken = preSets.wstoken;
@@ -2330,7 +2370,18 @@ var MM = {
         } else {
             var link = ($(this).attr('href') == '#')? $(this).attr('data-link') : $(this).attr('href');
             // Open the file using the platform specific method.
-            MM._openFile(link);
+            if (MM.deviceOS == 'windows8') {
+                // We solve path problem
+                var pathFile = link.split('LocalState//');
+                var file = pathFile[1];
+                file = file.replace('\/', '\\');
+                file = file.replace('/', '\\');
+                var newpath = MM.fs.getRoot() + file;
+                MM._openFile(newpath);
+                return;
+            } else {
+                 MM._openFile(link);
+            }
         }
         if (typeof(MM.plugins.contents.infoBox) != "undefined") {
             MM.plugins.contents.infoBox.remove();

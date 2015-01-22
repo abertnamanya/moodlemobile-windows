@@ -1,4 +1,4 @@
-var requires = [
+﻿var requires = [
     "root/externallib/text!root/plugins/messages/messages.html",
     "root/externallib/text!root/plugins/messages/recent.html",
     "root/externallib/text!root/plugins/messages/conversation.html",
@@ -111,9 +111,13 @@ define(requires, function (messagesTpl, recentTpl, conversationTpl, contactTpl, 
         showConversation: function(userId) {
 
             var userName = "";
+            var userPicture = "img/userimage.png";
             var user = MM.db.get('users', MM.config.current_site.id + "-" + userId);
             if (user) {
                 userName = user.get("fullname");
+                if (user.get("profileimageurl")) {
+                    userPicture = user.get("profileimageurl");
+                }
             }
 
             var data = {
@@ -144,7 +148,7 @@ define(requires, function (messagesTpl, recentTpl, conversationTpl, contactTpl, 
                     MM.plugins.messages._getRecentMessages(
                         params,
                         function(messagesSent) {
-                            MM.plugins.messages._renderConversation(userId, userName, messagesReceived, messagesSent);
+                            MM.plugins.messages._renderConversation(userId, userName, userPicture, messagesReceived, messagesSent);
                         },
                         function(e) {
                             MM.popErrorMessage(e);
@@ -157,7 +161,7 @@ define(requires, function (messagesTpl, recentTpl, conversationTpl, contactTpl, 
             );
         },
 
-        _renderConversation: function(userId, userName, messagesReceived, messagesSent) {
+        _renderConversation: function(userId, userName, userPicture, messagesReceived, messagesSent) {
 
             // Join the arrays and sort.
             var messages = messagesReceived.concat(messagesSent);
@@ -172,7 +176,8 @@ define(requires, function (messagesTpl, recentTpl, conversationTpl, contactTpl, 
             var data = {
                 messages: messages,
                 otherUser: userId,
-                userName: userName
+                userName: userName,
+                userPicture: userPicture
             };
 
             html = MM.tpl.render(MM.plugins.messages.templates.conversation.html, data);
@@ -180,12 +185,25 @@ define(requires, function (messagesTpl, recentTpl, conversationTpl, contactTpl, 
 
             $('#message-send-form').on('submit', function(e) {
                 e.preventDefault();
-                MM.plugins.messages._sendMessage(userId, $(this).find("#message-text").val(),
+                var originalMessage = $(this).find("#message-text").val();
+
+                $("#message-text").val("");
+                conversationArea = $(".conversation-area");
+                messageId = hex_md5(message + MM.util.timestamp());
+
+                var message = '<div id="' + messageId + '" class="bubble bubble-alt">' + MM.util.formatText(originalMessage, true);
+                message += '<span class="time"><span class="app-ico tick-gray"><img width="10" src="img/sent.png"></span></span></div>';
+                conversationArea.append(message);
+                // Scroll bottom.
+                conversationArea.scrollTop(conversationArea.prop("scrollHeight"));
+
+                MM.plugins.messages._sendMessage(userId, originalMessage,
                     function(m) {
+                        $("#" + messageId).addClass("removeMessage");
                         $("#message-text").val("");
                     },
                     function(e) {
-                        MM.popErrorMessage(e);
+                        $("#" + messageId).find("img").attr("src", "img/error.png");
                     }
                 );
             });
@@ -200,8 +218,16 @@ define(requires, function (messagesTpl, recentTpl, conversationTpl, contactTpl, 
             var inputHeight  = inputArea.height();
             var conversationArea = $('.path-messages .conversation .conversation-area');
 
+            // Uggly hack.
+            var fixFactor = 115;
+            if (MM.deviceType == "tablet") {
+                fixFactor = 60;
+            } else if (MM.deviceOS == "ios") {
+                fixFactor = 60;
+            }
+
             // Height of the conversation area.
-            conversationArea.css('height', $(document).innerHeight() - headerHeight - inputHeight - 100);
+            conversationArea.css('height', $(document).innerHeight() - headerHeight - inputHeight - fixFactor);
             conversationArea.css('width', $("#panel-right").width());
             // Scroll bottom.
             conversationArea.scrollTop(conversationArea.prop("scrollHeight"));
@@ -333,7 +359,9 @@ define(requires, function (messagesTpl, recentTpl, conversationTpl, contactTpl, 
                                     // Save the users. Using a cache.
                                     var usersStored = [];
                                     MM.db.each("users", function(el){
-                                        usersStored.push(el.get("id"));
+                                        if(el.get("site") == MM.config.current_site.id) {
+                                            usersStored.push(el.get("id"));
+                                        }
                                     });
 
                                     var newUser;
@@ -691,7 +719,9 @@ define(requires, function (messagesTpl, recentTpl, conversationTpl, contactTpl, 
                         // Save the users in the cache/db.
                         var usersStored = [];
                         MM.db.each("users", function(el){
-                            usersStored.push(el.get("id"));
+                            if(el.get("site") == MM.config.current_site.id) {
+                                usersStored.push(el.get("id"));
+                            }
                         });
 
                         var newUser;
@@ -757,8 +787,10 @@ define(requires, function (messagesTpl, recentTpl, conversationTpl, contactTpl, 
                 function(contacts) {
                     MM.db.each("users", function(user) {
                         user = user.toJSON();
-                        user.id = user.userid;
-                        contacts["strangers"].push(user);
+                        if(user.site == MM.config.current_site.id) {
+                            user.id = user.userid;
+                            contacts["strangers"].push(user);
+                        }
                     });
 
                     html = MM.tpl.render(MM.plugins.messages.templates.contacts.html, {contacts: contacts});
@@ -913,12 +945,13 @@ define(requires, function (messagesTpl, recentTpl, conversationTpl, contactTpl, 
 
                                 if (messages.length > 0) {
                                     var d = new Date(messages[0].timecreated * 1000);
-                                    var previousDate = d.toLocaleDateString(MM.lang.current, { year: 'numeric', month: 'long', day: '2-digit' });
+                                    var previousDate = d.toLocaleDateString(MM.lang.current, {year: 'numeric', month:'long', day: '2-digit'});
 
                                     var html = MM.plugins.messages._renderConversationArea(messages, userId, previousDate);
                                     // Double check we are in the correct conversation window.
                                     if (location.href.indexOf("#messages/conversation/" + userId) > -1) {
                                         conversationArea = $(".conversation-area");
+                                        conversationArea.find(".removeMessage").remove();
                                         conversationArea.append(html);
                                         conversationArea.scrollTop(conversationArea.prop("scrollHeight"));
                                     }

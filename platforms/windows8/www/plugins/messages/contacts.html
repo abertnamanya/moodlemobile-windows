@@ -1,4 +1,4 @@
-<script type="text/template" id="header-icon-left-content">
+﻿<script type="text/template" id="header-icon-left-content">
     <a href="#messages"><img src="plugins/messages/icon.png"></a>
 </script>
 
@@ -17,7 +17,6 @@
             <% var types = ["online", "offline", "strangers"]; %>
             <% var displayed = []; %>
             <% types.forEach(function(type) { %>
-            <% if (!contacts[type].length) return; %>
             <h3>
                 <% if (type == "online") { %>
                     <%= MM.lang.s("onlinecontacts", "core", contacts[type].length) %>
@@ -31,8 +30,9 @@
             <% _.each(contacts[type], function(contact) { %>
             <%  contact.id = parseInt(contact.id) %>
             <% var user = MM.plugins.messages.recentContactsIds[contact.id]; %>
+
             <% if (displayed.indexOf(contact.id) > -1) return; %>
-            <% displayed.push(contact.id); %>
+            <% if (parseInt(contact.id, 10) == parseInt(MM.config.current_site.userid, 10)) return; %>
                 <li class="nav-item">
                     <a class="media touch-row" href="#messages/conversation/<%= contact.id %>">
                         <div class="img">

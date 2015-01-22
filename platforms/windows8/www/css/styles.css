@@ -95,6 +95,18 @@ h3 {
   padding: 0 10px;
   background-color: #eeeeee;
 }
+h4 {
+  font-size: 15px;
+  font-size: 0.9375rem;
+}
+h5 {
+  font-size: 14px;
+  font-size: 0.875;
+}
+h6 {
+  font-size: 13px;
+  font-size: 0.8125rem;
+}
 b,
 strong {
   font-weight: bold;
@@ -490,7 +502,6 @@ hr {
   color: #ffffff;
   height: 44px;
   line-height: 44px;
-  padding-right: 20px;
   overflow: hidden;
   background: #fa8f1c;
   border-bottom: 0;
@@ -521,6 +532,9 @@ hr {
   letter-spacing: .5px;
   display: block;
   text-align: center;
+  padding-left: 10px;
+  padding-right: 10px;
+  overflow: hidden;
 }
 .header-sub {
   padding-top: 10px;
@@ -530,7 +544,7 @@ hr {
 }
 .header-sub .back-row {
   float: left;
-  padding-bottom: 10px;
+  margin-bottom: 10px;
   margin-left: 5px;
   display: block;
 }
@@ -544,8 +558,12 @@ hr {
 .header-sub h2 .img {
   margin-top: 5px;
 }
-.header-sub #tablet-page-title {
+.header-sub #tablet-page-title,
+.header-sub #back-arrow-title {
+  display: table;
+  margin: 0 auto;
   padding-left: 10px;
+  padding-right: 10px;
 }
 /* - Common on three panels
 -------------------------------------------------------------------------- */
@@ -711,7 +729,7 @@ hr {
 .content-index .content-table {
   width: 100%;
 }
-.content-index .content-name a {
+.content-index .content-name > a {
   display: block;
   padding: 10px;
 }
@@ -722,11 +740,22 @@ hr {
 .content-index .content-name.mod-label {
   overflow: auto;
 }
-.content-index .content-name.mod-label h4 {
-  font-size: 100%;
-  font-weight: normal;
-  margin: 0;
+.content-index .content-name.mod-label a > div {
   padding-right: 80px;
+}
+.content-index .content-name.mod-label a > div h1,
+.content-index .content-name.mod-label a > div h2,
+.content-index .content-name.mod-label a > div h3,
+.content-index .content-name.mod-label a > div h4,
+.content-index .content-name.mod-label a > div h5,
+.content-index .content-name.mod-label a > div h6 {
+  color: #666666;
+  font-weight: bold;
+  line-height: inherit;
+  letter-spacing: 0;
+  background-color: transparent;
+  text-shadow: none;
+  padding: 0;
 }
 .content-index .content-name.mod-label img {
   width: auto;
@@ -1012,7 +1041,7 @@ hr {
 }
 .path-messages .conversation .conversation-area {
   padding: 15px;
-  overflow: scroll;
+  overflow-y: scroll;
 }
 .path-messages .conversation .conversation-area .datestamp {
   text-align: center;
@@ -1188,20 +1217,23 @@ hr {
   overflow: hidden;
 }
 .event .date p,
-.event .course p {
-  padding-left: 26px;
+.event .course p,
+.event .option p {
   margin-bottom: 0;
 }
 .event .date .time,
-.event .course .time {
+.event .course .time,
+.event .option .time {
   font-size: 12px;
+}
+.event .date input,
+.event .course input,
+.event .option input {
+  margin-right: 8px;
 }
 .event .media .app-ico img {
   width: 18px;
   height: auto;
-}
-.event .description {
-  padding-left: 36px;
 }
 .event .description img {
   margin: 20px 0 20px 20px;
@@ -1306,7 +1338,9 @@ hr {
   bottom: 0;
   padding-left: 110px;
 }
-.user-card .media .bd h1 {
+.user-card .media .bd p {
+  font-size: 18px;
+  font-size: 1.125rem;
   margin-bottom: 12px;
 }
 .user-card .user-data {
@@ -1399,17 +1433,20 @@ hr {
 .row-left {
   margin-right: 80px;
 }
-.settings header {
-  padding: 10px;
-}
 .settings .about {
   border-collapse: collapse;
   line-height: 20px;
   width: 100%;
 }
+.settings .about thead th {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
 .settings .about th {
+  font-weight: normal;
   text-align: left;
-  padding: 0 10px;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 .settings .about td {
   padding: 10px;
@@ -1423,9 +1460,6 @@ hr {
   text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.2);
   background-color: #eeeeee;
   border-bottom: 1px solid #ffffff;
-}
-.settings .about .section-name th {
-  font-weight: normal;
 }
 /* - Dialog window
 -------------------------------------------------------------------------- */

@@ -1,4 +1,4 @@
-// Licensed to the Apache Software Foundation (ASF) under one
+﻿// Licensed to the Apache Software Foundation (ASF) under one
 // or more contributor license agreements.  See the NOTICE file
 // distributed with this work for additional information
 // regarding copyright ownership.  The ASF licenses this file
@@ -46,11 +46,6 @@ MM.panels = {
 	 * @param {string} html The html to be inserted.
 	 */
 	html: function(position, html) {
-		// If we are in the center or right panel, we need to add a small br for preventing contents half displayed.
-		if (position != "left") {
-			html += "<br />";
-		}
-
 		// Automatically add the file with the back arrow appending the title there.
 		if (MM.deviceType == "phone") {
 			var panelCenter = $('#panel-center');
