@@ -13,7 +13,7 @@
             ["contact/:courseId/:userId", "contact", "addContact"]
         ],
 
-        isPluginVisible : function(){
+        isPluginVisible: function() {
             return false;
         },
 

@@ -1,4 +1,4 @@
-﻿{
+{
 "xxx"  : {"type":"document/unknown", "icon":"unknown"},
 "3gp"  : {"type":"video/quicktime", "icon":"quicktime", "groups":["video"], "string":"video"},
 "aac"  : {"type":"audio/aac", "icon":"audio", "groups":["audio"], "string":"audio"},

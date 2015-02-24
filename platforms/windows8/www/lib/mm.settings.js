@@ -85,6 +85,47 @@ MM.settings = {
         MM.popConfirm(MM.lang.s('deletesite'), function() {
             var count = MM.db.length('sites');
 
+            // Delete device entry from the remote site.
+
+            var canRemove = true;
+            var wsFunction = "core_user_remove_user_device";
+            if (!MM.util.wsAvailable(wsFunction, site)) {
+                wsFunction = 'local_mobile_core_user_remove_user_device';
+                if (!MM.util.wsAvailable(wsFunction, site)) {
+                    canRemove = false;
+                }
+            }
+
+            if (typeof window.device == "undefined") {
+                canRemove = false;
+            }
+
+            if (canRemove) {
+
+                var data = {
+                    uuid:       window.device.uuid,
+                    appid:      MM.config.app_id
+                };
+
+                MM.moodleWSCall(
+                    wsFunction,
+                    data,
+                    function() {
+                        MM.log("Device removed from Moodle", "Notifications");
+                    },
+                    {
+                        wstoken: site.get("token"),
+                        siteurl: site.get("siteurl"),
+                        silently: true,
+                        getFromCache: false,
+                        saveToCache: false
+                    },
+                    function() {
+                        MM.log("Error removing device from Moodle", "Notifications");
+                    }
+                );
+            }
+
             MM.settings._deleteSiteReferences(site);
             MM.setConfig("current_site", null);
 
@@ -554,15 +595,7 @@ MM.settings = {
 
         var info = MM.lang.s("reportbuginfo");
 
-        // Some space for the user.
-        var mailInfo = MM.lang.s("writeherethebug") + "\n\n\n\n";
-        mailInfo += MM.settings.getDeviceInfo();
-        mailInfo += "==========================\n\n";
-        mailInfo += MM.getFormattedLog();
-
-        mailInfo = encodeURIComponent(mailInfo.replace(/<\/p>/ig,"\n").replace(/(<([^>]+)>)/ig,""))
-        info += '<div class="centered"><a href="mailto:' + MM.config.reportbugmail +'?subject=[[Mobile App Bug]]&body=' + mailInfo + '"><button>' + MM.lang.s("email") + '</button></a></div>';
-        info += "<br /><br /><br />";
+        info += '<div class="centered"><p><a href="' + MM.lang.s("reportbugurl") + '" target="_blank"><button>' + MM.lang.s("reportabug") + '</button></a></p></div>';
 
         MM.panels.show("right", '<div class="settings"><p>' + info + '</p></div>', {title: MM.lang.s("reportabug")});
     },

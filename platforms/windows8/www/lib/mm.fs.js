@@ -201,6 +201,32 @@ MM.fs = {
     },
 
     /**
+     * Remove a file
+     * @param  {string} path            The relative path of the file
+     * @param  {object} successCallback Success callback function
+     * @param  {object} errorCallback   Error callback function
+     */
+    removeFile: function(path, successCallback, errorCallback) {
+        MM.log('FS: Removing file ' + path, 'FS');
+
+        var baseRoot = MM.fs.fileSystemRoot;
+        if (!baseRoot) {
+            if(errorCallback) {
+                errorCallback();
+            }
+            return;
+        }
+        baseRoot.getFile(
+            path,
+            {create: false, exclusive: false},
+            function(fileEntry) {
+                fileEntry.remove(successCallback, errorCallback);
+            },
+            errorCallback
+        );
+    },
+
+    /**
      * Recursive and asynchronous function for calculating the size of a directory.
      * We use several controls global vars in order to know when the algorithm has finished.
      *
@@ -410,7 +436,8 @@ MM.fs = {
                     },
                     function() {
                         errorCallBack(2);
-                    }
+                    },
+                    MM.inNodeWK
                 );
             },
             function() {
@@ -520,5 +547,48 @@ MM.fs = {
         else{
             baseRoot.getFile(filename, {create: true}, successCallBack, errorCallBack);
         }
+    },
+
+    /**
+     * Gets a file that might be outside the app's folder.
+     *
+     * @param  {String} fileURI         Path to the file to get.
+     * @param  {object} successCallBack Function to be called when the file is retrieved.
+     * @param  {object} errorCallBack   Function to be called when an error occurs.
+     */
+    getExternalFile: function(fileURI, successCallBack, errorCallBack) {
+        window.resolveLocalFileSystemURL(fileURI, successCallBack, errorCallBack);
+    },
+
+    /**
+     * Remove a file that might be outside the app's folder.
+     * @param  {string} path            The absolute path of the file
+     * @param  {object} successCallback Success callback function
+     * @param  {object} errorCallback   Error callback function
+     */
+    removeExternalFile: function(path, successCallback, errorCallback) {
+        MM.log('FS: Removing file ' + path, 'FS');
+
+        MM.fs.getExternalFile(path, function(fileEntry){
+            fileEntry.remove(successCallback, errorCallback);
+        }, errorCallback);
+    },
+
+    /**
+     * Reads a file as an ArrayBuffer.
+     *
+     * @param  {String} file            File to read.
+     * @param  {object} successCallback Function to be called when the file is retrieved.
+     * @param  {object} errorCallback   Function to be called when an error occurs.
+     */
+    readFileAsArrayBuffer: function(file, successCallback, errorCallback) {
+        var reader = new FileReader();
+        reader.onloadend = function (evt) {
+            successCallback(evt.target.result);
+        };
+        reader.onerror = function() {
+            errorCallback();
+        };
+        reader.readAsArrayBuffer(file);
     }
 };

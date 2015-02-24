@@ -246,8 +246,12 @@ var MM = {
             sites: {type: 'collection', model: 'site'},
             course: {type: 'model'},
             courses: {type: 'collection', model: 'course'},
+            group: {type: 'model'},
+            groups: {type: 'collection', model: 'group'},
             user: {type: 'model'},
             users: {type: 'collection', model: 'user'},
+            usergroup: {type: 'model'},
+            usergroups: {type: 'collection', model: 'usergroup'},
             cacheEl: {type: 'model'},
             cache: {type: 'collection', model: 'cacheEl'},
             syncEl: {type: 'model'},
@@ -678,12 +682,85 @@ var MM = {
         MM.sync.css();
     },
 
+    _loadGroups: function(courses) {
+
+        var wsName = "";
+        if (MM.util.wsAvailable("local_mobile_core_group_get_course_user_groups")) {
+            wsName = "local_mobile_core_group_get_course_user_groups";
+        } else if (MM.util.wsAvailable("core_group_get_course_user_groups")) {
+            wsName = "core_group_get_course_user_groups";
+        }
+
+        if (wsName) {
+
+            // Delete existing groups.
+            var groups = MM.db.where("usergroups", {site: MM.config.current_site.id, userid: MM.config.current_site.userid});
+            groups.forEach(function(group) {
+                MM.db.remove("usergroups", group.get("id"));
+            });
+
+            var settings = {
+                getFromCache: false,
+                saveToCache: true
+            };
+            var userId = MM.config.current_site.userid;
+
+            courses.forEach(function(course) {
+                MM.moodleWSCall(
+                    wsName,
+                    {
+                        courseid: course.id,
+                        userid: MM.site.get('userid')
+                    },
+                    function(result) {
+                        if (result.groups) {
+                            result.groups.forEach(function(group) {
+                                group.groupid = group.id;
+                                group.id = MM.config.current_site.id + "-" + group.id;
+                                MM.db.insert("groups", group);
+                                // One entry per user per group.
+                                var usergroup = {
+                                    id: group.id + "-" + userId,
+                                    userid: userId,
+                                    groupid: group.groupid,
+                                    courseid: course.id
+                                };
+                                MM.db.insert("usergroups", usergroup);
+                            });
+                        }
+                    },
+                    {
+                        getFromCache: false,
+                        saveToCache: true
+                    },
+                    function(e) {
+                        MM.log("Error retrieving groups " + e);
+                    }
+                );
+            });
+        }
+    },
+
     /**
      * Load courses.
      */
     loadCourses: function(courses) {
         var plugins = [];
         var coursePlugins = [];
+
+        var frontPage = {
+            "id": 1,
+            "shortname": MM.lang.s("frontpage"),
+            "fullname": MM.lang.s("frontpage"),
+            "enrolledusercount": 0,
+            "idnumber": "",
+            "visible":1
+        };
+
+        courses.unshift(frontPage);
+
+        // We need all the groups a user is enrolled to for synchronize calendar events.
+        MM._loadGroups(courses);
 
         for (var el in MM.config.plugins) {
             var index = MM.config.plugins[el];
@@ -750,7 +827,7 @@ var MM = {
         });
 
         // Store the courses
-        for (var el in courses) {
+        for (el in courses) {
             // We clone the course object because we are going to modify it in a copy.
             var storedCourse = JSON.parse(JSON.stringify(courses[el]));
             storedCourse.courseid = storedCourse.id;
@@ -764,7 +841,6 @@ var MM = {
         if (MM.plugins.events && MM.plugins.events.isPluginVisible()) {
             MM.plugins.events.checkLocalNotifications();
         }
-
 
         MM._showMainAppPanels();
 
@@ -1176,6 +1252,10 @@ var MM = {
         MM.setConfig('current_site', site);
         MM.loadSite(newSite.id);
         MM.closeModalLoading();
+
+        $('#url').val('');
+        $('#username').val('');
+        $('#password').val('');
     },
 
     /**
@@ -1510,8 +1590,11 @@ var MM = {
         // Check if is a deprecated function.
         if (typeof MM.deprecatedFunctions[method] != "undefined") {
             if (MM.util.wsAvailable(MM.deprecatedFunctions[method])) {
+                MM.log("You are using deprecated Web Services: " + method + " you must replace it with the newer function: " + MM.deprecatedFunctions[method]);
                 // Use the non-deprecated function.
                 method = MM.deprecatedFunctions[method];
+            } else {
+                MM.log("You are using deprecated Web Services. Your remote site seems to be outdated, consider upgrade it to the latest Moodle version.");
             }
         }
 
@@ -1584,7 +1667,9 @@ var MM = {
                 }
 
                 if (typeof(data.exception) != 'undefined') {
-                    MM.closeModalLoading();
+                    if (!preSets.silently && preSets.showModalLoading) {
+                        MM.closeModalLoading();
+                    }
                     if (data.errorcode == "invalidtoken" || data.errorcode == "accessexception") {
 
                         if (!preSets.silently) {
@@ -1611,7 +1696,9 @@ var MM = {
                 }
 
                 if (typeof(data.debuginfo) != 'undefined') {
-                    MM.closeModalLoading();
+                    if (!preSets.silently && preSets.showModalLoading) {
+                        MM.closeModalLoading();
+                    }
                     if (errorCallBack) {
                         errorCallBack('Error. ' + data.message);
                     } else {
@@ -1632,14 +1719,18 @@ var MM = {
                     MM.cache.addWSCall(preSets.siteurl, ajaxData, data);
                 }
 
-                MM.closeModalLoading();
+                if (!preSets.silently && preSets.showModalLoading) {
+                    MM.closeModalLoading();
+                }
                 // We pass back a clone of the original object, this may
                 // prevent errors if in the callback the object is modified.
                 callBack(JSON.parse(JSON.stringify(data)));
             },
             error: function(xhr, ajaxOptions, thrownError) {
 
-                MM.closeModalLoading();
+                if (!preSets.silently && preSets.showModalLoading) {
+                    MM.closeModalLoading();
+                }
 
                 var error = MM.lang.s('cannotconnect');
                 if (xhr.status == 404) {
@@ -2213,8 +2304,9 @@ var MM = {
      *
      * @param {string} text The text to be displayed.
      * @param {object} callBack The function to be called when user confirms.
+     * @param {object} cancelCallBack The function to be called when user cancels.
      */
-    popConfirm: function(text, callBack) {
+    popConfirm: function(text, callBack, cancelCallBack) {
         var options = {
             buttons: {}
         };
@@ -2222,7 +2314,12 @@ var MM = {
             MM.widgets.dialogClose();
             callBack();
         };
-        options.buttons[MM.lang.s('no')] = MM.widgets.dialogClose;
+        options.buttons[MM.lang.s('no')] = function() {
+            MM.widgets.dialogClose();
+            if(cancelCallBack) {
+                cancelCallBack();
+            }
+        };
 
         MM.popMessage(text, options);
         // Reset router so the Confirm dialog can be displayed again if the user click in the same link.
@@ -2369,19 +2466,14 @@ var MM = {
             MM.touchMoving = false;
         } else {
             var link = ($(this).attr('href') == '#')? $(this).attr('data-link') : $(this).attr('href');
-            // Open the file using the platform specific method.
-            if (MM.deviceOS == 'windows8') {
-                // We solve path problem
-                var pathFile = link.split('LocalState//');
-                var file = pathFile[1];
-                file = file.replace('\/', '\\');
-                file = file.replace('/', '\\');
-                var newpath = MM.fs.getRoot() + file;
-                MM._openFile(newpath);
-                return;
-            } else {
-                 MM._openFile(link);
-            }
+             // We solve path problem
+            var pathFile = link.split('LocalState//');
+            var file = pathFile[1];
+            file = file.replace('\/', '\\');
+            file = file.replace('/', '\\');
+            var newpath = MM.fs.getRoot() + file;
+            MM._openFile(newpath);
+            return;
         }
         if (typeof(MM.plugins.contents.infoBox) != "undefined") {
             MM.plugins.contents.infoBox.remove();
