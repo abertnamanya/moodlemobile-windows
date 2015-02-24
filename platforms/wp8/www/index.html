@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
@@ -78,7 +78,7 @@
                 } else {
                    MM.panels.hide('center');
                    MM.panels.hide('right');
-                   //window.history.back();
+                   MM.panels.goBack();
                 }
             }, false);
 
@@ -95,6 +95,20 @@
                 }
             }, 5000);
             MM.fs.init();
+
+            // Check calendar events for new notifications.
+            if (MM.plugins.events && MM.plugins.events.isPluginVisible()) {
+                MM.plugins.events.checkLocalNotifications();
+            }
+
+            // App resume event.
+            $(document).bind('resume', function() {
+
+                // Check calendar events for new notifications.
+                if (MM.plugins.events && MM.plugins.events.isPluginVisible()) {
+                    MM.plugins.events.checkLocalNotifications();
+                }
+            });
         });
 
         // This function is for handling when the app is opened using a custom URL SCHEME.
@@ -372,6 +386,28 @@
 <% });%>
 <div class="add-site">
     <a class="btn" href="#add-site"><%= MM.lang.s("add") %></a>
+</div>
+</script>
+
+<script type="text/template" id="choose-account-upload_template">
+<h1 class="app-ico">
+    <img src="img/login-logo.png" alt="Moodle">
+</h1>
+<h2><%= MM.lang.s('chooseaccountuploadfile') %></h2>
+<% _.each(sites, function(site) { %>
+    <div class="accounts">
+        <a class="account-details" data-siteid="<%= site.id %>" >
+            <img src="<%= MM.util.getMoodleFilePath(site.userpictureurl, 1, site.id) %>">
+            <div>
+                <span class="account-fullname"><%= MM.util.formatText(site.fullname) %></span>
+                <span class="account-sitename"><%= MM.util.formatText(site.sitename) %></span>
+                <span class="account-siteurl"><%= site.siteurl %></span>
+            </div>
+        </a>
+    </div>
+<% });%>
+<div >
+    <a id="btn-cancel-upload" class="btn"><%= MM.lang.s("cancel") %></a>
 </div>
 </script>
 

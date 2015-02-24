@@ -349,9 +349,22 @@ MM.util = {
      *
      * @return {bool} True if the web service exists (depends on Moodle version)
      */
-    wsAvailable: function(wsName) {
+    wsAvailable: function(wsName, site) {
+        site = site || null;
+
+        if (!site && (!MM.config || !MM.config.current_site)) {
+            return false;
+        }
         var available = false;
-        _.each(MM.config.current_site.functions, function(f) {
+
+        var functions = [];
+        if (site) {
+            functions = site.get("functions");
+        } else {
+            functions = MM.config.current_site.functions;
+        }
+
+        _.each(functions, function(f) {
             if (f.name == wsName) {
                 available = true;
             }
@@ -672,5 +685,49 @@ MM.util = {
 
             cordova.plugins.Keyboard.show();
         }
+    },
+
+    /**
+     * Adds a leading zero to the parameter if needed. Usually used to format dates.
+     * @param {Number} number Number to format.
+     */
+    addLeadingZero: function(number) {
+        if (number < 10) {
+          return "0" + number;
+        } else {
+            return number;
+        }
+    },
+
+    /**
+     * Gets a date with the YYYYMMDDHHMMSS format.
+     * @param  {Number} timestamp Date to format. If undefined, current time will be used.
+     * @return {String}           Formatted date.
+     */
+    getDateYYYYMMDDHHMMSS: function(timestamp) {
+
+        if(!timestamp) {
+            timestamp = new Date().getTime();
+        }
+
+        var d = new Date(timestamp);
+
+        return d.getFullYear() +
+               this.addLeadingZero(d.getMonth() + 1) +
+               this.addLeadingZero(d.getDate()) +
+               this.addLeadingZero(d.getHours()) +
+               this.addLeadingZero(d.getMinutes()) +
+               this.addLeadingZero(d.getSeconds());
+    },
+
+    /**
+     * Adds the current date in YYYYMMDDHHMMSS format to the filename.
+     * @param {String} filename File name.
+     * @return {String}         Filename with date added.
+     */
+    addDateToFilename: function(filename) {
+        var extension = this.getFileExtension(filename);
+        var filenameWithoutExtension = filename.substr(0, filename.lastIndexOf('.'));
+        return filenameWithoutExtension + '_' + MM.util.getDateYYYYMMDDHHMMSS() + '.' + extension;
     }
 };

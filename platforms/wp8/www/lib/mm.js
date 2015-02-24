@@ -46,6 +46,15 @@ var MM = {
     currentService: "",
     webWorker: null,
     blobWorker: null,
+    /** @type {Object} Use non-deprecated functions when possible */
+    deprecatedFunctions: {
+        "moodle_webservice_get_siteinfo": "core_webservice_get_site_info",
+        "moodle_enrol_get_users_courses": "core_enrol_get_users_courses",
+        "moodle_notes_create_notes": "core_notes_create_notes",
+        "moodle_message_send_instantmessages": "core_message_send_instant_messages",
+        "moodle_user_get_users_by_courseid": "core_enrol_get_enrolled_users",
+        "moodle_user_get_course_participants_by_id": "core_user_get_course_user_profiles",
+    },
 
     /**
      * Initial setup of the app: device type detection, routes, models, settings.
@@ -234,8 +243,12 @@ var MM = {
             sites: {type: 'collection', model: 'site'},
             course: {type: 'model'},
             courses: {type: 'collection', model: 'course'},
+            group: {type: 'model'},
+            groups: {type: 'collection', model: 'group'},
             user: {type: 'model'},
             users: {type: 'collection', model: 'user'},
+            usergroup: {type: 'model'},
+            usergroups: {type: 'collection', model: 'usergroup'},
             cacheEl: {type: 'model'},
             cache: {type: 'collection', model: 'cacheEl'},
             syncEl: {type: 'model'},
@@ -662,12 +675,85 @@ var MM = {
         MM.sync.css();
     },
 
+    _loadGroups: function(courses) {
+
+        var wsName = "";
+        if (MM.util.wsAvailable("local_mobile_core_group_get_course_user_groups")) {
+            wsName = "local_mobile_core_group_get_course_user_groups";
+        } else if (MM.util.wsAvailable("core_group_get_course_user_groups")) {
+            wsName = "core_group_get_course_user_groups";
+        }
+
+        if (wsName) {
+
+            // Delete existing groups.
+            var groups = MM.db.where("usergroups", {site: MM.config.current_site.id, userid: MM.config.current_site.userid});
+            groups.forEach(function(group) {
+                MM.db.remove("usergroups", group.get("id"));
+            });
+
+            var settings = {
+                getFromCache: false,
+                saveToCache: true
+            };
+            var userId = MM.config.current_site.userid;
+
+            courses.forEach(function(course) {
+                MM.moodleWSCall(
+                    wsName,
+                    {
+                        courseid: course.id,
+                        userid: MM.site.get('userid')
+                    },
+                    function(result) {
+                        if (result.groups) {
+                            result.groups.forEach(function(group) {
+                                group.groupid = group.id;
+                                group.id = MM.config.current_site.id + "-" + group.id;
+                                MM.db.insert("groups", group);
+                                // One entry per user per group.
+                                var usergroup = {
+                                    id: group.id + "-" + userId,
+                                    userid: userId,
+                                    groupid: group.groupid,
+                                    courseid: course.id
+                                };
+                                MM.db.insert("usergroups", usergroup);
+                            });
+                        }
+                    },
+                    {
+                        getFromCache: false,
+                        saveToCache: true
+                    },
+                    function(e) {
+                        MM.log("Error retrieving groups " + e);
+                    }
+                );
+            });
+        }
+    },
+
     /**
      * Load courses.
      */
     loadCourses: function(courses) {
         var plugins = [];
         var coursePlugins = [];
+
+        var frontPage = {
+            "id": 1,
+            "shortname": MM.lang.s("frontpage"),
+            "fullname": MM.lang.s("frontpage"),
+            "enrolledusercount": 0,
+            "idnumber": "",
+            "visible":1
+        };
+
+        courses.unshift(frontPage);
+
+        // We need all the groups a user is enrolled to for synchronize calendar events.
+        MM._loadGroups(courses);
 
         for (var el in MM.config.plugins) {
             var index = MM.config.plugins[el];
@@ -734,7 +820,7 @@ var MM = {
         });
 
         // Store the courses
-        for (var el in courses) {
+        for (el in courses) {
             // We clone the course object because we are going to modify it in a copy.
             var storedCourse = JSON.parse(JSON.stringify(courses[el]));
             storedCourse.courseid = storedCourse.id;
@@ -742,6 +828,11 @@ var MM = {
             // For avoid collising between sites.
             storedCourse.id = MM.config.current_site.id + '-' + storedCourse.courseid;
             var r = MM.db.insert('courses', storedCourse);
+        }
+
+        // Check calendar events for new notifications.
+        if (MM.plugins.events && MM.plugins.events.isPluginVisible()) {
+            MM.plugins.events.checkLocalNotifications();
         }
 
         MM._showMainAppPanels();
@@ -1132,6 +1223,34 @@ var MM = {
         return /^http(s)?\:\/\/.*/i.test(url)
     },
 
+    _saveTokenSuccess: function(site, token) {
+        // Now we check for the minimum required version.
+        // We check for WebServices present, not for Moodle version.
+        // This may allow some hacks like using local plugins for adding missin functions in previous versions.
+        var validMoodleVersion = false;
+        $.each(site.functions, function(index, el) {
+            // core_get_component_strings Since Moodle 2.4
+            if (el.name.indexOf("component_strings") > -1) {
+                validMoodleVersion = true;
+                return false;
+            }
+        });
+        if (!validMoodleVersion) {
+            MM.popErrorMessage(MM.lang.s('invalidmoodleversion') + "2.4");
+            return false;
+        }
+        site.id = hex_md5(site.siteurl + site.username);
+        site.token = token;
+        var newSite = MM.db.insert('sites', site);
+        MM.setConfig('current_site', site);
+        MM.loadSite(newSite.id);
+        MM.closeModalLoading();
+
+        $('#url').val('');
+        $('#username').val('');
+        $('#password').val('');
+    },
+
     /**
      * Save the token retrieved and load the full siteinfo object.
      * @param  {str} token    The user token
@@ -1151,29 +1270,23 @@ var MM = {
         };
 
         // We have a valid token, try to get the site info.
-        MM.moodleWSCall('moodle_webservice_get_siteinfo', {}, function(site) {
-            // Now we check for the minimum required version.
-            // We check for WebServices present, not for Moodle version.
-            // This may allow some hacks like using local plugins for adding missin functions in previous versions.
-            var validMoodleVersion = false;
-            $.each(site.functions, function(index, el) {
-                // core_get_component_strings Since Moodle 2.4
-                if (el.name.indexOf("component_strings") > -1) {
-                    validMoodleVersion = true;
-                    return false;
-                }
-            });
-            if (!validMoodleVersion) {
-                MM.popErrorMessage(MM.lang.s('invalidmoodleversion') + "2.4");
-                return false;
+        MM.moodleWSCall('moodle_webservice_get_siteinfo', {},
+            function(site) {
+                MM._saveTokenSuccess(site, token);
+            },
+            preSets,
+            function(e) {
+                // An error may happen if the site use the core_webservice_get_site_info instead the old one.
+                MM.moodleWSCall(
+                    'core_webservice_get_site_info',
+                    {},
+                    function(site) {
+                        MM._saveTokenSuccess(site, token);
+                    },
+                    preSets
+                );
             }
-            site.id = hex_md5(site.siteurl + site.username);
-            site.token = token;
-            var newSite = MM.db.insert('sites', site);
-            MM.setConfig('current_site', site);
-            MM.loadSite(newSite.id);
-            MM.closeModalLoading();
-        }, preSets);
+        );
 
     },
 
@@ -1467,6 +1580,16 @@ var MM = {
             return;
         }
 
+        // Check if is a deprecated function.
+        if (typeof MM.deprecatedFunctions[method] != "undefined") {
+            if (MM.util.wsAvailable(MM.deprecatedFunctions[method])) {
+                MM.log("You are using deprecated Web Services: " + method + " you must replace it with the newer function: " + MM.deprecatedFunctions[method]);
+                // Use the non-deprecated function.
+                method = MM.deprecatedFunctions[method];
+            } else {
+                MM.log("You are using deprecated Web Services. Your remote site seems to be outdated, consider upgrade it to the latest Moodle version.");
+            }
+        }
 
         data.wsfunction = method;
         data.wstoken = preSets.wstoken;
@@ -1537,7 +1660,9 @@ var MM = {
                 }
 
                 if (typeof(data.exception) != 'undefined') {
-                    MM.closeModalLoading();
+                    if (!preSets.silently && preSets.showModalLoading) {
+                        MM.closeModalLoading();
+                    }
                     if (data.errorcode == "invalidtoken" || data.errorcode == "accessexception") {
 
                         if (!preSets.silently) {
@@ -1564,7 +1689,9 @@ var MM = {
                 }
 
                 if (typeof(data.debuginfo) != 'undefined') {
-                    MM.closeModalLoading();
+                    if (!preSets.silently && preSets.showModalLoading) {
+                        MM.closeModalLoading();
+                    }
                     if (errorCallBack) {
                         errorCallBack('Error. ' + data.message);
                     } else {
@@ -1585,14 +1712,18 @@ var MM = {
                     MM.cache.addWSCall(preSets.siteurl, ajaxData, data);
                 }
 
-                MM.closeModalLoading();
+                if (!preSets.silently && preSets.showModalLoading) {
+                    MM.closeModalLoading();
+                }
                 // We pass back a clone of the original object, this may
                 // prevent errors if in the callback the object is modified.
                 callBack(JSON.parse(JSON.stringify(data)));
             },
             error: function(xhr, ajaxOptions, thrownError) {
 
-                MM.closeModalLoading();
+                if (!preSets.silently && preSets.showModalLoading) {
+                    MM.closeModalLoading();
+                }
 
                 var error = MM.lang.s('cannotconnect');
                 if (xhr.status == 404) {
@@ -2164,8 +2295,9 @@ var MM = {
      *
      * @param {string} text The text to be displayed.
      * @param {object} callBack The function to be called when user confirms.
+     * @param {object} cancelCallBack The function to be called when user cancels.
      */
-    popConfirm: function(text, callBack) {
+    popConfirm: function(text, callBack, cancelCallBack) {
         var options = {
             buttons: {}
         };
@@ -2173,7 +2305,12 @@ var MM = {
             MM.widgets.dialogClose();
             callBack();
         };
-        options.buttons[MM.lang.s('no')] = MM.widgets.dialogClose;
+        options.buttons[MM.lang.s('no')] = function() {
+            MM.widgets.dialogClose();
+            if(cancelCallBack) {
+                cancelCallBack();
+            }
+        };
 
         MM.popMessage(text, options);
         // Reset router so the Confirm dialog can be displayed again if the user click in the same link.

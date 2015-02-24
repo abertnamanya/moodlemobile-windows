@@ -85,6 +85,47 @@ MM.settings = {
         MM.popConfirm(MM.lang.s('deletesite'), function() {
             var count = MM.db.length('sites');
 
+            // Delete device entry from the remote site.
+
+            var canRemove = true;
+            var wsFunction = "core_user_remove_user_device";
+            if (!MM.util.wsAvailable(wsFunction, site)) {
+                wsFunction = 'local_mobile_core_user_remove_user_device';
+                if (!MM.util.wsAvailable(wsFunction, site)) {
+                    canRemove = false;
+                }
+            }
+
+            if (typeof window.device == "undefined") {
+                canRemove = false;
+            }
+
+            if (canRemove) {
+
+                var data = {
+                    uuid:       window.device.uuid,
+                    appid:      MM.config.app_id
+                };
+
+                MM.moodleWSCall(
+                    wsFunction,
+                    data,
+                    function() {
+                        MM.log("Device removed from Moodle", "Notifications");
+                    },
+                    {
+                        wstoken: site.get("token"),
+                        siteurl: site.get("siteurl"),
+                        silently: true,
+                        getFromCache: false,
+                        saveToCache: false
+                    },
+                    function() {
+                        MM.log("Error removing device from Moodle", "Notifications");
+                    }
+                );
+            }
+
             MM.settings._deleteSiteReferences(site);
             MM.setConfig("current_site", null);
 
@@ -498,6 +539,9 @@ MM.settings = {
                 for (var el in window.plugins) {
                     info += "<p><b>Phonegap plugin loaded:</b> " + el + "</p>";
                 }
+                for (var el in window.plugin) {
+                    info += "<p><b>Phonegap plugin loaded:</b> " + el + "</p>";
+                }
             } else {
                 info += "<p style=\"color: red\"><b>No plugins available for Phonegap/Cordova</b></p>";
             }
@@ -551,15 +595,7 @@ MM.settings = {
 
         var info = MM.lang.s("reportbuginfo");
 
-        // Some space for the user.
-        var mailInfo = MM.lang.s("writeherethebug") + "\n\n\n\n";
-        mailInfo += MM.settings.getDeviceInfo();
-        mailInfo += "==========================\n\n";
-        mailInfo += MM.getFormattedLog();
-
-        mailInfo = encodeURIComponent(mailInfo.replace(/<\/p>/ig,"\n").replace(/(<([^>]+)>)/ig,""))
-        info += '<div class="centered"><a href="mailto:' + MM.config.reportbugmail +'?subject=[[Mobile App Bug]]&body=' + mailInfo + '"><button>' + MM.lang.s("email") + '</button></a></div>';
-        info += "<br /><br /><br />";
+        info += '<div class="centered"><p><a href="' + MM.lang.s("reportbugurl") + '" target="_blank"><button>' + MM.lang.s("reportabug") + '</button></a></p></div>';
 
         MM.panels.show("right", '<div class="settings"><p>' + info + '</p></div>', {title: MM.lang.s("reportabug")});
     },
@@ -569,11 +605,11 @@ MM.settings = {
             data.version = MM.config.versionname;
             var info = "\
                 <div class='settings'>\
-                <header>\
-                    <h1><%= data.name %> <%= data.version %></h1>\
-                </header>\
-                \
                 <table class='about'>\
+                <thead>\
+                <tr><th><%= data.name %> <%= data.version %></th></tr>\
+                </thead>\
+                <tbody>\
                 <tr class='section-name'><th colspan='3'>License</th></tr>\
                 <tr><td colspan='3'><%= data.license.name %> <%= data.license.link %></td></tr>\
                 <tr class='section-name'><th colspan='3'>Credits</th></tr>\
@@ -584,7 +620,8 @@ MM.settings = {
                 <% _.each(data.thirdpartylibs, function(lib) { %>\
                     <tr><td><%= lib.name %></td><td> <%= lib.version %> </td><td> <%= lib.license %> license</td></tr>\
                 <% }); %>\
-                </table></p>\
+                </tbody>\
+                </table>\
                 </div>\
             ";
             MM.panels.show("right", MM.tpl.render(info, {data: data}), {title: MM.lang.s("about")});
@@ -613,8 +650,35 @@ MM.settings = {
                 options: MM.config.languages,
                 selected: MM.lang.current,
                 handler: MM.settings.languageSelected
-            }
+            },
+            {
+                id: 'event_notif_on',
+                type: 'checkbox',
+                label: MM.lang.s('enableeventnotifications'),
+                checked: true,
+                handler: function(e, setting) {
+                    MM.settings.checkboxHandler(e, setting);
+                    setTimeout(function() {
+                        var enabled = $('#' + setting.id).is(':checked');
+
+                        if (!enabled) {
+                            if (window.plugin && window.plugin.notification && window.plugin.notification.local) {
+                                window.plugin.notification.local.cancelAll();
+                            }
+                        }
+                    }, 500);
+                }
+            },
         ];
+
+        // Load default values
+        $.each(settings, function(index, setting) {
+            if (setting.type == 'checkbox') {
+                if (typeof(MM.getConfig(setting.id)) != 'undefined') {
+                    settings[index].checked = MM.getConfig(setting.id);
+                }
+            }
+        });
 
         // Render the settings as html.
         var html = MM.widgets.render(settings);
