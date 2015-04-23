@@ -233,6 +233,13 @@ MM.util = {
         return url.substr(url.lastIndexOf("/") + 1);
     },
 
+    getDirectoryAndFile: function(path) {
+        var file = path.substr(path.lastIndexOf("/") + 1);
+        var directory = path.substr(0, path.lastIndexOf("/"));
+
+        return {'file': file, 'directory': directory};
+    },
+
     /**
      * Returns the file extension of a file (.xxx)
      * @param  {string} filename The file name
@@ -659,18 +666,8 @@ MM.util = {
      * @return {Boolean} True if the device supports it
      */
     WebWorkersSupported: function() {
-        // The build-in test site doesn't support WebWorkers.
-        if (MM.util.inEmulatedSite()) {
-            return false;
-        }
-
-        // WebWorkers needs CORS enabled at the Moodle site, only the plugin local_mobile currently support it.
-        // We check if the local_mobile plugin installed at the Modole site supports CORS checking this funciton.
-        if (!MM.util.wsAvailable('local_mobile_mod_forum_get_forum_discussions_paginated')) {
-            return false;
-        }
-
-        return !!window.Worker && !!window.URL;
+       
+        return false;
     },
 
     /**
@@ -729,5 +726,28 @@ MM.util = {
         var extension = this.getFileExtension(filename);
         var filenameWithoutExtension = filename.substr(0, filename.lastIndexOf('.'));
         return filenameWithoutExtension + '_' + MM.util.getDateYYYYMMDDHHMMSS() + '.' + extension;
+    },
+
+    // See MOBILE-936.
+    toLocaleTimeString: function(d, lang, format) {
+        try {
+            time = d.toLocaleTimeString(lang, format);
+        } catch(err) {
+            time = d.toLocaleTimeString('en', format);
+            MM.log("Error formatting date/time string");
+        }
+        return time;
+    },
+
+    toLocaleDateString: function(d, lang, format) {
+        try {
+            time = d.toLocaleDateString(lang, format);
+        } catch(err) {
+            time = d.toLocaleDateString('en', format);
+            MM.log("Error formatting date/time string");
+        }
+        return time;
     }
+
+
 };
