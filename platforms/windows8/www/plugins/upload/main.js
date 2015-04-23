@@ -205,7 +205,6 @@ define(requires, function (uploadFileTpl) {
 
             //pathMediaFiles = Windows.Storage.KnownFolders.musicLibrary.path + '\\' + mediaFiles.src;
             //console.log(audioPath);
-            //console.log(pathMediaFiles);
             MM.moodleUploadFile(audioPath, options,
                                 function () {
                                     MM.popMessage(MM.lang.s("recordstored"));
