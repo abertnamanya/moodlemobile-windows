@@ -670,18 +670,8 @@ MM.util = {
      * @return {Boolean} True if the device supports it
      */
     WebWorkersSupported: function() {
-        // The build-in test site doesn't support WebWorkers.
-        if (MM.util.inEmulatedSite() || MM.deviceOS == 'windows8') {
-            return false;
-        }
-
-        // WebWorkers needs CORS enabled at the Moodle site, only the plugin local_mobile currently support it.
-        // We check if the local_mobile plugin installed at the Modole site supports CORS checking this funciton.
-        if (!MM.util.wsAvailable('local_mobile_mod_forum_get_forum_discussions_paginated')) {
-            return false;
-        }
-
-        return !!window.Worker && !!window.URL;
+        // Windows 8 does not support WebWorkers.
+        return false;
     },
 
     /**
