@@ -516,7 +516,7 @@ var MM = {
             click: function(event, direction, distance, duration, fingerCount) {
             },
             threshold: 50,
-            excludedElements: "button, input, select, textarea, .noSwipe"
+            excludedElements: "button, input, select, textarea, .noSwipe, .content-actions"
         });
     },
 
@@ -537,7 +537,7 @@ var MM = {
         $(hilr).css("right", "10px");
         $(hilr).css("display", "none");
 
-        var excludedElements = "button, input, select, textarea, .noSwipe";
+        var excludedElements = "button, input, select, textarea, .noSwipe, .content-actions";
         if (MM.deviceOS == 'android') {
             excludedElements += ", a";
         }
@@ -1234,6 +1234,13 @@ var MM = {
             MM.popErrorMessage(MM.lang.s('invalidmoodleversion') + "2.4");
             return false;
         }
+
+        // Check enabled files.
+        if (typeof site.downloadfiles != "undefined" && site.downloadfiles === 0) {
+            MM.popErrorMessage(MM.lang.s('cannotdownloadfiles'));
+            return;
+        }
+
         site.id = hex_md5(site.siteurl + site.username);
         site.token = token;
         var newSite = MM.db.insert('sites', site);
@@ -1588,6 +1595,8 @@ var MM = {
 
         data.wsfunction = method;
         data.wstoken = preSets.wstoken;
+        // Enable text filtering.
+        data.moodlewssettingfilter = true;
 
         preSets.siteurl += '/webservice/rest/server.php?moodlewsrestformat=json';
         var ajaxData = data;
@@ -1713,6 +1722,14 @@ var MM = {
                 // We pass back a clone of the original object, this may
                 // prevent errors if in the callback the object is modified.
                 callBack(JSON.parse(JSON.stringify(data)));
+
+                // Do logging in Moodle.
+                if (typeof preSets.logging != "undefined") {
+                    if (typeof preSets.logging.callBack == "undefined") {
+                        preSets.logging.callBack = null;
+                    }
+                    MM.moodleLogging(preSets.logging.method, preSets.logging.data, preSets.logging.callBack);
+                }
             },
             error: function(xhr, ajaxOptions, thrownError) {
 
@@ -1734,6 +1751,34 @@ var MM = {
                 }
             }
         });
+    },
+
+    moodleLogging: function(method, data, callBack) {
+        // Check if the method is supported.
+        if (!MM.util.wsAvailable(method)) {
+            method = 'local_mobile_' + method;
+            if (!MM.util.wsAvailable(method)) {
+                MM.log("Logging method doesn't exist " + method);
+                return false;
+            }
+        }
+
+        if (typeof callBack != "function") {
+            callBack = function(d) {
+                MM.log("Action logged " + method);
+            };
+        }
+
+        MM.moodleWSCall(
+            method,
+            data,
+            callBack,
+            {
+                saveToCache: false,
+                getFromCache: false,
+                silently: true
+            }
+        );
     },
 
     /**
@@ -2469,7 +2514,6 @@ var MM = {
 
         MM.log('Windows Phone 8 - Opening file');
         window.open(link, '_system');
-
         return;
 
         if (MM.inNodeWK) {

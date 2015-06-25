@@ -199,7 +199,14 @@ define(templates, function (assignTpl, submissionsTpl) {
                         );
                     }
                 },
-                null,
+                {
+                    logging: {
+                        method: 'mod_assign_view_grading_table',
+                        data: {
+                            assignid: assign.id
+                        }
+                    }
+                },
                 function (error) {
                     $("#info-" + assign.cmid, "#panel-right").attr("src", "img/info.png");
                     MM.popErrorMessage(error);
@@ -303,7 +310,7 @@ define(templates, function (assignTpl, submissionsTpl) {
             filename = MM.fs.normalizeFileName(filename);
 
             var directory = siteId + "/assign-files/" + attachmentId;
-            var filePath = directory +  filename;
+            var filePath = directory + "/" + filename;
 
             MM.fs.init(function() {
                 if (MM.deviceConnected()) {

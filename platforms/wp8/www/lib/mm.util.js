@@ -666,7 +666,6 @@ MM.util = {
      * @return {Boolean} True if the device supports it
      */
     WebWorkersSupported: function() {
-       
         return false;
     },
 
